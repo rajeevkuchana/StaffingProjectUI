@@ -1,0 +1,12 @@
+.card-img-top{
+    width: 100px;
+    position: absolute;
+    z-index: 9999;
+    right: 20px;
+    top: -40px;
+    padding-top: 0;
+}
+.item{
+    position: relative;
+    margin-top: 50px !important;
+}
