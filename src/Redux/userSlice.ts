@@ -24,13 +24,13 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   return response.data;
 });
 
-export const createUsers = createAsyncThunk('users/addUser', async (user:any) => {
-  const response = await axios.post<[]>(`${apiBaseAddress}/users/add`,user);
+export const createUsers = createAsyncThunk('user/add', async (user:any) => {
+  const response = await axios.post<[]>(`${apiBaseAddress}/user/add`,user);
   return response.data;
 });
 
 export const deleteUsers = createAsyncThunk('users/deleteUsers', async (id:any) => {
-  const response = await axios.delete<[]>(`${apiBaseAddress}/users/delete/${id}`);
+  const response = await axios.delete<[]>(`${apiBaseAddress}/user/delete/${id}`);
   return response.data;
 });
 

@@ -55,11 +55,11 @@ const Home: React.FC = () => {
               <div className="card shadow p-3 mb-5 bg-white rounded" >
                 <div>
                   <img src={grouth} className="card-img-top" style={{ width: "100px" }} alt="..." />
+                  <div className="card-body">
                   <h5 className="card-title">Growth</h5>
-                </div>
-                <div className="card-body">
                   <p className="card-text"> Fuel your organization's rapid expansion with our agile recruitment strategies.
                     Harnessing speed and precision to propel your team towards unparalleled success.</p>
+                </div>
                 </div>
               </div>
             </div>

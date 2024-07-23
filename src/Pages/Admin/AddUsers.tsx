@@ -16,7 +16,7 @@ import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
 import { BreadCrumb } from 'primereact/breadcrumb';
 const AddUsers: React.FC = () => {
-  const [user, setUser] = useState<ISignUpDetails>({ email: '', password: '', role: userRole.client, username: '' });
+  const [user, setUser] = useState<ISignUpDetails>({ email: '', password: '', company: '', role: userRole.client, username: '' });
   const dispatch = useDispatch<AppDispatch>();
 
   const users = useSelector((state: RootState) => state.user.users);
@@ -90,9 +90,10 @@ const AddUsers: React.FC = () => {
       </section>
       <div className="card">
         <DataTable globalFilter={globalFilter} header={header} paginator rows={5} rowsPerPageOptions={[5, 10, 25]}
-          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink  RowsPerPageDropdown" 
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products" value={users} tableStyle={{ minWidth: '50rem' }}>
           <Column field="username" sortable header="Name"></Column>
+          <Column field="company" sortable header="Company"></Column>
           <Column field="email" sortable header="Email"></Column>
           <Column field="role" sortable header="Role"></Column>
           <Column body={actionBodyTemplate} header="Action"></Column>
@@ -101,24 +102,31 @@ const AddUsers: React.FC = () => {
       <Dialog header={"Create new user"} footer={footerContent} visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }}>
         <form >
           <div className="gy-3 gy-md-4">
+           
             <div className="col-12 from-row">
-              <label className="form-label">Email <span className="text-danger">*</span></label>
-              <input value={user.email} type="email" className="form-control" onChange={(e) => setUser({ ...user, email: e.target.value })} name="email" id="email" placeholder="name@example.com" required />
+              <label className="form-label">Full Name <span className="text-danger">*</span></label>
+              <input value={user.username} type="text" className="form-control" onChange={(e) => setUser({ ...user, username: e.target.value })} name="fullname" id="fullname" placeholder="Full Name" required />
             </div>
             <div className="col-12 from-row">
-              <label className="form-label">Username <span className="text-danger">*</span></label>
-              <input value={user.username} type="text" className="form-control" onChange={(e) => setUser({ ...user, username: e.target.value })} name="email" id="email" placeholder="username" required />
+              <label className="form-label">Company <span className="text-danger">*</span></label>
+              <input value={user.company} type="text" className="form-control" onChange={(e) => setUser({ ...user, company: e.target.value })} name="company" id="company" placeholder="Company" required />
+            </div>
+           <div className="col-12 from-row">
+              <label className="form-label">Email <span className="text-danger">*</span></label>
+              <input value={user.email} type="email" className="form-control" onChange={(e) => setUser({ ...user, email: e.target.value })} name="email" id="email" placeholder="name@example.com" required />
             </div>
             <div className="col-12 from-row">
               <label className="form-label">Password <span className="text-danger">*</span></label>
               <input value={user.password} type="password" onChange={(e) => setUser({ ...user, password: e.target.value })} className="form-control" name="password" id="password" required />
             </div>
+            
             <div className="col-12 from-row">
               <label className="form-label">Role <span className="text-danger">*</span></label>
               <select value={user.role} onChange={(e) => setUser({ ...user, role: e.target.value })} className="form-control" aria-label="Default select example">
                 <option selected>Admin</option>
                 <option >Client</option>
                 <option >Interviwer</option>
+                <option >Recruiter</option>
               </select>
             </div>
           </div>

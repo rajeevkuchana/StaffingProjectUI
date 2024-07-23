@@ -118,11 +118,11 @@ const AdminProfileCreate: React.FC = () => {
                       <div className='row gy-3 gy-md-4 my-2'>
                         <div className="col-6 from-row">
                           <label className="form-label">First Name <span className="text-danger">*</span></label>
-                          <input value={profile.firstName} type="email" className="form-control" onChange={(e) => setProfile({ ...profile, firstName: e.target.value })} required />
+                          <input value={profile.firstName} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, firstName: e.target.value })} required />
                         </div>
                         <div className="col-6 from-row">
                           <label className="form-label">Last Name <span className="text-danger">*</span></label>
-                          <input value={profile.lastName} type="email" className="form-control" onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} required />
+                          <input value={profile.lastName} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} required />
                         </div>
                       </div>
                       <div className='row gy-3 gy-md-4 my-2'>
@@ -131,28 +131,28 @@ const AdminProfileCreate: React.FC = () => {
                           <input value={profile.email} type="email" className="form-control" onChange={(e) => setProfile({ ...profile, email: e.target.value })} required />
                         </div>
                         <div className="col-6 from-row">
-                          <label className="form-label">Phoone <span className="text-danger">*</span></label>
+                          <label className="form-label">Phone No<span className="text-danger">*</span></label>
                           <input value={profile.phone} type="email" className="form-control" onChange={(e) => setProfile({ ...profile, phone: e.target.value })} required />
                         </div>
                       </div>
                       <div className='row gy-3 gy-md-4 my-2'>
                         <div className="col-6 from-row">
                           <label className="form-label">Location <span className="text-danger">*</span></label>
-                          <input value={profile.location} type="email" className="form-control" onChange={(e) => setProfile({ ...profile, location: e.target.value })} required />
+                          <input value={profile.location} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, location: e.target.value })} required />
                         </div>
                         <div className="col-6 from-row">
                           <label className="form-label">Selected By <span className="text-danger">*</span></label>
-                          <input value={profile.selectedBy} type="email" className="form-control" onChange={(e) => setProfile({ ...profile, selectedBy: e.target.value })} required />
+                          <input value={profile.selectedBy} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, selectedBy: e.target.value })} required />
                         </div>
                       </div>
                       <div className='row gy-3 gy-md-4 my-2'>
                         <div className="col-6 from-row">
                           <label className="form-label">Manage By <span className="text-danger">*</span></label>
-                          <input value={profile.managedBy} type="email" className="form-control" onChange={(e) => setProfile({ ...profile, managedBy: e.target.value })} required />
+                          <input value={profile.managedBy} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, managedBy: e.target.value })} required />
                         </div>
                         <div className="col-6 from-row">
                           <label className="form-label">Interview By <span className="text-danger">*</span></label>
-                          <input value={profile.interviewBy} type="email" className="form-control" onChange={(e) => setProfile({ ...profile, interviewBy: e.target.value })} required />
+                          <input value={profile.interviewBy} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, interviewBy: e.target.value })} required />
                         </div>
                       </div>
                     </Panel>

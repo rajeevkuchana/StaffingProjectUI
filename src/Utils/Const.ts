@@ -5,7 +5,7 @@ export const userRole = {
     recruiter : "Recruiter"
 }
 
-export const apiBaseAddress = 'https://quantlytix-api.onrender.com/api' ;
+export const apiBaseAddress = 'http://localhost:8090' ;
 
 export const Roles = [
     { name: userRole.client, code: userRole.client },
