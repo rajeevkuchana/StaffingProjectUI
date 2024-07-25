@@ -49,7 +49,7 @@ export const fetchSelectedProfileById = createAsyncThunk('profile/fetchSelectedP
 });
 
 export const createProfileInterview = createAsyncThunk('profile/createProfileInterview', async (data: IProfile) => {
-  const response = await axios.post<[]>(`${apiBaseAddress}/profiles/create`,data);
+  const response = await axios.post<[]>(`${apiBaseAddress}/profiles/add`,data);
   return response.data;
 });
 
