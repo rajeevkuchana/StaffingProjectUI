@@ -21,6 +21,9 @@ const AddUsers: React.FC = () => {
 
   const users = useSelector((state: RootState) => state.user.users);
   const status = useSelector((state: RootState) => state.user.status);
+  const deleteStatus = useSelector((state: RootState) => state.user.deleteStatus);
+  const createStatus = useSelector((state: RootState) => state.user.createStatus);
+
   const error = useSelector((state: RootState) => state.user.error);
   const [visible, setVisible] = useState(false);
   const toast = useRef<any>(null);
@@ -34,8 +37,15 @@ const AddUsers: React.FC = () => {
     }
   }, [status, dispatch]);
 
+  useEffect(() => {
+    if (deleteStatus === 'succeeded' || createStatus === "succeeded") {
+      dispatch(fetchUsers());
+    }
+  }, [deleteStatus, createStatus]);
+
   const createUser = () => {
     dispatch(createUsers(user))
+    setUser({ email: '', password: '', role: userRole.client, username: '',company:'' })
     setVisible(false);
   }
 
@@ -49,19 +59,12 @@ const AddUsers: React.FC = () => {
       accept: () => {
         dispatch(deleteUsers(rowData.id))
         setVisible(false);
-        toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
       }
     });
   }
 
-  const footerContent = (
-    <div>
-      <button type="button" onClick={() => createUser()} className="btn btn-primary">Create</button>
-    </div>
-  );
-
   const actionBodyTemplate = (rowData) => {
-    return <Button size="small" style={{ borderRadius: '50%' }} icon="pi pi-times" onClick={() => deleteUser(rowData)} rounded severity="danger" aria-label="Cancel" />
+    return <Button size="small" style={{ borderRadius: '5px', width: "20px", height: "25px" }} icon="pi pi-times" onClick={() => deleteUser(rowData)} rounded severity="danger" aria-label="Cancel" />
 
   };
 
@@ -90,19 +93,18 @@ const AddUsers: React.FC = () => {
       </section>
       <div className="card">
         <DataTable globalFilter={globalFilter} header={header} paginator rows={5} rowsPerPageOptions={[5, 10, 25]}
-          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink  RowsPerPageDropdown" 
+          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products" value={users} tableStyle={{ minWidth: '50rem' }}>
           <Column field="username" sortable header="Name"></Column>
-          <Column field="company" sortable header="Company"></Column>
           <Column field="email" sortable header="Email"></Column>
           <Column field="role" sortable header="Role"></Column>
           <Column body={actionBodyTemplate} header="Action"></Column>
         </DataTable>
       </div>
-      <Dialog header={"Create new user"} footer={footerContent} visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }}>
-        <form >
+      <Dialog header={"Create new user"}  visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }}>
+        <form onSubmit={createUser}>
           <div className="gy-3 gy-md-4">
-           
+
             <div className="col-12 from-row">
               <label className="form-label">Full Name <span className="text-danger">*</span></label>
               <input value={user.username} type="text" className="form-control" onChange={(e) => setUser({ ...user, username: e.target.value })} name="fullname" id="fullname" placeholder="Full Name" required />
@@ -111,7 +113,7 @@ const AddUsers: React.FC = () => {
               <label className="form-label">Company <span className="text-danger">*</span></label>
               <input value={user.company} type="text" className="form-control" onChange={(e) => setUser({ ...user, company: e.target.value })} name="company" id="company" placeholder="Company" required />
             </div>
-           <div className="col-12 from-row">
+            <div className="col-12 from-row">
               <label className="form-label">Email <span className="text-danger">*</span></label>
               <input value={user.email} type="email" className="form-control" onChange={(e) => setUser({ ...user, email: e.target.value })} name="email" id="email" placeholder="name@example.com" required />
             </div>
@@ -119,7 +121,7 @@ const AddUsers: React.FC = () => {
               <label className="form-label">Password <span className="text-danger">*</span></label>
               <input value={user.password} type="password" onChange={(e) => setUser({ ...user, password: e.target.value })} className="form-control" name="password" id="password" required />
             </div>
-            
+
             <div className="col-12 from-row">
               <label className="form-label">Role <span className="text-danger">*</span></label>
               <select value={user.role} onChange={(e) => setUser({ ...user, role: e.target.value })} className="form-control" aria-label="Default select example">
@@ -128,6 +130,9 @@ const AddUsers: React.FC = () => {
                 <option >Interviwer</option>
                 <option >Recruiter</option>
               </select>
+            </div>
+            <div className="col-12 from-row text-right">
+              <button type="submit"  className="btn btn-primary">Create</button>
             </div>
           </div>
         </form>

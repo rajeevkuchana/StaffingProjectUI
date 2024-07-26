@@ -4,8 +4,8 @@ export interface ISignUpDetails {
     phone_number?: string;
     signup_type?: string;
     username?: string;
-    company?: string;
     role: string,
+    company? :string
 }
 export interface ILoginDetails {
     email: string;

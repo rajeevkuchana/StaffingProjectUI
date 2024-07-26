@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { users } from '../../data/users'
 import { Link, useNavigate } from 'react-router-dom'
-import { FaSearch } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchClients } from '../../Redux/clientSlice'
 import { AppDispatch, RootState } from '../../App/Store'
 import { fetchSearchProfile } from '../../Redux/profileSlice'
 import { DataTable } from 'primereact/datatable'
@@ -23,8 +20,9 @@ const InterviewSearch: React.FC = () => {
   const error = useSelector((state: RootState) => state.profile.error);
   const [globalFilter, setGlobalFilter] = useState(null);
   let navigate = useNavigate();
-  const items = [{ label: 'Interviews' }];
+  const items = [{ label: 'Interview Profile View' }];
   const home = { icon: 'pi pi-home', url: '/home' }
+
 
   useEffect(() => {
     if (status === 'idle') {
@@ -119,7 +117,7 @@ const InterviewSearch: React.FC = () => {
   const header = (
     <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
       <div>
-        <button type="button" onClick={createInterview} className="btn btn-primary">Create Interview</button>
+        <button type="button" onClick={createInterview} className="btn btn-primary">Create Interview Profile</button>
       </div>
       <IconField iconPosition="left">
         <InputIcon className="pi pi-search" />

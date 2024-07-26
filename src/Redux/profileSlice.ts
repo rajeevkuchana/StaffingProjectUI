@@ -12,6 +12,7 @@ interface ProfileState {
   searchProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   searchProfilesStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   selectedProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
+  createProfileStatus :  'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
@@ -24,6 +25,7 @@ const initialState: ProfileState = {
   searchProfileStatus: 'idle',
   searchProfilesStatus: 'idle',
   selectedProfileStatus: 'idle',
+  createProfileStatus : 'idle',
   error: null
 };
 
@@ -91,6 +93,15 @@ const userSlice = createSlice({
       .addCase(fetchSelectedProfile.rejected, (state: ProfileState, action) => {
         state.selectedProfileStatus = 'failed';
         state.error = action.error.message || 'Failed to fetch users';
+      })
+      .addCase(createProfileInterview.pending, (state: ProfileState, action) => {
+        state.createProfileStatus = 'loading';
+      })
+      .addCase(createProfileInterview.rejected, (state: ProfileState, action) => {
+        state.createProfileStatus = 'failed';
+      })
+      .addCase(createProfileInterview.fulfilled, (state: ProfileState, action) => {
+        state.createProfileStatus = 'succeeded';
       })
   },
 });

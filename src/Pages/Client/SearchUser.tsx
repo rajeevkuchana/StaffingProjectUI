@@ -1,22 +1,15 @@
 import React, { useEffect } from 'react'
-import { MdInfo, MdWork, MdFeedback } from 'react-icons/md'
-import { FaStar } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
-import { users } from '../../data/users'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../App/Store'
 import { fetchSearchProfileById } from '../../Redux/profileSlice'
 import './SearchUser.css'
 import { TabPanel, TabView } from 'primereact/tabview'
 import { Rating } from 'primereact/rating'
-import { Divider } from 'primereact/divider'
-import { Accordion, AccordionTab } from 'primereact/accordion'
-import { Fieldset } from 'primereact/fieldset'
 import { Panel } from 'primereact/panel'
 import { BreadCrumb } from 'primereact/breadcrumb'
-import { url } from 'inspector'
-import { Button } from 'primereact/button'
 import { Skeleton } from 'primereact/skeleton'
+
 const SearchUser: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const dispatch = useDispatch<AppDispatch>();

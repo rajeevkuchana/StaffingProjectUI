@@ -7,6 +7,8 @@ interface UserState {
   users: Array<any>;
   user: any,
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  deleteStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
+  createStatus : 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
@@ -15,7 +17,9 @@ const initialState: UserState = {
   user: {} as any,
   users: [],
   status: 'idle',
-  error: null
+  error: null,
+  deleteStatus : 'idle',
+  createStatus : 'idle'
 };
 
 // Async thunk for fetching users
@@ -24,7 +28,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   return response.data;
 });
 
-export const createUsers = createAsyncThunk('user/add', async (user:any) => {
+export const createUsers = createAsyncThunk('users/addUser', async (user:any) => {
   const response = await axios.post<[]>(`${apiBaseAddress}/user/add`,user);
   return response.data;
 });
@@ -50,6 +54,18 @@ const userSlice = createSlice({
       .addCase(fetchUsers.rejected, (state: UserState, action) => {
         state.status = 'failed';
         state.error = action.error.message || 'Failed to fetch users';
+      })
+      .addCase(deleteUsers.pending, (state: UserState, action) => {
+        state.deleteStatus = 'idle';
+      })
+      .addCase(deleteUsers.fulfilled, (state: UserState, action) => {
+        state.deleteStatus = 'succeeded';
+      })
+      .addCase(createUsers.pending, (state: UserState, action) => {
+        state.createStatus = 'idle';
+      })
+      .addCase(createUsers.fulfilled, (state: UserState, action) => {
+        state.createStatus = 'succeeded';
       });
   },
 });

@@ -32,10 +32,10 @@ export interface BasicDetails {
 }
 
 export interface ExperienceDetails {
-    "Experience Details 1"?: string
-    "Experience Details 2"?: string
-    "Experience Details 3"?: string
-    "Experience Details 4"?: string
+    "expD1"?: string
+    "expD2"?: string
+    "expD3"?: string
+    "expD4"?: string
 }
 
 export interface Feedback {

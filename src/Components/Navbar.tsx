@@ -28,21 +28,21 @@ export default function WithAction() {
     else if (role === userRole.interviwer) {
       setLinks([
         { label: 'Home', href: '/' },
-        { label: 'Interviews', href: '/interviwer/search' },
+        { label: 'Interviewer Profile View', href: '/interviwer/search' },
       ])
     }
     else if (role === userRole.admin) {
       setLinks([
         { label: 'Home', href: '/' },
         { label: 'Users', href: '/admin/user' },
-        { label: 'Profiles', href: '/admin/profile' },
+        { label: 'Admin Profiles View', href: '/admin/profile' },
 
       ])
     }
     else if (role === userRole.recruiter) {
       setLinks([
         { label: 'Home', href: '/' },
-        { label: 'Profile', href: '/recruiter/profile' },
+        { label: 'Recruiter Profile View', href: '/recruiter/profile' },
       ])
     }
   }, [])
