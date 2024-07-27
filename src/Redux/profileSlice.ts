@@ -55,10 +55,15 @@ export const createProfileInterview = createAsyncThunk('profile/createProfileInt
   return response.data;
 });
 
+
 const userSlice = createSlice({
   name: 'profile',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => {
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSearchProfile.pending, (state: ProfileState) => {
@@ -105,5 +110,6 @@ const userSlice = createSlice({
       })
   },
 });
+export const { reset } = userSlice.actions;
 
 export default userSlice.reducer;

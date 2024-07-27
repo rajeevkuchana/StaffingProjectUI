@@ -43,7 +43,8 @@ const AddUsers: React.FC = () => {
     }
   }, [deleteStatus, createStatus]);
 
-  const createUser = () => {
+  const createUser = (e) => {
+    e.preventDefault()
     dispatch(createUsers(user))
     setUser({ email: '', password: '', role: userRole.client, username: '',company:'' })
     setVisible(false);
@@ -102,7 +103,7 @@ const AddUsers: React.FC = () => {
         </DataTable>
       </div>
       <Dialog header={"Create new user"}  visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }}>
-        <form onSubmit={createUser}>
+        <form method='post' onSubmit={createUser}>
           <div className="gy-3 gy-md-4">
 
             <div className="col-12 from-row">

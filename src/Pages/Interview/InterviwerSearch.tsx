@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../App/Store'
-import { fetchSearchProfile } from '../../Redux/profileSlice'
+import { fetchSearchProfile, reset } from '../../Redux/profileSlice'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Tag } from 'primereact/tag'
@@ -29,6 +29,12 @@ const InterviewSearch: React.FC = () => {
       dispatch(fetchSearchProfile());
     }
   }, [status, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(reset())
+    };
+  }, []);
 
   const profileBodyTemplate = (rowData) => {
     return (

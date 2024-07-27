@@ -5,7 +5,7 @@ import { FaSearch } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchClients } from '../../Redux/clientSlice'
 import { AppDispatch, RootState } from '../../App/Store'
-import { fetchSearchProfile } from '../../Redux/profileSlice'
+import { fetchSearchProfile, reset } from '../../Redux/profileSlice'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Tag } from 'primereact/tag'
@@ -31,6 +31,12 @@ const AdminSearch: React.FC = () => {
       dispatch(fetchSearchProfile());
     }
   }, [status, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(reset())
+    };
+  }, []);
 
   const profileBodyTemplate = (rowData) => {
     return (

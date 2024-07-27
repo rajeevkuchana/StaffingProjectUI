@@ -76,7 +76,7 @@ const AdminProfileCreate: React.FC = () => {
       </section>
       <section className="bg-light">
         <div className="container">
-          <form onSubmit={createProfile} >
+          <form method='post' onSubmit={createProfile} >
             <div className="row main-profile">
               <div className='col-3 p-4  card  border-0'>
                 <div className='card-body '>
