@@ -1,59 +1,32 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import signInImage from '../Images/image.png'
 import { ILoginDetails } from './../Types/AuthType';
 import { Roles, userRole } from '../Utils/Const';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../Redux/authSlice';
 import './SignIn.css'
 import { Divider } from 'primereact/divider';
+import { verifyUser } from '../Redux/userSlice';
+import { AppDispatch, RootState } from '../App/Store';
 
 const SignIn: React.FC = () => {
   const [user, setUser] = useState<ILoginDetails>({ email: '', password: '', role: userRole.client });
-  const dispatch = useDispatch();
+  const loginStatus = useSelector((state: RootState) => state.user.loginStatus);
+  const dispatch = useDispatch<AppDispatch>();
   let navigate = useNavigate();
 
-  const handleLogin = () => {
-
-    if (user.email.toLowerCase() === "client@gmail.com" && user.password === "123") {
-      dispatch(login({
-        password: user.password,
-        email: user.email,
-        role: userRole.client,
-        authToken: "token",
-        isAuthenticated: true
-      }));
-    }
-    else if (user.email.toLowerCase() === "interview@gmail.com" && user.password === "123") {
-      dispatch(login({
-        password: user.password,
-        email: user.email,
-        role: userRole.interviwer,
-        authToken: "token",
-        isAuthenticated: true
-      }));
-    }
-    else if (user.email.toLowerCase() === "admin@gmail.com" && user.password === "123") {
-      dispatch(login({
-        password: user.password,
-        email: user.email,
-        role: userRole.admin,
-        authToken: "token",
-        isAuthenticated: true
-      }));
-    }
-    else if (user.email.toLowerCase() === "recruiter@gmail.com" && user.password === "123") {
-      dispatch(login({
-        password: user.password,
-        email: user.email,
-        role: userRole.recruiter,
-        authToken: "token",
-        isAuthenticated: true
-      }));
-    }
-    navigate('/home');
+  const handleLogin = (e) => {
+    e.preventDefault()
+    dispatch(verifyUser(user))
   };
+
+  useEffect(() => {
+    if (loginStatus === 'succeeded') {
+      navigate('/home');
+    }
+  }, [loginStatus]);
 
   return (
     <>
@@ -74,7 +47,7 @@ const SignIn: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <form onSubmit={handleLogin}>
+                  <form onSubmit={handleLogin} method='post'>
                     <div className="row gy-3 gy-md-4 overflow-hidden">
                       <div className="col-12 from-row">
                         <label className="form-label">Email <span className="text-danger">*</span></label>
@@ -101,12 +74,23 @@ const SignIn: React.FC = () => {
                           </label>
                         </div>
                       </div>
-                      <div className="col-12 from-row">
-                        <div className="d-grid">
-                          <button className="btn bsb-btn-xl btn-primary" type="submit">Log in now</button>
-                        </div>
+                      {
+                        loginStatus === "failed" && (
+
+                          <div className="col-12 from-row">
+                            <label className="form-check-label d-block invalid-feedback">
+                              Enter valid username and password
+                            </label>
+                          </div>
+                        )
+                      }
+                    </div>
+                    <div className="col-12 from-row">
+                      <div className="d-grid">
+                        <button className="btn bsb-btn-xl btn-primary" type="submit">Log in now</button>
                       </div>
                     </div>
+
                   </form>
                   <div className="row">
                     <div className="col-12 from-row">
@@ -117,13 +101,13 @@ const SignIn: React.FC = () => {
                       </div>
                     </div>
                   </div>
-              
+
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </div >
+      </section >
 
     </>
   )

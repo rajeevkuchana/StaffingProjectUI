@@ -8,7 +8,8 @@ interface UserState {
   user: any,
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   deleteStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
-  createStatus : 'idle' | 'loading' | 'succeeded' | 'failed';
+  createStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
+  loginStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
@@ -18,8 +19,9 @@ const initialState: UserState = {
   users: [],
   status: 'idle',
   error: null,
-  deleteStatus : 'idle',
-  createStatus : 'idle'
+  deleteStatus: 'idle',
+  createStatus: 'idle',
+  loginStatus : 'idle'
 };
 
 // Async thunk for fetching users
@@ -28,13 +30,18 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   return response.data;
 });
 
-export const createUsers = createAsyncThunk('users/addUser', async (user:any) => {
-  const response = await axios.post<[]>(`${apiBaseAddress}/user/add`,user);
+export const createUsers = createAsyncThunk('users/addUser', async (user: any) => {
+  const response = await axios.post<[]>(`${apiBaseAddress}/user/add`, user);
   return response.data;
 });
 
-export const deleteUsers = createAsyncThunk('users/deleteUsers', async (id:any) => {
+export const deleteUsers = createAsyncThunk('users/deleteUsers', async (id: any) => {
   const response = await axios.delete<[]>(`${apiBaseAddress}/user/delete/${id}`);
+  return response.data;
+});
+
+export const verifyUser = createAsyncThunk('users/varifyUser', async (user: any) => {
+  const response = await axios.post<[]>(`${apiBaseAddress}/user/verify`, user);
   return response.data;
 });
 
@@ -66,6 +73,15 @@ const userSlice = createSlice({
       })
       .addCase(createUsers.fulfilled, (state: UserState, action) => {
         state.createStatus = 'succeeded';
+      })
+      .addCase(verifyUser.fulfilled, (state: UserState, action) => {
+        state.loginStatus = 'succeeded';
+      })
+      .addCase(verifyUser.pending, (state: UserState, action) => {
+        state.loginStatus = 'idle';
+      })
+      .addCase(verifyUser.rejected, (state: UserState, action) => {
+        state.loginStatus = 'failed';
       });
   },
 });
