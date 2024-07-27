@@ -1,7 +1,7 @@
 export const isUserLogin = ()=>{
     
     if(localStorage.user){
-        return JSON.parse(localStorage.user).authToken    ? true : false;
+        return JSON.parse(localStorage.user).id    ? true : false;
     }
     return false;
 }

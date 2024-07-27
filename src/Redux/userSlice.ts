@@ -9,7 +9,6 @@ interface UserState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   deleteStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   createStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
-  loginStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
@@ -20,8 +19,7 @@ const initialState: UserState = {
   status: 'idle',
   error: null,
   deleteStatus: 'idle',
-  createStatus: 'idle',
-  loginStatus : 'idle'
+  createStatus: 'idle'
 };
 
 // Async thunk for fetching users
@@ -37,11 +35,6 @@ export const createUsers = createAsyncThunk('users/addUser', async (user: any) =
 
 export const deleteUsers = createAsyncThunk('users/deleteUsers', async (id: any) => {
   const response = await axios.delete<[]>(`${apiBaseAddress}/user/delete/${id}`);
-  return response.data;
-});
-
-export const verifyUser = createAsyncThunk('users/varifyUser', async (user: any) => {
-  const response = await axios.post<[]>(`${apiBaseAddress}/user/verify`, user);
   return response.data;
 });
 
@@ -74,15 +67,7 @@ const userSlice = createSlice({
       .addCase(createUsers.fulfilled, (state: UserState, action) => {
         state.createStatus = 'succeeded';
       })
-      .addCase(verifyUser.fulfilled, (state: UserState, action) => {
-        state.loginStatus = 'succeeded';
-      })
-      .addCase(verifyUser.pending, (state: UserState, action) => {
-        state.loginStatus = 'idle';
-      })
-      .addCase(verifyUser.rejected, (state: UserState, action) => {
-        state.loginStatus = 'failed';
-      });
+     
   },
 });
 

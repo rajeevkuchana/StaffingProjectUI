@@ -5,15 +5,14 @@ import { ILoginDetails } from './../Types/AuthType';
 import { Roles, userRole } from '../Utils/Const';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../Redux/authSlice';
+import { login, verifyUser } from '../Redux/authSlice';
 import './SignIn.css'
 import { Divider } from 'primereact/divider';
-import { verifyUser } from '../Redux/userSlice';
 import { AppDispatch, RootState } from '../App/Store';
 
 const SignIn: React.FC = () => {
   const [user, setUser] = useState<ILoginDetails>({ email: '', password: '', role: userRole.client });
-  const loginStatus = useSelector((state: RootState) => state.user.loginStatus);
+  const loginStatus = useSelector((state: RootState) => state.auth.loginStatus);
   const dispatch = useDispatch<AppDispatch>();
   let navigate = useNavigate();
 
@@ -22,11 +21,11 @@ const SignIn: React.FC = () => {
     dispatch(verifyUser(user))
   };
 
-  useEffect(() => {
-    if (loginStatus === 'succeeded') {
-      navigate('/home');
-    }
-  }, [loginStatus]);
+  // useEffect(() => {
+  //   if (loginStatus === 'succeeded') {
+  //     navigate('/home');
+  //   }
+  // }, [loginStatus]);
 
   return (
     <>

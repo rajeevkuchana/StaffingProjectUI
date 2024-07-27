@@ -1,8 +1,8 @@
 export const userRole = {
-    client: "Client",
-    admin: "Admin",
-    interviwer: "Interviwer",
-    recruiter : "Recruiter"
+    client: "client",
+    admin: "admin",
+    interviwer: "interviwer",
+    recruiter : "recruiter"
 }
 
 export const apiBaseAddress = 'http://localhost:8090' ;

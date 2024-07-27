@@ -27,7 +27,7 @@ const App = () => {
   const user = useSelector((state: any) => state.auth.user);
   return (
     <BrowserRouter>
-      {user?.authToken && <Navbar />}
+      {user?.id && <Navbar />}
       <main className='container  pt-2'>
         <Routes>
           <Route path='/login' element={<SignIn />} />

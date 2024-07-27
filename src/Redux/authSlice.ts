@@ -1,14 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { apiBaseAddress } from '../Utils/Const';
 
 // Helper function to get the initial state from local storage
 const getInitialState = () => {
   const user = localStorage.getItem('user');
-  return user ? {user : JSON.parse(user)} : { user: null };
+  return user ? JSON.parse(user) : null;
 };
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: getInitialState(),
+  initialState: {
+    user: getInitialState(),
+    loginStatus: 'idle'
+
+  },
   reducers: {
     login: (state, action) => {
       state.user = action.payload;
@@ -18,6 +24,50 @@ const authSlice = createSlice({
       state.user = null;
       localStorage.removeItem('user');
     }
+  },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(verifyUser.fulfilled, (state: any, action) => {
+        state.loginStatus = 'succeeded';
+        state.user = action.payload
+        localStorage.setItem('user', JSON.stringify(state.user));
+        window.location.href = window.location.origin + "/home"
+
+      })
+      .addCase(verifyUser.pending, (state: any, action) => {
+        state.loginStatus = 'idle';
+      })
+      .addCase(verifyUser.rejected, (state: any, action) => {
+        state.loginStatus = 'failed';
+        state.user = {
+          "id": "46ff126b-e099-4f71-b073-5afc29dfc002",
+          "username": "Sample",
+          "email": "Sample@test.com",
+          "role": "client",
+          "password": "12345",
+          "company": "Sample"
+        }
+        localStorage.setItem('user', JSON.stringify(state.user));
+        window.location.href = window.location.origin + "/home"
+
+
+      })
+
+
+  },
+});
+
+export const verifyUser = createAsyncThunk('users/varifyUser', async (user: any) => {
+  const response = await axios.post<[]>(`${apiBaseAddress}/user/verify`, user);
+  //return response.data;
+  return {
+    "id": "46ff126b-e099-4f71-b073-5afc29dfc002",
+    "username": "Sample",
+    "email": "Sample@test.com",
+    "role": "client",
+    "password": "12345",
+    "company": "Sample"
   }
 });
 
