@@ -35,7 +35,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route element={<PrivateRoutes />}>
             <Route path='/client/profile/fulltime' element={<Search />} />
-            <Route path='/client/profile/remium' element={<Search />} />
+            <Route path='/client/profile/premium' element={<Search />} />
             <Route path='/client/profile/executive' element={<Search />} />
             <Route path='/client/profile/parttime' element={<Search />} />
             <Route path='/client/profile/selected' element={<Search />} />
