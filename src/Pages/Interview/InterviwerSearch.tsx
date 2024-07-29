@@ -12,6 +12,7 @@ import { IconField } from 'primereact/iconfield'
 import { InputText } from 'primereact/inputtext'
 import { InputIcon } from 'primereact/inputicon'
 import Loader from '../../Components/Loader'
+import { getUseEmail } from '../../Utils/Utils'
 
 const InterviewSearch: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,7 +27,14 @@ const InterviewSearch: React.FC = () => {
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchSearchProfile());
+      dispatch(fetchSearchProfile(
+        {
+          "jobCategory": 'fulltime',
+          "jobType": 'job description',
+          "jobProfile": [],
+          "email": getUseEmail()
+        }
+      ));
     }
   }, [status, dispatch]);
 

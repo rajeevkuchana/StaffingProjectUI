@@ -12,7 +12,7 @@ interface ProfileState {
   searchProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   searchProfilesStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   selectedProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
-  createProfileStatus :  'idle' | 'loading' | 'succeeded' | 'failed';
+  createProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
@@ -25,13 +25,13 @@ const initialState: ProfileState = {
   searchProfileStatus: 'idle',
   searchProfilesStatus: 'idle',
   selectedProfileStatus: 'idle',
-  createProfileStatus : 'idle',
+  createProfileStatus: 'idle',
   error: null
 };
 
 // Async thunk for fetching users
-export const fetchSearchProfile = createAsyncThunk('profile/fetchSearchProfile', async () => {
-  const response = await axios.get<[]>(`${apiBaseAddress}/profiles`);
+export const fetchSearchProfile = createAsyncThunk('profile/fetchSearchProfile', async (data: any) => {
+  const response = await axios.post<[]>(`${apiBaseAddress}/profiles`, data);
   return response.data;
 });
 
@@ -51,7 +51,7 @@ export const fetchSelectedProfileById = createAsyncThunk('profile/fetchSelectedP
 });
 
 export const createProfileInterview = createAsyncThunk('profile/createProfileInterview', async (data: IProfile) => {
-  const response = await axios.post<[]>(`${apiBaseAddress}/profiles/add`,data);
+  const response = await axios.post<[]>(`${apiBaseAddress}/profiles/add`, data);
   return response.data;
 });
 
@@ -69,9 +69,9 @@ const userSlice = createSlice({
       .addCase(fetchSearchProfile.pending, (state: ProfileState) => {
         state.searchProfilesStatus = 'loading';
       })
-      .addCase(fetchSearchProfile.fulfilled, (state: ProfileState, action: PayloadAction<any[]>) => {
+      .addCase(fetchSearchProfile.fulfilled, (state: ProfileState, action: PayloadAction<any>) => {
         state.searchProfilesStatus = 'succeeded';
-        state.searchProfiles = action.payload;
+        state.searchProfiles = action.payload.profileList;
       })
       .addCase(fetchSearchProfile.rejected, (state: ProfileState, action) => {
         state.searchProfilesStatus = 'failed';

@@ -13,6 +13,13 @@ export const getUserRole = ()=>{
     return false;
 }
 
+export const getUseEmail = ()=>{
+    if(localStorage.user){
+        return JSON.parse(localStorage.user).email
+    }
+    return false;
+}
+
 export const clearLocalStorage = ()=>{
     localStorage.clear();
 }

@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { users } from '../../data/users'
 import { Link, useNavigate } from 'react-router-dom'
-import { FaSearch } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchClients } from '../../Redux/clientSlice'
 import { AppDispatch, RootState } from '../../App/Store'
 import { fetchSearchProfile } from '../../Redux/profileSlice'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
-import { Tag } from 'primereact/tag'
 import './Search.css'
 import { Rating } from 'primereact/rating'
 import { BreadCrumb } from 'primereact/breadcrumb'
@@ -16,6 +12,8 @@ import Loader from '../../Components/Loader'
 import { IconField } from 'primereact/iconfield'
 import { InputText } from 'primereact/inputtext'
 import { InputIcon } from 'primereact/inputicon'
+import FilterSidebar from '../../Components/FilterSidebar'
+import { getUseEmail } from '../../Utils/Utils'
 
 const Search: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -29,7 +27,14 @@ const Search: React.FC = () => {
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchSearchProfile());
+      dispatch(fetchSearchProfile(
+        {
+          "jobCategory": 'fulltime',
+          "jobType": 'job description',
+          "jobProfile": [],
+          "email": getUseEmail()
+        }
+      ));
     }
   }, [status, dispatch]);
 
@@ -44,10 +49,10 @@ const Search: React.FC = () => {
   const nameBodyTemplate = (rowData) => {
     return (
       <div className="align-items-center">
-          <p className="lead m-0 fs-6"><small>
+        <p className="lead m-0 fs-6"><small>
           {rowData.firstName}  {rowData.lastName}
 
-          </small>
+        </small>
         </p>
         <small className="text-body-secondary">{rowData.email}</small>
         <p className='text-body-secondary  m-0'>        <i className={" pi pi-phone"} ></i>
@@ -63,7 +68,7 @@ const Search: React.FC = () => {
         <p className="lead m-0 fs-6">
           <i className={" pi pi-user"}>  </i> <small>{rowData.interviewBy}</small>
         </p>
-        <small className="text-body-secondary m-0">{`${new Date( rowData.interviewDateTime).toLocaleDateString()} ${new Date( rowData.interviewDateTime).toLocaleTimeString()}`}</small>
+        <small className="text-body-secondary m-0">{`${new Date(rowData.interviewDateTime).toLocaleDateString()} ${new Date(rowData.interviewDateTime).toLocaleTimeString()}`}</small>
       </div>
     );
   };
@@ -128,24 +133,38 @@ const Search: React.FC = () => {
     </div>
   );
 
+  const handleCallback = (childData) => {
+    dispatch(fetchSearchProfile(childData));
+  };
+
   return (
-    <><section className="bg-light">
-      <div className='row mb-1 BreadCrumb'>
-        <div className='col-12'>
-          <BreadCrumb model={items} home={home} />
+    <>
+      <section className="bg-light">
+        <div className='row mb-1 BreadCrumb'>
+          <div className='col-12'>
+            <BreadCrumb model={items} home={home} />
+          </div>
         </div>
-      </div>
-    </section><div className="card">
-       {status === "succeeded" && <DataTable  onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
-          <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column>
-          <Column filter field="firstName" body={nameBodyTemplate} header="Name"></Column>
-          <Column filter field="location" body={locationBodyTemplate} header="Location"></Column>
-          <Column filter field="interviewBy" body={interviewBodyTemplate} header="InterView"></Column>
-          <Column filter field="managedBy" body={manageByBodyTemplate} header="Manage by"></Column>
-
-          <Column filter field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
-        </DataTable>}
-
+      </section>
+      <div className="">
+        <div className='row'>
+          <div className='col-3'>
+            <FilterSidebar parentCallback={handleCallback}></FilterSidebar>
+          </div>
+          <div className='col-9 '>
+            <div className='card'>
+              {status === "succeeded" &&
+                <DataTable onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
+                  <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column>
+                  <Column filter field="firstName" body={nameBodyTemplate} header="Name"></Column>
+                  <Column filter field="location" body={locationBodyTemplate} header="Location"></Column>
+                  <Column filter field="interviewBy" body={interviewBodyTemplate} header="InterView"></Column>
+                  <Column filter field="managedBy" body={manageByBodyTemplate} header="Manage by"></Column>
+                  <Column filter field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
+                </DataTable>}
+            </div>
+          </div>
+        </div>
         {status === "loading" && <Loader></Loader>}
       </div></>
   )

@@ -27,14 +27,19 @@ const App = () => {
   const user = useSelector((state: any) => state.auth.user);
   return (
     <BrowserRouter>
-      {user?.id && <Navbar />}
+      {<Navbar />}
       <main className='container  pt-2'>
         <Routes>
           <Route path='/login' element={<SignIn />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/' element={<Home />} />
           <Route element={<PrivateRoutes />}>
-            <Route path='/' element={<Home />} />
-            <Route path='/home' element={<Home />} />
-            <Route path='/client/search' element={<Search />} />
+            <Route path='/client/profile/fulltime' element={<Search />} />
+            <Route path='/client/profile/remium' element={<Search />} />
+            <Route path='/client/profile/executive' element={<Search />} />
+            <Route path='/client/profile/parttime' element={<Search />} />
+            <Route path='/client/profile/selected' element={<Search />} />
+
             <Route path='/client/search/:id' element={<SearchUser />} />
             <Route path='/client/selected' element={<Selected />} />
             <Route path='/interviwer/search' element={<InterviwerSearch />} />
@@ -49,7 +54,7 @@ const App = () => {
         </Routes>
       </main>
 
-      {user?.authToken && <Footer />}
+      {<Footer />}
 
     </BrowserRouter>
   )

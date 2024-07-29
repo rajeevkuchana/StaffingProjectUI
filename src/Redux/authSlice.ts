@@ -40,35 +40,13 @@ const authSlice = createSlice({
       })
       .addCase(verifyUser.rejected, (state: any, action) => {
         state.loginStatus = 'failed';
-        state.user = {
-          "id": "46ff126b-e099-4f71-b073-5afc29dfc002",
-          "username": "Sample",
-          "email": "Sample@test.com",
-          "role": "client",
-          "password": "12345",
-          "company": "Sample"
-        }
-        localStorage.setItem('user', JSON.stringify(state.user));
-        window.location.href = window.location.origin + "/home"
-
-
       })
-
-
   },
 });
 
 export const verifyUser = createAsyncThunk('users/varifyUser', async (user: any) => {
   const response = await axios.post<[]>(`${apiBaseAddress}/user/verify`, user);
-  //return response.data;
-  return {
-    "id": "46ff126b-e099-4f71-b073-5afc29dfc002",
-    "username": "Sample",
-    "email": "Sample@test.com",
-    "role": "client",
-    "password": "12345",
-    "company": "Sample"
-  }
+  return response.data;
 });
 
 export const { login, logout } = authSlice.actions;

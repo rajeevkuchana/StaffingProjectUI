@@ -9,20 +9,22 @@ import { Avatar } from 'primereact/avatar';
 import './Navbar.css'
 
 export default function WithAction() {
-  const [links, setLinks] = useState(Array<any>)
+  const [links, setLinks] = useState([{ label: 'Home', href: '/' }])
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.auth.user);
-
 
   useEffect(() => {
     const role = getUserRole();
     if (role === userRole.client) {
       setLinks([
         { label: 'Home', href: '/' },
-        { label: 'Search', href: '/client/search' },
-        { label: 'Selected', href: '/client/selected' },
+        { label: 'Full-Time', href: '/client/profile/fulltime' },
+        { label: 'Premium', href: '/client/profile/premium' },
+        { label: 'Executive', href: '/client/profile/executive' },
+        { label: 'Part-Time', href: '/client/profile/parttime' },
+        { label: 'Selected', href: '/client/profile/selected' },
       ])
     }
     else if (role === userRole.interviwer) {
@@ -50,7 +52,7 @@ export default function WithAction() {
   const Logout = () => {
     dispatch(logout());
     clearLocalStorage();
-    navigate('login')
+    window.location.href = window.location.origin + "/login"
   }
 
   return (
@@ -68,24 +70,37 @@ export default function WithAction() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {links.map((link) => (
               <li className="nav-item">
-                <Link className="nav-link active" to={link.href}>
+                <Link className={`nav-link ${location.pathname === link.href ? "active" : ""}`} to={link.href}>
                   {link.label}
                 </Link>
               </li>
             ))}
           </ul>
           <form className="d-flex">
-            <div className="btn-group">
-              <button type="button" className="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-              {/* {user.email} <span className="pi pi-user"></span> */}
-            {  user?.email &&   <Avatar label={user?.email[0].toUpperCase()}  style={{ backgroundColor: '#2196F3', color: '#ffffff' }} shape="circle" />}
+            {
+              user?.id ? (
+                <div className="btn-group">
+                  <button type="button" className="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    {/* {user.email} <span className="pi pi-user"></span> */}
+                    {user?.email && <Avatar label={user?.email[0].toUpperCase()} style={{ backgroundColor: '#2196F3', color: '#ffffff' }} shape="circle" />}
 
-              </button>
-              <ul className="dropdown-menu dropdown-menu-lg-end">
-                <li><button className="dropdown-item" type="button">{user.email}</button></li>
-                <li><button onClick={Logout} className="dropdown-item" type="button">Logout</button></li>
-              </ul>
-            </div>
+                  </button>
+                  <ul className="dropdown-menu dropdown-menu-lg-end">
+                    <li><button className="dropdown-item" type="button">{user.email}</button></li>
+                    <li><button onClick={Logout} className="dropdown-item" type="button">Logout</button></li>
+                  </ul>
+                </div>
+              ) :
+                (
+                  <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
+                      <Link className="nav-link active" to={'/login'}>
+                        Login
+                      </Link>
+                    </li>
+                  </ul>
+                )
+            }
           </form>
         </div>
       </div>
