@@ -27,9 +27,10 @@ const Search: React.FC = () => {
 
   useEffect(() => {
     if (status === 'idle') {
+      const jobCategory = location.pathname.split('/');
       dispatch(fetchSearchProfile(
         {
-          "jobCategory": 'fulltime',
+          "jobCategory": jobCategory[jobCategory.length - 1],
           "jobType": 'job description',
           "jobProfile": [],
           "email": getUseEmail()
