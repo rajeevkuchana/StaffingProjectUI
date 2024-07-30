@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../App/Store'
 import { fetchSearchProfile } from '../../Redux/profileSlice'
@@ -17,6 +17,7 @@ import { getUseEmail } from '../../Utils/Utils'
 
 const Search: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
   const [globalFilter, setGlobalFilter] = useState(null);
   const searchProfiles = useSelector((state: RootState) => state.profile.searchProfiles);
   const status = useSelector((state: RootState) => state.profile.searchProfilesStatus);
@@ -50,14 +51,14 @@ const Search: React.FC = () => {
   const nameBodyTemplate = (rowData) => {
     return (
       <div className="align-items-center">
-        <p className="lead m-0 fs-6"><small>
+        <p className=" m-0 "><small>
           {rowData.firstName}  {rowData.lastName}
 
         </small>
         </p>
         <small className="text-body-secondary">{rowData.email}</small>
-        <p className='text-body-secondary  m-0'>        <i className={" pi pi-phone"} ></i>
-          <small className="text-body-secondary ">{rowData.phone}</small></p>
+        {/* <p className='text-body-secondary  m-0'>        <i className={" pi pi-phone"} ></i>
+          <small className="text-body-secondary ">{rowData.phone}</small></p> */}
 
       </div>
     );
@@ -66,10 +67,10 @@ const Search: React.FC = () => {
   const interviewBodyTemplate = (rowData) => {
     return (
       <div className="align-items-center">
-        <p className="lead m-0 fs-6">
+        <p className="m-0 ">
           <i className={" pi pi-user"}>  </i> <small>{rowData.interviewBy}</small>
         </p>
-        <small className="text-body-secondary m-0">{`${new Date(rowData.interviewDateTime).toLocaleDateString()} ${new Date(rowData.interviewDateTime).toLocaleTimeString()}`}</small>
+        {/* <small className="text-body-secondary m-0">{`${new Date(rowData.interviewDateTime).toLocaleDateString()} ${new Date(rowData.interviewDateTime).toLocaleTimeString()}`}</small> */}
       </div>
     );
   };
@@ -78,7 +79,7 @@ const Search: React.FC = () => {
   const manageByBodyTemplate = (rowData) => {
     return (
       <div className="align-items-center">
-        <p className="lead m-0 fs-6">
+        <p className="m-0">
           <i className={" pi pi-user"}>  </i><small> {rowData.managedBy}</small>
         </p>
       </div>
@@ -88,7 +89,7 @@ const Search: React.FC = () => {
   const locationBodyTemplate = (rowData) => {
     return (
       <div className="align-items-center">
-        <p className="lead m-0 fs-6">
+        <p className=" m-0 ">
           <i className={" pi pi-map-marker"}>  </i> <small>{rowData.location}</small>
         </p>
       </div>
@@ -140,26 +141,26 @@ const Search: React.FC = () => {
 
   return (
     <>
-      <section className="bg-light">
+      {/* <section className="bg-light">
         <div className='row mb-1 BreadCrumb'>
           <div className='col-12'>
             <BreadCrumb model={items} home={home} />
           </div>
         </div>
-      </section>
+      </section> */}
       <div className="">
-        <div className='row'>
-          <div className='col-3'>
+        <div className='row' style={{height:"90vh"}}>
+          <div className='col-3 h-100'>
             <FilterSidebar parentCallback={handleCallback}></FilterSidebar>
           </div>
-          <div className='col-9 '>
-            <div className='card'>
+          <div className='col-9  h-100'>
+            <div className='card overflow-auto h-100'>
               {status === "succeeded" &&
-                <DataTable onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
-                  <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column>
+                <DataTable scrollable scrollHeight="flex" onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
+                  {/* <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column> */}
                   <Column filter field="firstName" body={nameBodyTemplate} header="Name"></Column>
                   <Column filter field="location" body={locationBodyTemplate} header="Location"></Column>
-                  <Column filter field="interviewBy" body={interviewBodyTemplate} header="InterView"></Column>
+                  <Column filter field="interviewBy" body={interviewBodyTemplate} header="Interviewer"></Column>
                   <Column filter field="managedBy" body={manageByBodyTemplate} header="Manage by"></Column>
                   <Column filter field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
                 </DataTable>}

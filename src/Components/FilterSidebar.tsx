@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { getUseEmail, getUserRole } from '../Utils/Utils';
 import { Divider } from 'primereact/divider';
 import { useLocation } from 'react-router-dom';
+import './FilterSidebar.css';
 
 const FilterSidebar = (props) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,7 +28,7 @@ const FilterSidebar = (props) => {
       {
         "jobCategory": jobCategory[jobCategory.length - 1],
         "jobType": selectedJobType.value,
-        "jobProfile": jobProfile.map(x => x.text),
+        "jobProfile": jobProfile.map(x => x.value),
         "email": getUseEmail()
       }
     );
@@ -79,7 +80,7 @@ const FilterSidebar = (props) => {
   };
 
   return (
-    <div className='card sidebar' >
+    <div className='card sidebar overflow-auto h-100' >
       {
         jobType.map(item => {
           return (
@@ -98,12 +99,10 @@ const FilterSidebar = (props) => {
             {
               filterListDataAI.data.map(d => {
                 return (
-                  <>
-                    <div key={filterListDataAI.name} className="flex align-items-center">
-                      <Checkbox onChange={ondDataAIChange} key={d.text} name="dataai" value={d} checked={selectedDataAI.some((a) => a.text === d.text)} />
-                      <label htmlFor={d.text} className="ml-2">{d.text}</label>
-                    </div>
-                  </>
+                  <div key={filterListDataAI.name} className="flex align-items-center">
+                    <Checkbox inputId={d.text} onChange={ondDataAIChange} key={d.text} name="dataai" value={d} checked={selectedDataAI.some((a) => a.text === d.text)} />
+                    <label htmlFor={d.text} className="ml-2">{d.text}</label>
+                  </div>
                 )
               })
             }
@@ -116,12 +115,10 @@ const FilterSidebar = (props) => {
             {
               filterListFullStack.data.map(d => {
                 return (
-                  <>
-                    <div key={filterListFullStack.name} className="flex align-items-center">
-                      <Checkbox onChange={onFullStackChange} key={d.text} name="dataai" value={d} checked={selectedFullStack.some((a) => a.text === d.text)} />
-                      <label htmlFor={d.text} className="ml-2">{d.text}</label>
-                    </div>
-                  </>
+                  <div key={filterListFullStack.name} className="flex align-items-center">
+                    <Checkbox onChange={onFullStackChange} key={d.text} name="dataai" value={d} checked={selectedFullStack.some((a) => a.text === d.text)} />
+                    <label htmlFor={d.text} className="ml-2">{d.text}</label>
+                  </div>
                 )
               })
             }

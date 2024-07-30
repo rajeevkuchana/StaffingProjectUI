@@ -21,10 +21,11 @@ export default function WithAction() {
       setLinks([
         { label: 'Home', href: '/' },
         { label: 'Full-Time', href: '/client/profile/fulltime' },
+        { label: 'Part-Time', href: '/client/profile/parttime' },
+        { label: 'Contract/C2H', href: '/client/profile/contractC2H' },
         { label: 'Premium', href: '/client/profile/premium' },
         { label: 'Executive', href: '/client/profile/executive' },
-        { label: 'Part-Time', href: '/client/profile/parttime' },
-        { label: 'Selected', href: '/client/profile/selected' },
+        // { label: 'Selected', href: '/client/profile/selected' },
       ])
     }
     else if (role === userRole.interviwer) {
@@ -70,7 +71,8 @@ export default function WithAction() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {links.map((link) => (
               <li className="nav-item">
-                <Link className={`nav-link ${location.pathname === link.href ? "active" : ""}`} to={link.href}>
+                <Link
+                 className={`nav-link ${location.pathname === link.href ? "active" : ""}`} to={link.href}>
                   {link.label}
                 </Link>
               </li>
