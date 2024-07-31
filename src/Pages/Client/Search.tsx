@@ -241,6 +241,7 @@ const Search: React.FC = () => {
             <div className='card overflow-auto h-100 profile-table'>
               {status === "succeeded" &&
                 <>
+                {text}
                   {getJobType() !== "profiles" && (
                     
                     <Editor className='h-100' value={text} onTextChange={(e :any) => setText(e.htmlValue)} style={{ height: '100%' }} />
