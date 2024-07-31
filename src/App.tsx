@@ -41,8 +41,8 @@ const App = () => {
             <Route path='/client/profile/premium' element={<Search />} />
             <Route path='/client/profile/executive' element={<Search />} />
             <Route path='/client/profile/selected' element={<Search />} />
-            <Route path='/client/search/:id' element={<SearchUser />} /> */}
             {/* <Route path='/client/selected' element={<Selected />} /> */}
+            <Route path='/client/search/:id' element={<SearchUser />} />
             <Route path='/interviwer/search' element={<InterviwerSearch />} />
             <Route path='/interviwer/create' element={<InterviwerUser />} />
             <Route path='/admin/user' element={<AddUsers />} />
