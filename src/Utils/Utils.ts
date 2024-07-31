@@ -20,6 +20,14 @@ export const getUseEmail = () => {
     return false;
 }
 
+
+export const getJobType = () => {
+    if (localStorage.jobType) {
+        return localStorage.jobType
+    }
+    return "profiles";
+}
+
 export const clearLocalStorage = () => {
     localStorage.clear();
 }

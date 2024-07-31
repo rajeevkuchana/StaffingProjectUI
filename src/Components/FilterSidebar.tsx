@@ -13,7 +13,7 @@ import './FilterSidebar.css';
 const FilterSidebar = (props) => {
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
-  const [selectedJobType, setSelectedJobType] = useState(jobType[0]);
+  const [selectedJobType, setSelectedJobType] = useState(jobType[1]);
   const [selectedDataAI, setSelectedDataAI] = useState(Array<any>);
   const [selectedFullStack, setSelectedFullStack] = useState(Array<any>);
   const [selectedQA, setSelectedQA] = useState(Array<any>);
@@ -23,6 +23,7 @@ const FilterSidebar = (props) => {
   useEffect(() => {
     const jobCategory = location.pathname.split('/');
     let jobProfile: Array<any> = [];
+    localStorage.setItem("jobType",selectedJobType.value)
     jobProfile = jobProfile.concat(selectedDataAI, selectedFullStack, selectedQA, selectedDevOps, selectedClouEngineering);
     props.parentCallback(
       {

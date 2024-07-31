@@ -13,7 +13,9 @@ import { IconField } from 'primereact/iconfield'
 import { InputText } from 'primereact/inputtext'
 import { InputIcon } from 'primereact/inputicon'
 import FilterSidebar from '../../Components/FilterSidebar'
-import { getUseEmail } from '../../Utils/Utils'
+import { getJobType, getUseEmail } from '../../Utils/Utils'
+import { Editor } from 'primereact/editor';
+import { data } from './JobData'
 
 const Search: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,6 +29,7 @@ const Search: React.FC = () => {
   let navigate = useNavigate();
   const items = [{ label: 'Search', url: '/client/search' }, { label: 'Profile' }];
   const home = { icon: 'pi pi-home', url: '/home' }
+  const [text, setText] = useState(data);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -42,19 +45,19 @@ const Search: React.FC = () => {
   }, [status, dispatch]);
 
   useEffect(() => {
-   
-      dispatch(fetchSearchProfile(
-        {
-          "jobCategory": jobCategory,
-          "jobType": 'job description',
-          "jobProfile": [],
-          "email": getUseEmail()
-        }
-      ));
-    
+
+    dispatch(fetchSearchProfile(
+      {
+        "jobCategory": jobCategory,
+        "jobType": 'job description',
+        "jobProfile": [],
+        "email": getUseEmail()
+      }
+    ));
+
   }, [jobCategory]);
 
-  
+
   useEffect(() => {
     return () => {
       dispatch(reset())
@@ -117,6 +120,66 @@ const Search: React.FC = () => {
     );
   };
 
+  const currentCompanyBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const designationBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const currentCTCBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const expectedCTCBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const overallExperienceBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const relevantExperienceBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        </p>
+      </div>
+    );
+  };
+
   const getSeverity = (status) => {
     switch (status) {
       case 'unqualified':
@@ -170,21 +233,38 @@ const Search: React.FC = () => {
         </div>
       </section> */}
       <div className="">
-        <div className='row' style={{height:"90vh"}}>
+        <div className='row' style={{ height: "90vh" }}>
           <div className='col-3 h-100'>
             <FilterSidebar parentCallback={handleCallback}></FilterSidebar>
           </div>
           <div className='col-9  h-100'>
             <div className='card overflow-auto h-100 profile-table'>
               {status === "succeeded" &&
-                <DataTable scrollable scrollHeight="flex" onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
-                  {/* <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column> */}
-                  <Column filter field="firstName" body={nameBodyTemplate} header="Name"></Column>
-                  <Column filter field="location" body={locationBodyTemplate} header="Location"></Column>
-                  <Column filter field="interviewBy" body={interviewBodyTemplate} header="Interviewer"></Column>
-                  <Column filter field="managedBy" body={manageByBodyTemplate} header="Manage by"></Column>
-                  <Column filter field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
-                </DataTable>}
+                <>
+                  {getJobType() !== "profiles" && (
+                    
+                    <Editor className='h-100' value={text} onTextChange={(e :any) => setText(e.htmlValue)} style={{ height: '100%' }} />
+
+                  )}
+                  {getJobType() === "profiles" && (
+                    <DataTable scrollable scrollHeight="flex" onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
+                      {/* <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column> */}
+                      <Column frozen filter className="text-nowrap" headerClassName='text-nowrap' field="firstName" body={nameBodyTemplate} header="Name"></Column>
+                      <Column filter className="text-nowrap" headerClassName='text-nowrap' field="location" body={locationBodyTemplate} header="Location"></Column>
+                      <Column filter className="text-nowrap" headerClassName='text-nowrap' field="currentCompany" body={currentCompanyBodyTemplate} header="Current Company"></Column>
+                      <Column filter className="text-nowrap" headerClassName='text-nowrap' field="designation" body={designationBodyTemplate} header="Designation"></Column>
+                      <Column filter className="text-nowrap" headerClassName='text-nowrap' field="currentCTC" body={currentCTCBodyTemplate} header="Current CTC"></Column>
+                      <Column filter className="text-nowrap" headerClassName='text-nowrap' field="expectedCTC" body={expectedCTCBodyTemplate} header="Expected CTC"></Column>
+                      <Column filter className="text-nowrap" headerClassName='text-nowrap' field="OverallExp" body={overallExperienceBodyTemplate} header="Overall Experience"></Column>
+                      <Column filter className="text-nowrap" headerClassName='text-nowrap' field="relevantExp" body={relevantExperienceBodyTemplate} header="Relevant Experience"></Column>
+
+                      <Column filter className="text-nowrap" headerClassName='text-nowrap' field="interviewBy" body={interviewBodyTemplate} header="Interviewer"></Column>
+                      <Column filter className="text-nowrap" headerClassName='text-nowrap' field="managedBy" body={manageByBodyTemplate} header="Manage by"></Column>
+                      <Column filter className="text-nowrap" headerClassName='text-nowrap' field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
+                    </DataTable>
+                  )}
+                </>
+              }
             </div>
           </div>
         </div>
