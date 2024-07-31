@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../App/Store'
 import { fetchSearchProfile, reset } from '../../Redux/profileSlice'
@@ -17,6 +17,8 @@ import { getUseEmail } from '../../Utils/Utils'
 
 const Search: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { jobCategory } = useParams<{ jobCategory: string }>()
+
   const location = useLocation();
   const [globalFilter, setGlobalFilter] = useState(null);
   const searchProfiles = useSelector((state: RootState) => state.profile.searchProfiles);
@@ -28,10 +30,9 @@ const Search: React.FC = () => {
 
   useEffect(() => {
     if (status === 'idle') {
-      const jobCategory = location.pathname.split('/');
       dispatch(fetchSearchProfile(
         {
-          "jobCategory": jobCategory[jobCategory.length - 1],
+          "jobCategory": jobCategory,
           "jobType": 'job description',
           "jobProfile": [],
           "email": getUseEmail()
@@ -39,6 +40,19 @@ const Search: React.FC = () => {
       ));
     }
   }, [status, dispatch]);
+
+  useEffect(() => {
+   
+      dispatch(fetchSearchProfile(
+        {
+          "jobCategory": jobCategory,
+          "jobType": 'job description',
+          "jobProfile": [],
+          "email": getUseEmail()
+        }
+      ));
+    
+  }, [jobCategory]);
 
   
   useEffect(() => {
@@ -158,7 +172,7 @@ const Search: React.FC = () => {
       <div className="">
         <div className='row' style={{height:"90vh"}}>
           <div className='col-3 h-100'>
-            {/* <FilterSidebar parentCallback={handleCallback}></FilterSidebar> */}
+            <FilterSidebar parentCallback={handleCallback}></FilterSidebar>
           </div>
           <div className='col-9  h-100'>
             <div className='card overflow-auto h-100 profile-table'>

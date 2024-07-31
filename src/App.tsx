@@ -35,13 +35,13 @@ const App = () => {
           <Route path='/home' element={<Home />} />
           <Route path='/' element={<Home />} />
           <Route element={<PrivateRoutes />}>
-            <Route path='/client/profile/fulltime' element={<Search />} />
-            <Route path='/client/profile/parttime' element={<Search />} />
+            <Route path='/client/profile/:jobCategory' element={<Search />} />
+            {/* <Route path='/client/profile/parttime' element={<Search />} />
             <Route path='/client/profile/contractC2H' element={<Search />} />
             <Route path='/client/profile/premium' element={<Search />} />
             <Route path='/client/profile/executive' element={<Search />} />
             <Route path='/client/profile/selected' element={<Search />} />
-            <Route path='/client/search/:id' element={<SearchUser />} />
+            <Route path='/client/search/:id' element={<SearchUser />} /> */}
             {/* <Route path='/client/selected' element={<Selected />} /> */}
             <Route path='/interviwer/search' element={<InterviwerSearch />} />
             <Route path='/interviwer/create' element={<InterviwerUser />} />
