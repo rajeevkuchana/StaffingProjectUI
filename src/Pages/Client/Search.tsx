@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../App/Store'
-import { fetchSearchProfile } from '../../Redux/profileSlice'
+import { fetchSearchProfile, reset } from '../../Redux/profileSlice'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import './Search.css'
@@ -39,6 +39,13 @@ const Search: React.FC = () => {
       ));
     }
   }, [status, dispatch]);
+
+  
+  useEffect(() => {
+    return () => {
+      dispatch(reset())
+    };
+  }, []);
 
   const profileBodyTemplate = (rowData) => {
     return (
@@ -151,10 +158,10 @@ const Search: React.FC = () => {
       <div className="">
         <div className='row' style={{height:"90vh"}}>
           <div className='col-3 h-100'>
-            <FilterSidebar parentCallback={handleCallback}></FilterSidebar>
+            {/* <FilterSidebar parentCallback={handleCallback}></FilterSidebar> */}
           </div>
           <div className='col-9  h-100'>
-            <div className='card overflow-auto h-100'>
+            <div className='card overflow-auto h-100 profile-table'>
               {status === "succeeded" &&
                 <DataTable scrollable scrollHeight="flex" onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
                   {/* <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column> */}

@@ -5,7 +5,7 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Checkbox } from 'primereact/checkbox';
 import { AppDispatch } from '../App/Store';
 import { useDispatch } from 'react-redux';
-import { getUseEmail, getUserRole } from '../Utils/Utils';
+import { getUseEmail, getUserRole, uuidv4 } from '../Utils/Utils';
 import { Divider } from 'primereact/divider';
 import { useLocation } from 'react-router-dom';
 import './FilterSidebar.css';
@@ -84,10 +84,9 @@ const FilterSidebar = (props) => {
       {
         jobType.map(item => {
           return (
-            <div key={item.value} className="flex align-items-center jobtype">
+            <div key={uuidv4()} className="flex align-items-center jobtype">
               <RadioButton inputId={item.value} name="category" value={item} onChange={(e) => setSelectedJobType(e.value)} checked={selectedJobType.value === item.value} />
-              <label htmlFor={item.value} className="ml-2 p-component
-              ">{item.text}</label>
+              <label htmlFor={item.value} className="ml-2 p-component">{item.text}</label>
             </div>
           )
         })
@@ -99,8 +98,8 @@ const FilterSidebar = (props) => {
             {
               filterListDataAI.data.map(d => {
                 return (
-                  <div key={filterListDataAI.name} className="flex align-items-center">
-                    <Checkbox inputId={d.text} onChange={ondDataAIChange} key={d.text} name="dataai" value={d} checked={selectedDataAI.some((a) => a.text === d.text)} />
+                  <div key={uuidv4()} className="flex align-items-center">
+                    <Checkbox inputId={filterListDataAI.name} onChange={ondDataAIChange} key={d.text} name="dataai" value={d} checked={selectedDataAI.some((a) => a.text === d.text)} />
                     <label htmlFor={d.text} className="ml-2">{d.text}</label>
                   </div>
                 )
@@ -115,7 +114,7 @@ const FilterSidebar = (props) => {
             {
               filterListFullStack.data.map(d => {
                 return (
-                  <div key={filterListFullStack.name} className="flex align-items-center">
+                  <div key={uuidv4()} className="flex align-items-center">
                     <Checkbox onChange={onFullStackChange} key={d.text} name="dataai" value={d} checked={selectedFullStack.some((a) => a.text === d.text)} />
                     <label htmlFor={d.text} className="ml-2">{d.text}</label>
                   </div>
@@ -131,12 +130,12 @@ const FilterSidebar = (props) => {
             {
               filterListQA.data.map(d => {
                 return (
-                  <>
-                    <div key={filterListQA.name} className="flex align-items-center">
-                      <Checkbox onChange={onQAChange} key={d.text} name="dataai" value={d} checked={selectedQA.some((a) => a.text === d.text)} />
-                      <label htmlFor={d.text} className="ml-2">{d.text}</label>
-                    </div>
-                  </>
+
+                  <div key={uuidv4()} className="flex align-items-center">
+                    <Checkbox onChange={onQAChange} key={d.text} name="dataai" value={d} checked={selectedQA.some((a) => a.text === d.text)} />
+                    <label htmlFor={d.text} className="ml-2">{d.text}</label>
+                  </div>
+
                 )
               })
             }
@@ -149,12 +148,12 @@ const FilterSidebar = (props) => {
             {
               filterListDevOps.data.map(d => {
                 return (
-                  <>
-                    <div key={filterListDevOps.name} className="flex align-items-center">
-                      <Checkbox onChange={onDevOpsChange} key={d.text} name="dataai" value={d} checked={selectedDevOps.some((a) => a.text === d.text)} />
-                      <label htmlFor={d.text} className="ml-2">{d.text}</label>
-                    </div>
-                  </>
+
+                  <div key={uuidv4()} className="flex align-items-center">
+                    <Checkbox onChange={onDevOpsChange} key={d.text} name="dataai" value={d} checked={selectedDevOps.some((a) => a.text === d.text)} />
+                    <label htmlFor={d.text} className="ml-2">{d.text}</label>
+                  </div>
+
                 )
               })
             }
@@ -167,12 +166,12 @@ const FilterSidebar = (props) => {
             {
               filterListCloudEngineering.data.map(d => {
                 return (
-                  <>
-                    <div key={filterListCloudEngineering.name} className="flex align-items-center">
-                      <Checkbox onChange={onClouEngineeringChange} key={d.text} name="dataai" value={d} checked={selectedClouEngineering.some((a) => a.text === d.text)} />
-                      <label htmlFor={d.text} className="ml-2">{d.text}</label>
-                    </div>
-                  </>
+
+                  <div key={uuidv4()} className="flex align-items-center">
+                    <Checkbox onChange={onClouEngineeringChange} key={d.text} name="dataai" value={d} checked={selectedClouEngineering.some((a) => a.text === d.text)} />
+                    <label htmlFor={d.text} className="ml-2">{d.text}</label>
+                  </div>
+
                 )
               })
             }

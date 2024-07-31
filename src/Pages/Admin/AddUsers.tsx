@@ -96,7 +96,8 @@ const AddUsers: React.FC = () => {
         <DataTable globalFilter={globalFilter} header={header} paginator rows={5} rowsPerPageOptions={[5, 10, 25]}
           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products" value={users} tableStyle={{ minWidth: '50rem' }}>
-          <Column field="username" sortable header="Name"></Column>
+          <Column field="username" sortable header="Full Name"></Column>
+          <Column field="company" sortable header="Company"></Column>
           <Column field="email" sortable header="Email"></Column>
           <Column field="role" sortable header="Role"></Column>
           <Column body={actionBodyTemplate} header="Action"></Column>
@@ -128,7 +129,7 @@ const AddUsers: React.FC = () => {
               <select value={user.role} onChange={(e) => setUser({ ...user, role: e.target.value })} className="form-control" aria-label="Default select example">
                 <option selected>Admin</option>
                 <option >Client</option>
-                <option >Interviwer</option>
+                <option >Interviewer</option>
                 <option >Recruiter</option>
               </select>
             </div>

@@ -3,7 +3,7 @@ import { users } from '../../data/users'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Tag } from 'primereact/tag';
-import { fetchSelectedProfile } from '../../Redux/profileSlice';
+import { fetchSelectedProfile, reset } from '../../Redux/profileSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../App/Store';
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +29,12 @@ const Selected: React.FC = () => {
       dispatch(fetchSelectedProfile());
     }
   }, [status, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(reset())
+    };
+  }, []);
 
   const profileBodyTemplate = (rowData) => {
     return (

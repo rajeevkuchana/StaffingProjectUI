@@ -60,7 +60,7 @@ export const filterListQA =
     ]
 }
 export const filterListDevOps = {
-    name: "Full Stack",
+    name: "DevOps",
     data: [
         { text: "CI/CD/CT workflows and pipeline (GitOps)", Selected: false, value: 'CICDCT' },
         { text: "Dockers and Kubernates( Container workloads)", Selected: false, value: 'DocKub' }

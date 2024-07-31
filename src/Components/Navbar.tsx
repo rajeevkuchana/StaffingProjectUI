@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { userRole } from '../Utils/Const';
-import { clearLocalStorage, getUserRole } from '../Utils/Utils';
+import { clearLocalStorage, getUserRole, uuidv4 } from '../Utils/Utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Redux/authSlice';
 import logo from '../Images/logo.png';
@@ -25,7 +25,7 @@ export default function WithAction() {
         { label: 'Contract/C2H', href: '/client/profile/contractC2H' },
         { label: 'Premium', href: '/client/profile/premium' },
         { label: 'Executive', href: '/client/profile/executive' },
-        // { label: 'Selected', href: '/client/profile/selected' },
+        { label: 'Selected', href: '/client/profile/selected' },
       ])
     }
     else if (role === userRole.interviwer) {
@@ -70,9 +70,9 @@ export default function WithAction() {
 
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {links.map((link) => (
-              <li className="nav-item">
+              <li className="nav-item" key={uuidv4()}>
                 <Link
-                 className={`nav-link ${location.pathname === link.href ? "active" : ""}`} to={link.href}>
+                  className={`nav-link ${location.pathname === link.href ? "active" : ""}`} to={link.href}>
                   {link.label}
                 </Link>
               </li>
