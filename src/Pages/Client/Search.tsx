@@ -16,6 +16,7 @@ import FilterSidebar from '../../Components/FilterSidebar'
 import { getJobType, getUseEmail } from '../../Utils/Utils'
 import { Editor } from 'primereact/editor';
 import { data } from './JobData'
+import JobDescription from '../../Components/JobDescription'
 
 const Search: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -241,11 +242,8 @@ const Search: React.FC = () => {
             <div className='card overflow-auto h-100 profile-table'>
               {status === "succeeded" &&
                 <>
-                {text}
                   {getJobType() !== "profiles" && (
-                    
-                    <Editor className='h-100' value={text} onTextChange={(e :any) => setText(e.htmlValue)} style={{ height: '100%' }} />
-
+                    <JobDescription></JobDescription>
                   )}
                   {getJobType() === "profiles" && (
                     <DataTable scrollable scrollHeight="flex" onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
