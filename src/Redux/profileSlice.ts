@@ -71,7 +71,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchSearchProfile.fulfilled, (state: ProfileState, action: PayloadAction<any>) => {
         state.searchProfilesStatus = 'succeeded';
-        state.searchProfiles = [...action.payload.profileList,...action.payload.profileList,...action.payload.profileList,...action.payload.profileList];
+        state.searchProfiles = [...action.payload.profileList];
       })
       .addCase(fetchSearchProfile.rejected, (state: ProfileState, action) => {
         state.searchProfilesStatus = 'failed';
