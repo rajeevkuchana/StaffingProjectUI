@@ -6,3 +6,7 @@
 .profile-table .small {
   font-size:  0.675em ;
 }
+
+.JobDescription p ,.JobDescription li {
+  font-size: 12px;
+}

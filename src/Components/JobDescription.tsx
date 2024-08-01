@@ -2,7 +2,7 @@
 
 export default function JobDescription() {
     return (
-        <div className="card p-5">
+        <div className="card p-5 JobDescription">
             <div>
                 <h2 className="ql-align-center">
                     <strong><u>Job Description for Azure Data Engineer </u></strong>
@@ -11,7 +11,7 @@ export default function JobDescription() {
                 <p>
                     <strong><u>Technical Responsibility:</u></strong>
                 </p>
-                <p><br /></p>
+                
                 <ol>
                     <li data-list="ordered"><span className="ql-ui"></span>Design &amp; Develop ETL pipeline: Sound knowledge on design and develop Orchestration/workflow tools such as Azure data factory, Airflow, atabricks workflow</li>
                     <li data-list="ordered"><span className="ql-ui"></span>etc.</li>
@@ -27,20 +27,20 @@ export default function JobDescription() {
                     <li data-list="ordered"><span className="ql-ui"></span>CI/CD/CT: Good understanding of code integration, deployment and testing before</li>
                     <li data-list="ordered"><span className="ql-ui"></span>moving the code to Production.</li>
                 </ol>
-                <p><br /></p>
+                
                 <p>
                     <strong><u>Qualification required:</u></strong>
                 </p>
-                <p><br /></p>
+                
                 <ol>
                     <li data-list="bullet"><span className="ql-ui"></span>Experience: 4 - 8 Years</li>
                     <li data-list="bullet"><span className="ql-ui"></span>Education: Bachelor’s degree in computer science, Information Technology or related fields. Master’s degree is an added advantage.</li>
                 </ol>
-                <p><br /></p>
+                
                 <p>
                     <strong><u>Skillset:</u></strong>
                 </p>
-                <p><br /></p>
+                
                 <ol>
                     <li data-list="bullet"><span className="ql-ui"></span>Proficiency in Azure Data factory, Airflow, Azure SQl Database, Synapse Analytics, Azure Analysis service, ADLS Gen2 storage.</li>
                     <li data-list="bullet"><span className="ql-ui"></span>Good hands on on language such as SQL, Python, Scala</li>
