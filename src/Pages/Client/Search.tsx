@@ -25,6 +25,7 @@ const Search: React.FC = () => {
   const location = useLocation();
   const [globalFilter, setGlobalFilter] = useState(null);
   const searchProfiles = useSelector((state: RootState) => state.profile.searchProfiles);
+  const searchProfilesJobDesc = useSelector((state: RootState) => state.profile.searchProfilesJobDesc);
   const status = useSelector((state: RootState) => state.profile.searchProfilesStatus);
   const error = useSelector((state: RootState) => state.profile.error);
   let navigate = useNavigate();
@@ -243,19 +244,19 @@ const Search: React.FC = () => {
               {status === "succeeded" &&
                 <>
                   {getJobType() !== "profiles" && (
-                    <JobDescription></JobDescription>
+                    <JobDescription data={searchProfilesJobDesc}></JobDescription>
                   )}
                   {getJobType() === "profiles" && (
                     <DataTable scrollable scrollHeight="flex" onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
                       {/* <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column> */}
-                      <Column frozen className="text-nowrap" headerClassName='text-nowrap column-title' field="firstName" body={nameBodyTemplate} header="Name"></Column>
-                      <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="location" body={locationBodyTemplate} header="Location"></Column>
-                      <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="currentCompany" body={currentCompanyBodyTemplate} header="Current Company"></Column>
-                      <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="designation" body={designationBodyTemplate} header="Designation"></Column>
-                      <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="currentCTC" body={currentCTCBodyTemplate} header="Current CTC"></Column>
-                      <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="expectedCTC" body={expectedCTCBodyTemplate} header="Expected CTC"></Column>
-                      <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="OverallExp" body={overallExperienceBodyTemplate} header="Overall Experience"></Column>
-                      <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="relevantExp" body={relevantExperienceBodyTemplate} header="Relevant Experience"></Column>
+                      <Column frozen className="text-nowrap" headerClassName='column-title' field="firstName" body={nameBodyTemplate} header="Name"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="location" body={locationBodyTemplate} header="Location"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={currentCompanyBodyTemplate} header="Current Company"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="designation" body={designationBodyTemplate} header="Designation"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="currentCTC" body={currentCTCBodyTemplate} header="Current CTC"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="expectedCTC" body={expectedCTCBodyTemplate} header="Expected CTC"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="OverallExp" body={overallExperienceBodyTemplate} header="Overall Experience"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="relevantExp" body={relevantExperienceBodyTemplate} header="Relevant Experience"></Column>
 
                       {/* <Column  className="text-nowrap" headerClassName='text-nowrap column-title' field="interviewBy" body={interviewBodyTemplate} header="Interviewer"></Column>
                       <Column  className="text-nowrap" headerClassName='text-nowrap column-title' field="managedBy" body={manageByBodyTemplate} header="Manage by"></Column> */}

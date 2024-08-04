@@ -9,6 +9,7 @@ import { Rating } from 'primereact/rating'
 import { Panel } from 'primereact/panel'
 import { BreadCrumb } from 'primereact/breadcrumb'
 import { Skeleton } from 'primereact/skeleton'
+import userImage from './../../Images/userupload.png'
 
 const SearchUser: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -34,13 +35,7 @@ const SearchUser: React.FC = () => {
 
   return (
     <>
-      <section className="bg-light">
-        <div className='row mb-1 BreadCrumb'>
-          <div className='col-12'>
-            <BreadCrumb model={items} home={home} />
-          </div>
-        </div>
-      </section>
+     
       {status === "loading" && (
         <div className="border-round border-1 surface-border p-4 surface-card">
           <div className="flex mb-3">
@@ -67,7 +62,7 @@ const SearchUser: React.FC = () => {
                 <div className='col-3 p-4  card  border-0'>
                   <div className='card-body '>
                     <div className="mb-4 ">
-                      <img className='profile-image' src={searchProfile.profilePic} alt="..." />
+                      <img className='profile-image' src={searchProfile.profilePic ? searchProfile.profilePic : userImage} alt="..." />
                     </div>
                     <div className='text-center'>
                       <p className="fw-normal fs-2 text-primary p-0 mb-1">{`${searchProfile.firstName} ${searchProfile.lastName}`}</p>
@@ -79,29 +74,29 @@ const SearchUser: React.FC = () => {
 
                     </div>
 
-                    <div className="mt-4 mb-lg-0">
-                      <div className='d-flex gap-4  mb-2'>
-                        <div>  Rating 1</div>
+                    <div className="mt-4 mb-lg-0 rating">
+                      <div className='d-flex justify-content-between gap-4  mb-2'>
+                        <div><small>Rating 1</small>  </div>
                         <div> <Rating value={searchProfile.rating1} readOnly cancel={false} /></div>
 
                       </div>
-                      <div className='d-flex gap-4  mb-2'>
-                        <div>  Rating 2</div>
+                      <div className='d-flex justify-content-between gap-4  mb-2'>
+                        <div>  <small>Rating 2</small> </div>
                         <div> <Rating value={searchProfile.rating2} readOnly cancel={false} /></div>
 
                       </div>
-                      <div className='d-flex gap-4  mb-2'>
-                        <div>  Rating 3</div>
+                      <div className='d-flex justify-content-between gap-4  mb-2'>
+                        <div>  <small>Rating 3</small> </div>
                         <div> <Rating value={searchProfile.rating3} readOnly cancel={false} /></div>
 
                       </div>
-                      <div className='d-flex gap-4  mb-2'>
-                        <div>  Rating 4</div>
+                      <div className='d-flex justify-content-between gap-4  mb-2'>
+                        <div><small>Rating 4</small> </div>
                         <div> <Rating value={searchProfile.rating4} readOnly cancel={false} /></div>
 
                       </div>
-                      <div className='d-flex gap-4  mb-2'>
-                        <div>  Rating 5</div>
+                      <div className='d-flex justify-content-between gap-4  mb-2'>
+                        <div> <small>Rating 5</small> </div>
                         <div> <Rating value={searchProfile.rating5} readOnly cancel={false} /></div>
 
                       </div>

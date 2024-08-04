@@ -2,6 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiBaseAddress } from '../Utils/Const';
 import axios from 'axios';
 import { IProfile } from '../Types/ProfileType';
+import { getUseEmail } from '../Utils/Utils';
 
 // Define a type for the slice state
 interface ProfileState {
@@ -9,6 +10,7 @@ interface ProfileState {
   searchProfile: any,
   selectedProfiles: Array<any>;
   selectedProfile: any,
+  searchProfilesJobDesc : string
   searchProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   searchProfilesStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   selectedProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -19,6 +21,7 @@ interface ProfileState {
 // Helper function to get the initial state from local storage
 const initialState: ProfileState = {
   searchProfile: {} as any,
+  searchProfilesJobDesc: '',
   searchProfiles: [],
   selectedProfile: {} as any,
   selectedProfiles: [],
@@ -41,7 +44,7 @@ export const fetchSearchProfileById = createAsyncThunk('profile/fetchSearchProfi
 });
 
 export const fetchSelectedProfile = createAsyncThunk('profile/fetchSelectedProfile', async () => {
-  const response = await axios.get<[]>(`${apiBaseAddress}/profiles`);
+  const response = await axios.get<[]>(`${apiBaseAddress}/profiles/clientSelected?email=${getUseEmail()}`);
   return response.data;
 });
 
@@ -72,6 +75,7 @@ const userSlice = createSlice({
       .addCase(fetchSearchProfile.fulfilled, (state: ProfileState, action: PayloadAction<any>) => {
         state.searchProfilesStatus = 'succeeded';
         state.searchProfiles = [...action.payload.profileList];
+        state.searchProfilesJobDesc = action.payload.jobDetails
       })
       .addCase(fetchSearchProfile.rejected, (state: ProfileState, action) => {
         state.searchProfilesStatus = 'failed';
@@ -91,9 +95,10 @@ const userSlice = createSlice({
       .addCase(fetchSelectedProfile.pending, (state: ProfileState) => {
         state.selectedProfileStatus = 'loading';
       })
-      .addCase(fetchSelectedProfile.fulfilled, (state: ProfileState, action: PayloadAction<any[]>) => {
+      .addCase(fetchSelectedProfile.fulfilled, (state: ProfileState, action: PayloadAction<any>) => {
         state.selectedProfileStatus = 'succeeded';
         state.selectedProfiles = action.payload;
+        console.log(action.payload)
       })
       .addCase(fetchSelectedProfile.rejected, (state: ProfileState, action) => {
         state.selectedProfileStatus = 'failed';

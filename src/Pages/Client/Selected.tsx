@@ -1,27 +1,31 @@
-import { useEffect, useState } from 'react'
-import { users } from '../../data/users'
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Tag } from 'primereact/tag';
-import { fetchSelectedProfile, reset } from '../../Redux/profileSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../App/Store';
-import { useNavigate } from 'react-router-dom';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import Loader from '../../Components/Loader';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { InputText } from 'primereact/inputtext';
-import { Rating } from 'primereact/rating';
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../../App/Store'
+import { fetchSearchProfile, fetchSelectedProfile, reset } from '../../Redux/profileSlice'
+import { DataTable } from 'primereact/datatable'
+import { Column } from 'primereact/column'
+import './Search.css'
+import { Rating } from 'primereact/rating'
+import { BreadCrumb } from 'primereact/breadcrumb'
+import Loader from '../../Components/Loader'
+import { IconField } from 'primereact/iconfield'
+import { InputText } from 'primereact/inputtext'
+import { InputIcon } from 'primereact/inputicon'
+import FilterSidebar from '../../Components/FilterSidebar'
+import { getJobType, getUseEmail } from '../../Utils/Utils'
+import { Editor } from 'primereact/editor';
+import { data } from './JobData'
+import JobDescription from '../../Components/JobDescription'
 
 const Selected: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { jobCategory } = useParams<{ jobCategory: string }>()
+  const [globalFilter, setGlobalFilter] = useState(null);
   const selectedProfiles = useSelector((state: RootState) => state.profile.selectedProfiles);
   const status = useSelector((state: RootState) => state.profile.selectedProfileStatus);
-  const error = useSelector((state: RootState) => state.profile.error);
   let navigate = useNavigate();
-  const [globalFilter, setGlobalFilter] = useState(null);
-  const items = [{ label: 'Interviews' }];
+  const items = [{ label: 'Search', url: '/client/search' }, { label: 'Profile' }];
   const home = { icon: 'pi pi-home', url: '/home' }
 
   useEffect(() => {
@@ -29,6 +33,11 @@ const Selected: React.FC = () => {
       dispatch(fetchSelectedProfile());
     }
   }, [status, dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchSelectedProfile());
+  }, [jobCategory]);
+
 
   useEffect(() => {
     return () => {
@@ -47,14 +56,14 @@ const Selected: React.FC = () => {
   const nameBodyTemplate = (rowData) => {
     return (
       <div className="align-items-center">
-        <p className="lead m-0 fs-6"><small>
+        <p className=" m-0 "><small>
           {rowData.firstName}  {rowData.lastName}
 
         </small>
         </p>
         <small className="text-body-secondary">{rowData.email}</small>
-        <p className='text-body-secondary  m-0'>        <i className={" pi pi-phone"} ></i>
-          <small className="text-body-secondary ">{rowData.phone}</small></p>
+        {/* <p className='text-body-secondary  m-0'>        <i className={" pi pi-phone"} ></i>
+          <small className="text-body-secondary ">{rowData.phone}</small></p> */}
 
       </div>
     );
@@ -63,10 +72,10 @@ const Selected: React.FC = () => {
   const interviewBodyTemplate = (rowData) => {
     return (
       <div className="align-items-center">
-        <p className="lead m-0 fs-6">
+        <p className="m-0 ">
           <i className={" pi pi-user"}>  </i> <small>{rowData.interviewBy}</small>
         </p>
-        <small className="text-body-secondary m-0">{`${new Date(rowData.interviewDateTime).toLocaleDateString()} ${new Date(rowData.interviewDateTime).toLocaleTimeString()}`}</small>
+        {/* <small className="text-body-secondary m-0">{`${new Date(rowData.interviewDateTime).toLocaleDateString()} ${new Date(rowData.interviewDateTime).toLocaleTimeString()}`}</small> */}
       </div>
     );
   };
@@ -75,7 +84,7 @@ const Selected: React.FC = () => {
   const manageByBodyTemplate = (rowData) => {
     return (
       <div className="align-items-center">
-        <p className="lead m-0 fs-6">
+        <p className="m-0">
           <i className={" pi pi-user"}>  </i><small> {rowData.managedBy}</small>
         </p>
       </div>
@@ -85,8 +94,68 @@ const Selected: React.FC = () => {
   const locationBodyTemplate = (rowData) => {
     return (
       <div className="align-items-center">
-        <p className="lead m-0 fs-6">
+        <p className=" m-0 ">
           <i className={" pi pi-map-marker"}>  </i> <small>{rowData.location}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const currentCompanyBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const designationBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const currentCTCBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const expectedCTCBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const overallExperienceBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const relevantExperienceBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
         </p>
       </div>
     );
@@ -115,15 +184,14 @@ const Selected: React.FC = () => {
     return <Rating value={rowData.overAllRating} readOnly cancel={false} />;
   };
 
-  const createInterview = () => {
-    navigate(`/interviwer/create`);
+  const onRowSelect = (event) => {
+    navigate(`/client/search/${event.data.profileId}`);
   };
-
 
   const header = (
     <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
       <div>
-        <button type="button" onClick={createInterview} className="btn btn-primary">Create Interview</button>
+        Users
       </div>
       <IconField iconPosition="left">
         <InputIcon className="pi pi-search" />
@@ -132,25 +200,43 @@ const Selected: React.FC = () => {
     </div>
   );
 
-
   return (
-    <><section className="bg-light">
-      <div className='row mb-1 BreadCrumb'>
-        <div className='col-12'>
-          <BreadCrumb model={items} home={home} />
+    <>
+      {/* <section className="bg-light">
+        <div className='row mb-1 BreadCrumb'>
+          <div className='col-12'>
+            <BreadCrumb model={items} home={home} />
+          </div>
         </div>
-      </div>
-    </section><div className="card">
-        {status === "succeeded" && <DataTable  globalFilter={globalFilter} selectionMode="single" paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} value={selectedProfiles} tableStyle={{ minWidth: '50rem' }}>
-          <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column>
-          <Column filter field="firstName" body={nameBodyTemplate} header="Name"></Column>
-          <Column filter field="location" body={locationBodyTemplate} header="Location"></Column>
-          <Column filter field="interviewBy" body={interviewBodyTemplate} header="InterView"></Column>
-          <Column filter field="managedBy" body={manageByBodyTemplate} header="Manage by"></Column>
+      </section> */}
+      <div className="">
+        <div className='row' style={{ height: "90vh" }}>
+          <div className='col-12  h-100'>
+            <div className='card overflow-auto h-100 profile-table'>
+              {status === "succeeded" &&
+                <>
+                  {(
+                    <DataTable scrollable scrollHeight="flex" onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} value={selectedProfiles} tableStyle={{ minWidth: '50rem' }}>
+                      {/* <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column> */}
+                      <Column frozen className="text-nowrap" headerClassName='column-title' field="firstName" body={nameBodyTemplate} header="Name"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="location" body={locationBodyTemplate} header="Location"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={currentCompanyBodyTemplate} header="Current Company"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="designation" body={designationBodyTemplate} header="Designation"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="currentCTC" body={currentCTCBodyTemplate} header="Current CTC"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="expectedCTC" body={expectedCTCBodyTemplate} header="Expected CTC"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="OverallExp" body={overallExperienceBodyTemplate} header="Overall Experience"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="relevantExp" body={relevantExperienceBodyTemplate} header="Relevant Experience"></Column>
 
-          <Column filter field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
-        </DataTable>}
-
+                      {/* <Column  className="text-nowrap" headerClassName='text-nowrap column-title' field="interviewBy" body={interviewBodyTemplate} header="Interviewer"></Column>
+                      <Column  className="text-nowrap" headerClassName='text-nowrap column-title' field="managedBy" body={manageByBodyTemplate} header="Manage by"></Column> */}
+                      <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
+                    </DataTable>
+                  )}
+                </>
+              }
+            </div>
+          </div>
+        </div>
         {status === "loading" && <Loader></Loader>}
       </div></>
   )
