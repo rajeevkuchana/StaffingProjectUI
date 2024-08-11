@@ -1,16 +1,46 @@
-.profile {
-  width: 50px;
+.box {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px
 }
 
-.profile-table small,
-.profile-table .small {
-  font-size:  0.675em ;
+.our-services {
+  margin-top: 75px;
+  padding-bottom: 30px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: all .4s ease-in-out;
+  box-shadow: 0 0 25px 0 rgba(20, 27, 202, .17)
 }
 
-.JobDescription p ,.JobDescription li {
-  font-size: 12px;
+.our-services .icon {
+  margin-bottom: -21px;
+  transform: translateY(-50%);
+  text-align: center
 }
 
-.column-title {
-  font-size:  0.675em ;
+.our-services:hover h4,
+.our-services:hover p {
+  color: #fff
+}
+
+.job-category:hover {
+  box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+  cursor: pointer;
+  background-image: linear-gradient(-45deg, #34b5bf 0%, #210c59 100%)
+}
+
+
+.job-sub-category:hover {
+  box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+  cursor: pointer;
+  background-image: linear-gradient(-45deg, #3615e7 0%, #44a2f6 100%)
+}
+
+a.job-category, a.job-sub-category {
+  color: inherit;
+  text-decoration: none;
 }

@@ -73,7 +73,7 @@ export default function WithAction() {
               <li className="nav-item" key={uuidv4()}>
                 <Link
                   className={`nav-link ${location.pathname === link.href ? "active" : ""}`} to={link.href}>
-                  {link.label}
+                  {link.label} 
                 </Link>
               </li>
             ))}

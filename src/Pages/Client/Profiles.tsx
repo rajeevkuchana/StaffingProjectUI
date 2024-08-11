@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../App/Store'
-import { fetchSearchProfile, reset } from '../../Redux/profileSlice'
+import { fetchJobCategory, fetchSearchProfile, reset } from '../../Redux/profileSlice'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import './Search.css'
@@ -17,11 +17,18 @@ import { getJobType, getUseEmail } from '../../Utils/Utils'
 import { Editor } from 'primereact/editor';
 import { data } from './JobData'
 import JobDescription from '../../Components/JobDescription'
+import CreatableSelect from 'react-select/creatable';
+import { Experience, NoticePeriod } from '../../Utils/Const'
 
-const Search: React.FC = () => {
+const Profiles: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { jobCategory } = useParams<{ jobCategory: string }>()
+  const { jobCategory } = useParams<{ jobCategory: string }>();
+  const { id } = useParams<{ id: string }>();
 
+  const [jobProfile, setJobProfile] = useState([{value: id, label: id }]);
+  const [experience, setExperience] = useState('');
+  const [noticePeriod, setNoticePeriod] = useState('');
+  const [budget, setBudget] = useState(Number);
   const location = useLocation();
   const [globalFilter, setGlobalFilter] = useState(null);
   const searchProfiles = useSelector((state: RootState) => state.profile.searchProfiles);
@@ -29,42 +36,41 @@ const Search: React.FC = () => {
   const status = useSelector((state: RootState) => state.profile.searchProfilesStatus);
   const error = useSelector((state: RootState) => state.profile.error);
   let navigate = useNavigate();
-  const items = [{ label: 'Search', url: '/client/search' }, { label: 'Profile' }];
-  const home = { icon: 'pi pi-home', url: '/home' }
-  const [text, setText] = useState(data);
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchSearchProfile(
-        {
-          "jobCategory": jobCategory,
-          "jobType": 'job description',
-          "jobProfile": [],
-          "email": getUseEmail()
-        }
-      ));
+      updateProfileData()
     }
   }, [status, dispatch]);
 
+
   useEffect(() => {
-
-    dispatch(fetchSearchProfile(
-      {
-        "jobCategory": jobCategory,
-        "jobType": 'job description',
-        "jobProfile": [],
-        "email": getUseEmail()
-      }
-    ));
-
-  }, [jobCategory]);
-
+    updateProfileData();
+  }, [experience, noticePeriod, budget, jobProfile]);
 
   useEffect(() => {
     return () => {
       dispatch(reset())
     };
   }, []);
+
+  const updateProfileData = () => {
+    dispatch(fetchSearchProfile(
+      {
+        "jobCategory": jobCategory,
+        "jobType": 'job description',
+        "jobProfile": jobProfile.map(x=>x.value),
+        experienceRange: experience,
+        noticePeriod: noticePeriod,
+        budget: budget,
+        "email": getUseEmail()
+      }
+    ));
+  }
+
+  const updateProfile = (event: any) => {
+    setJobProfile(event);
+  }
 
   const profileBodyTemplate = (rowData) => {
     return (
@@ -116,7 +122,7 @@ const Search: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.location}</small>
+          <i className={" pi pi-map-marker"}>  </i>  <small>{rowData.location}</small>
         </p>
       </div>
     );
@@ -126,7 +132,7 @@ const Search: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+          <small>{rowData.currentCompany}</small>
         </p>
       </div>
     );
@@ -136,7 +142,7 @@ const Search: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+          <small>{rowData.designation}</small>
         </p>
       </div>
     );
@@ -146,7 +152,7 @@ const Search: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+          <small>{rowData.currentCTC}</small>
         </p>
       </div>
     );
@@ -156,7 +162,7 @@ const Search: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+          <small>{rowData.expectedCTC}</small>
         </p>
       </div>
     );
@@ -166,7 +172,7 @@ const Search: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+          <small>{rowData.overallExp}</small>
         </p>
       </div>
     );
@@ -176,29 +182,10 @@ const Search: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+          <small>{rowData.relevantExp}</small>
         </p>
       </div>
     );
-  };
-
-  const getSeverity = (status) => {
-    switch (status) {
-      case 'unqualified':
-        return 'danger';
-
-      case 'status':
-        return 'success';
-
-      case 'new':
-        return 'info';
-
-      case 'negotiation':
-        return 'warning';
-
-      case 'renewal':
-        return null;
-    }
   };
 
   const ratingBodyTemplate = (rowData) => {
@@ -221,25 +208,47 @@ const Search: React.FC = () => {
     </div>
   );
 
-  const handleCallback = (childData) => {
-    dispatch(fetchSearchProfile(childData));
-  };
-
   return (
     <>
-      {/* <section className="bg-light">
-        <div className='row mb-1 BreadCrumb'>
-          <div className='col-12'>
-            <BreadCrumb model={items} home={home} />
+      <section className="bg-light">
+        <div className='row m-1 border rounded'>
+          <div className='col-6'>
+            <label className="form-label">Enter profile </label>
+            <CreatableSelect defaultValue={jobProfile} onChange={updateProfile} isMulti />
+          </div>
+          <div className='col-2'>
+            <label className="form-label">Experience </label>
+            <select value={experience} onChange={e => { setExperience(e.target.value) }} className="form-control" aria-label="Default select example">
+              {
+                Experience.map(x => {
+                  return (
+                    <option value={x.value}>{x.name}</option>
+                  )
+                })
+              }
+            </select>
+          </div>
+          <div className='col-2'>
+            <label className="form-label">Notice Period </label>
+            <select value={noticePeriod} onChange={e => { setNoticePeriod(e.target.value) }} className="form-control" aria-label="Default select example">
+              {
+                NoticePeriod.map(x => {
+                  return (
+                    <option value={x.value}>{x.name}</option>
+                  )
+                })
+              }
+            </select>
+          </div>
+          <div className='col-2'>
+            <label className="form-label">Budget (LPA)</label>
+            <input value={budget} onChange={e => { setBudget(Number(e.target.value)) }} className="form-control" type='number' required />
           </div>
         </div>
-      </section> */}
+      </section>
       <div className="">
-        <div className='row' style={{ height: "90vh" }}>
-          <div className='col-3 h-100'>
-            <FilterSidebar parentCallback={handleCallback}></FilterSidebar>
-          </div>
-          <div className='col-9  h-100'>
+        <div className='row' style={{ height: "78vh" }}>
+          <div className='col-12  h-100'>
             <div className='card overflow-auto h-100 profile-table'>
               {status === "succeeded" &&
                 <>
@@ -273,4 +282,4 @@ const Search: React.FC = () => {
   )
 }
 
-export default Search
+export default Profiles

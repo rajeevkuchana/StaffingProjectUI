@@ -3,7 +3,6 @@ import Home from './Pages/Home'
 import Navbar from './Components/Navbar'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import Selected from './Pages/Client/Selected'
-import Search from './Pages/Client/Search'
 import SignIn from './Pages/SingIn'
 import Footer from './Components/Footer'
 import User from './Pages/Client/SearchUser'
@@ -23,6 +22,9 @@ import AdminProfileCreate from './Pages/Admin/AdminProfile'
 import RecruiterSearch from './Pages/Recruiter/RecruiterSearch'
 import RecruiterProfileCreate from './Pages/Recruiter/RecruiterProfile'
 import { uuidv4 } from './Utils/Utils'
+import JobSubCategory from './Pages/Client/JobSubCategory'
+import JobCategory from './Pages/Client/JobCategory'
+import Profiles from './Pages/Client/Profiles'
 
 const App = () => {
   const user = useSelector((state: any) => state.auth.user);
@@ -35,7 +37,9 @@ const App = () => {
           <Route path='/home' element={<Home />} />
           <Route path='/' element={<Home />} />
           <Route element={<PrivateRoutes />}>
-            <Route path='/client/profile/:jobCategory' element={<Search />} />
+            <Route path='/client/profile/:jobCategory' element={<JobCategory />} />
+            <Route path='/client/profile/:jobCategory/:jobProfileSub' element={<JobSubCategory />} />
+            <Route path='/client/profile/:jobCategory/:jobProfileSub/:id/result-list' element={<Profiles />} />
             <Route path='/client/selected' element={<Selected />} />
             <Route path='/client/search/:id' element={<SearchUser />} />
             <Route path='/interviwer/search' element={<InterviwerSearch />} />

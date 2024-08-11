@@ -16,6 +16,9 @@ interface ProfileState {
   selectedProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   createProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
+  jobCategory : Array<any>;
+  jobCategoryStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
+
 }
 
 // Helper function to get the initial state from local storage
@@ -25,10 +28,12 @@ const initialState: ProfileState = {
   searchProfiles: [],
   selectedProfile: {} as any,
   selectedProfiles: [],
+  jobCategory : [] ,
   searchProfileStatus: 'idle',
   searchProfilesStatus: 'idle',
   selectedProfileStatus: 'idle',
   createProfileStatus: 'idle',
+  jobCategoryStatus : 'idle',
   error: null
 };
 
@@ -58,6 +63,10 @@ export const createProfileInterview = createAsyncThunk('profile/createProfileInt
   return response.data;
 });
 
+export const fetchJobCategory = createAsyncThunk('profile/fetchJobCategory', async (id: string) => {
+  const response = await axios.get<[]>(`${apiBaseAddress}/profiles/jobProfiles?jobCategory=${id}`);
+  return response.data;
+});
 
 const userSlice = createSlice({
   name: 'profile',
@@ -74,7 +83,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchSearchProfile.fulfilled, (state: ProfileState, action: PayloadAction<any>) => {
         state.searchProfilesStatus = 'succeeded';
-        state.searchProfiles = [...action.payload.profileList];
+        state.searchProfiles = [...action.payload];
         state.searchProfilesJobDesc = action.payload.jobDetails
       })
       .addCase(fetchSearchProfile.rejected, (state: ProfileState, action) => {
@@ -112,6 +121,14 @@ const userSlice = createSlice({
       })
       .addCase(createProfileInterview.fulfilled, (state: ProfileState, action) => {
         state.createProfileStatus = 'succeeded';
+      })
+      .addCase(fetchJobCategory.pending, (state: ProfileState, action) => {
+        state.jobCategoryStatus = 'loading';
+      })
+      .addCase(fetchJobCategory.fulfilled, (state: ProfileState, action) => {
+        state.jobCategoryStatus = 'succeeded';
+        state.jobCategory = [...action.payload];
+        console.log(state.jobCategory)
       })
   },
 });

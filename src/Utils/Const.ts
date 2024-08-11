@@ -16,6 +16,18 @@ export const Roles = [
     { name: userRole.admin, code: userRole.client },
 ];
 
+export const Experience = [
+    { name: "0-5 Years", value: "exRange01", },
+    { name: "5-10 Years", value: "exRange02" },
+    { name: "10+ Years", value: "exRange03" },
+];
+
+export const NoticePeriod = [
+    { name: "Immediate Joiner", value: "notePer01", },
+    { name: "< 15 Days", value: "notePer02" },
+    { name: "< 30 Days", value: "notePer03" },
+];
+
 export const jobType = [
     {
         text: 'Job Description',

@@ -1,0 +1,16 @@
+.profile {
+  width: 50px;
+}
+
+.profile-table small,
+.profile-table .small {
+  font-size:  0.675em ;
+}
+
+.JobDescription p ,.JobDescription li {
+  font-size: 12px;
+}
+
+.column-title {
+  font-size:  0.675em ;
+}
