@@ -72,8 +72,8 @@ export default function WithAction() {
             {links.map((link) => (
               <li className="nav-item" key={uuidv4()}>
                 <Link
-                  className={`nav-link ${location.pathname === link.href ? "active" : ""}`} to={link.href}>
-                  {link.label} 
+                  className={`nav-link ${(location.pathname.indexOf(link.href.split('/')[link.href.split('/').length - 1]) !== -1 && link.href.split('/').length !== 2) || location.pathname === link.href  ? "active" : ""}`} to={link.href}>
+                  {link.label}
                 </Link>
               </li>
             ))}

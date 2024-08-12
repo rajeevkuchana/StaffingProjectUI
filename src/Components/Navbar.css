@@ -4,3 +4,7 @@
 .nav-link.active {
     font-weight: 700;
 }
+
+.nav-link {
+    font-size: 18px !important;
+}

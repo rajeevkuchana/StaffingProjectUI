@@ -10,6 +10,7 @@ const JobCategory: React.FC = () => {
   const { jobCategory } = useParams<{ jobCategory: string }>()
   const jobCategorys = useSelector((state: RootState) => state.profile.jobCategory);
   const status = useSelector((state: RootState) => state.profile.jobCategoryStatus);
+  const [jobProfile, setJobProfile] = useState([]);
   let navigate = useNavigate();
 
   useEffect(() => {

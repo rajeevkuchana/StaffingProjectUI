@@ -193,7 +193,7 @@ const Profiles: React.FC = () => {
   };
 
   const onRowSelect = (event) => {
-    navigate(`/client/search/${event.data.profileId}`);
+    navigate(`/client/profile-detail/${jobCategory}/${event.data.profileId}`);
   };
 
   const header = (
