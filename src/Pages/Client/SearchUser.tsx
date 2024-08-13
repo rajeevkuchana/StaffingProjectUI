@@ -35,9 +35,9 @@ const SearchUser: React.FC = () => {
 
   return (
     <>
-     
+
       {status === "loading" && (
-        <div className="border-round border-1 surface-border p-4 surface-card">
+        <div className="border-round border-1 surface-border  surface-card">
           <div className="flex mb-3">
             <Skeleton shape="circle" size="10rem" className="mr-2"></Skeleton>
             <div>
@@ -59,8 +59,8 @@ const SearchUser: React.FC = () => {
           <section className="bg-light">
             <div className="container">
               <div className="row main-profile">
-                <div className='col-3 p-4  card  border-0'>
-                  <div className='card-body '>
+                <div className='col-3   card  border-0'>
+                  <div className=' '>
                     <div className="mb-4 ">
                       <img className='profile-image' src={searchProfile.profilePic ? searchProfile.profilePic : userImage} alt="..." />
                     </div>
@@ -107,22 +107,41 @@ const SearchUser: React.FC = () => {
 
                 </div>
                 <div className='col-9 p-4 card  border-0'>
-                  <div className='card-body  '>
+                  <div className=' '>
                     <TabView>
                       <TabPanel header="About" leftIcon="pi pi-user mr-2">
-                        {
-                          Object.keys(searchProfile.basicDetails || {})?.map((basicDetail: string) => {
-                            return (
-                              <div className='mb-2'>
-                                {/* <div>  {basicDetail}</div> */}
-                                <div>{searchProfile.basicDetails[basicDetail]}</div>
-                                <hr className="horizontal-divider" />
+                        <div className='row'>
+                          <div className='col-6 pl-0'>
+                            <ul className="list-group">
+                              <li className="list-group-item">Current Company : {searchProfile.currentCompany}</li>
+                              <li className="list-group-item">Total Experience : {searchProfile.overallExp}</li>
+                              <li className="list-group-item">Relevant Experience : {searchProfile.relevantExp}</li>
+                              <li className="list-group-item">certification : {searchProfile.certificationList.toString()}</li>
+                            </ul>
+                          </div>
+                          <div className='col-6'>
+                            <ul className="list-group">
+                              <li className="list-group-item"> Designation: {searchProfile.designation}</li>
+                              <li className="list-group-item">Current CTC : {searchProfile.currentCTC}</li>
+                              <li className="list-group-item">Expected CTC : {searchProfile.expectedCTC}</li>
+                              <li className="list-group-item"> Notice Period: {searchProfile.noticePeriod}</li>
+                            </ul>
+                          </div>
+                          <div className='col-12'>
+                            {
+                              Object.keys(searchProfile.basicDetails || {})?.map((basicDetail: string) => {
+                                return (
+                                  <div className='mb-2'>
+                                    {/* <div>  {basicDetail}</div> */}
+                                    <div>{searchProfile.basicDetails[basicDetail]}</div>
+                                    <hr className="horizontal-divider" />
 
-                              </div>
-                            )
-                          })
-                        }
-
+                                  </div>
+                                )
+                              })
+                            }
+                          </div>
+                        </div>
                       </TabPanel>
                       <TabPanel header="Experience" leftIcon="pi pi-graduation-cap mr-2">
 
@@ -167,6 +186,23 @@ const SearchUser: React.FC = () => {
                                 <source src={searchProfile.videoLink} type="video/mp4" />
                               </video>
                             </Panel>
+                          </div>
+                        </div>
+                      </TabPanel>
+                      <TabPanel header="Summary" leftIcon="pi pi-server mr-2">
+                        <div className='row'>
+                          <div className='col-12'>
+                            {
+                              Object.keys(searchProfile.summary || {})?.map((summary: string) => {
+                                return (
+                                  <Panel toggleable header={summary} className=' mb-1'>
+                                    <p className="m-0">
+                                      {searchProfile.summary[summary]}
+                                    </p>
+                                  </Panel>
+                                )
+                              })
+                            }
                           </div>
                         </div>
                       </TabPanel>

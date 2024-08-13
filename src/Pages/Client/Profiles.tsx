@@ -58,7 +58,6 @@ const Profiles: React.FC = () => {
     dispatch(fetchSearchProfile(
       {
         "jobCategory": jobCategory,
-        "jobType": 'job description',
         "jobProfile": jobProfile.map(x=>x.value),
         experienceRange: experience,
         noticePeriod: noticePeriod,

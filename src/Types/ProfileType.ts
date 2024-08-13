@@ -13,6 +13,7 @@ export interface IProfile {
     rating5?: number
     basicDetails?: BasicDetails
     experienceDetails?: ExperienceDetails
+    summary?: Summary
     feedback?: Feedback
     videoLink?: string
     resumeLink?: string
@@ -22,6 +23,13 @@ export interface IProfile {
     status?: string
     selectedBy?: string
     selectedDateTime?: string
+}
+
+export interface Summary {
+    summary1?: string
+    summary2?: string
+    summary3?: string
+    summary4?: string
 }
 
 export interface BasicDetails {

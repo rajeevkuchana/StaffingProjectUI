@@ -25,7 +25,7 @@ export default function WithAction() {
         { label: 'Contract/C2H', href: '/client/profile/contractC2H' },
         { label: 'Premium', href: '/client/profile/premium' },
         { label: 'Executive', href: '/client/profile/executive' },
-        { label: 'Selected', href: '/client/selected' },
+        { label: 'Shortlist', href: '/client/selected' },
       ])
     }
     else if (role === userRole.interviwer) {
