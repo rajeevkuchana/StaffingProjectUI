@@ -12,11 +12,14 @@
     font-size: 18px !important;
 }
 
-/* .nav-item {
-    padding: 8px 0px;
-} */
+.nav-item a{
+    padding: 15px;
+}
 
 .nav-item :hover {
     background: white;
     color: black !important;
+}
+.navbar {
+    padding: 0px !important;
 }

@@ -7,33 +7,36 @@ import { getUseEmail } from '../Utils/Utils';
 // Define a type for the slice state
 interface ProfileState {
   searchProfiles: Array<any>;
-  searchProfile: any,
+  searchProfile: IProfile,
   selectedProfiles: Array<any>;
   selectedProfile: any,
-  searchProfilesJobDesc : string
+  searchProfilesJobDesc: any
   searchProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   searchProfilesStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   selectedProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   createProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
-  jobCategory : Array<any>;
+  jobCategory: Array<any>;
   jobCategoryStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
+  searchProfilesJobDescStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
 
 }
 
 // Helper function to get the initial state from local storage
 const initialState: ProfileState = {
-  searchProfile: {} as any,
+  searchProfile: {} as IProfile,
   searchProfilesJobDesc: '',
+  searchProfilesJobDescStatus: 'idle',
+
   searchProfiles: [],
   selectedProfile: {} as any,
   selectedProfiles: [],
-  jobCategory : [] ,
+  jobCategory: [],
   searchProfileStatus: 'idle',
   searchProfilesStatus: 'idle',
   selectedProfileStatus: 'idle',
   createProfileStatus: 'idle',
-  jobCategoryStatus : 'idle',
+  jobCategoryStatus: 'idle',
   error: null
 };
 
@@ -68,6 +71,11 @@ export const fetchJobCategory = createAsyncThunk('profile/fetchJobCategory', asy
   return response.data;
 });
 
+export const fetchJobDescription = createAsyncThunk('profile/fetchJobDescription', async (data: any) => {
+  const response = await axios.get<[]>(`${apiBaseAddress}/profiles/jobDescription?jobCategory=${data.jobCategory}&jobCategoryCode=${data.jobCategoryCode}`);
+  return response.data;
+});
+
 const userSlice = createSlice({
   name: 'profile',
   initialState: initialState,
@@ -93,7 +101,7 @@ const userSlice = createSlice({
       .addCase(fetchSearchProfileById.pending, (state: ProfileState) => {
         state.searchProfileStatus = 'loading';
       })
-      .addCase(fetchSearchProfileById.fulfilled, (state: ProfileState, action: PayloadAction<any[]>) => {
+      .addCase(fetchSearchProfileById.fulfilled, (state: ProfileState, action: PayloadAction<any>) => {
         state.searchProfileStatus = 'succeeded';
         state.searchProfile = action.payload;
       })
@@ -129,6 +137,13 @@ const userSlice = createSlice({
         state.jobCategoryStatus = 'succeeded';
         state.jobCategory = [...action.payload];
         console.log(state.jobCategory)
+      })
+      .addCase(fetchJobDescription.fulfilled, (state: ProfileState, action) => {
+        state.searchProfilesJobDescStatus = 'succeeded';
+        state.searchProfilesJobDesc = action.payload
+      })
+      .addCase(fetchJobDescription.pending, (state: ProfileState, action) => {
+        state.searchProfilesJobDescStatus = 'loading';
       })
   },
 });

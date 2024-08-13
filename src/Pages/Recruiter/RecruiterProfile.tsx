@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom'
 const RecruiterProfileCreate: React.FC = () => {
   const items = [{ label: 'Recruiter Profile', url: '/recruiter/profile' }, { label: 'Create Profile' }];
   const home = { icon: 'pi pi-home', url: '/home' }
-  const [profile, setProfile] = useState<IProfile>({ basicDetails: {} });
+  const [profile, setProfile] = useState<any>({ basicDetails: {} });
   const [selectedFile, setSelectedFile] = useState()
   const [preview, setPreview] = useState()
   const createProfileStatus = useSelector((state: RootState) => state.profile.createProfileStatus);
@@ -168,26 +168,6 @@ const RecruiterProfileCreate: React.FC = () => {
                         </div>
                       </Panel>
 
-                      <Panel toggleable header="Basic Details 1" className=' mb-1'>
-                        <div className="form-group">
-                          <textarea className="form-control" value={profile.basicDetails?.basicD1} onChange={(e) => setProfile({ ...profile, basicDetails: { ...profile.basicDetails, "basicD1": e.target.value } })} rows={3}></textarea>
-                        </div>
-                      </Panel>
-                      <Panel toggleable header="Basic Details 2" className=' mb-1'>
-                        <div className="form-group">
-                          <textarea className="form-control" value={profile.basicDetails?.basicD2} onChange={(e) => setProfile({ ...profile, basicDetails: { ...profile.basicDetails, "basicD2": e.target.value } })} rows={3}></textarea>
-                        </div>
-                      </Panel>
-                      <Panel toggleable header="Basic Details 3" className=' mb-1'>
-                        <div className="form-group">
-                          <textarea className="form-control" value={profile.basicDetails?.basicD3} onChange={(e) => setProfile({ ...profile, basicDetails: { ...profile.basicDetails, "basicD3": e.target.value } })} rows={3}></textarea>
-                        </div>
-                      </Panel>
-                      <Panel toggleable header="Basic Details 4" className=' mb-1'>
-                        <div className="form-group">
-                          <textarea className="form-control" value={profile.basicDetails?.basicD4} onChange={(e) => setProfile({ ...profile, basicDetails: { ...profile.basicDetails, "basicD4": e.target.value } })} rows={3}></textarea>
-                        </div>
-                      </Panel>
                     </TabPanel>
                     <TabPanel header="Experience" leftIcon="pi pi-graduation-cap mr-2">
                       <Panel toggleable header="expD1" className=' mb-1'>

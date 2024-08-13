@@ -1,13 +1,8 @@
 .profile-image {
+    max-width: 250px;
     width: 100%;
     border-radius: 50%;
 }
-
-.main-profile {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
-}
-
 .card-body{
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }

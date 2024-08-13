@@ -19,7 +19,7 @@ import { Toast } from 'primereact/toast'
 const AdminProfileCreate: React.FC = () => {
   const items = [{ label: 'Profile', url: '/admin/profile' }, { label: 'Create Profile' }];
   const home = { icon: 'pi pi-home', url: '/home' }
-  const [profile, setProfile] = useState<IProfile>({ basicDetails: {} });
+  const [profile, setProfile] = useState<any>({ basicDetails: {} });
   const [selectedFile, setSelectedFile] = useState()
   const createProfileStatus = useSelector((state: RootState) => state.profile.createProfileStatus);
   const [preview, setPreview] = useState()

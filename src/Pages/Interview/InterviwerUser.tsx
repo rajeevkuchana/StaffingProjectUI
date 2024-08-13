@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom'
 const InterviwerCreate: React.FC = () => {
   const items = [{ label: 'Interview Profile View', url: '/interviwer/search' }, { label: 'Create Profile' }];
   const home = { icon: 'pi pi-home', url: '/home' }
-  const [profile, setProfile] = useState<IProfile>({ basicDetails: {} });
+  const [profile, setProfile] = useState<any>({ basicDetails: {} });
   const [selectedFile, setSelectedFile] = useState()
   const [preview, setPreview] = useState()
   const createProfileStatus = useSelector((state: RootState) => state.profile.createProfileStatus);

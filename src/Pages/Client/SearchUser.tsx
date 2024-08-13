@@ -64,9 +64,14 @@ const SearchUser: React.FC = () => {
                     <div className="mb-4 ">
                       <img className='profile-image' src={searchProfile.profilePic ? searchProfile.profilePic : userImage} alt="..." />
                     </div>
-                    <div className='text-center'>
+                    <div className='text-left'>
                       <p className="fw-normal fs-2 text-primary p-0 mb-1">{`${searchProfile.firstName} ${searchProfile.lastName}`}</p>
+
+                      <p className="fw-light text-secondary p-0 mb-1">{searchProfile.designation}</p>
+
                       <p className="fw-light text-secondary p-0 mb-1">{searchProfile.email}</p>
+                      <p className="fw-light text-secondary p-0 mb-1">{searchProfile.location}</p>
+
                       <p className="fw-light text-secondary p-0 mb-1">       <i className={" pi pi-phone"} style={{ fontSize: '1rem' }} ></i>
                         <small>{'  '} {searchProfile.phone}</small></p>
                       <button type="button" className="btn btn-primary">Select</button>
@@ -76,28 +81,28 @@ const SearchUser: React.FC = () => {
 
                     <div className="mt-4 mb-lg-0 rating">
                       <div className='d-flex justify-content-between gap-4  mb-2'>
-                        <div><small>Rating 1</small>  </div>
-                        <div> <Rating value={searchProfile.rating1} readOnly cancel={false} /></div>
+                        <div><small>Programming</small>  </div>
+                        <div> <Rating value={searchProfile.programmingR} readOnly cancel={false} /></div>
 
                       </div>
                       <div className='d-flex justify-content-between gap-4  mb-2'>
-                        <div>  <small>Rating 2</small> </div>
-                        <div> <Rating value={searchProfile.rating2} readOnly cancel={false} /></div>
+                        <div>  <small>Data Engineer</small> </div>
+                        <div> <Rating value={searchProfile.dataEngR} readOnly cancel={false} /></div>
 
                       </div>
                       <div className='d-flex justify-content-between gap-4  mb-2'>
-                        <div>  <small>Rating 3</small> </div>
-                        <div> <Rating value={searchProfile.rating3} readOnly cancel={false} /></div>
+                        <div>  <small>Cloud</small> </div>
+                        <div> <Rating value={searchProfile.cloudEngR} readOnly cancel={false} /></div>
 
                       </div>
                       <div className='d-flex justify-content-between gap-4  mb-2'>
-                        <div><small>Rating 4</small> </div>
-                        <div> <Rating value={searchProfile.rating4} readOnly cancel={false} /></div>
+                        <div><small>Communication</small> </div>
+                        <div> <Rating value={searchProfile.communicationR} readOnly cancel={false} /></div>
 
                       </div>
                       <div className='d-flex justify-content-between gap-4  mb-2'>
-                        <div> <small>Rating 5</small> </div>
-                        <div> <Rating value={searchProfile.rating5} readOnly cancel={false} /></div>
+                        <div> <small>Attitude</small> </div>
+                        <div> <Rating value={searchProfile.attitudeR} readOnly cancel={false} /></div>
 
                       </div>
 
@@ -109,6 +114,23 @@ const SearchUser: React.FC = () => {
                 <div className='col-9 p-4 card  border-0'>
                   <div className=' '>
                     <TabView>
+                      <TabPanel header="Summary" leftIcon="pi pi-server mr-2">
+                        <div className='row'>
+                          <div className='col-12'>
+                            {
+                              Object.keys(searchProfile.summary || {})?.map((summary: string) => {
+                                return (
+                                  <Panel toggleable header={summary} className=' mb-1'>
+                                    <p className="m-0">
+                                      {searchProfile.summary[summary].toString()}
+                                    </p>
+                                  </Panel>
+                                )
+                              })
+                            }
+                          </div>
+                        </div>
+                      </TabPanel>
                       <TabPanel header="About" leftIcon="pi pi-user mr-2">
                         <div className='row'>
                           <div className='col-6 pl-0'>
@@ -126,20 +148,6 @@ const SearchUser: React.FC = () => {
                               <li className="list-group-item">Expected CTC : {searchProfile.expectedCTC}</li>
                               <li className="list-group-item"> Notice Period: {searchProfile.noticePeriod}</li>
                             </ul>
-                          </div>
-                          <div className='col-12'>
-                            {
-                              Object.keys(searchProfile.basicDetails || {})?.map((basicDetail: string) => {
-                                return (
-                                  <div className='mb-2'>
-                                    {/* <div>  {basicDetail}</div> */}
-                                    <div>{searchProfile.basicDetails[basicDetail]}</div>
-                                    <hr className="horizontal-divider" />
-
-                                  </div>
-                                )
-                              })
-                            }
                           </div>
                         </div>
                       </TabPanel>
@@ -189,23 +197,7 @@ const SearchUser: React.FC = () => {
                           </div>
                         </div>
                       </TabPanel>
-                      <TabPanel header="Summary" leftIcon="pi pi-server mr-2">
-                        <div className='row'>
-                          <div className='col-12'>
-                            {
-                              Object.keys(searchProfile.summary || {})?.map((summary: string) => {
-                                return (
-                                  <Panel toggleable header={summary} className=' mb-1'>
-                                    <p className="m-0">
-                                      {searchProfile.summary[summary]}
-                                    </p>
-                                  </Panel>
-                                )
-                              })
-                            }
-                          </div>
-                        </div>
-                      </TabPanel>
+
                     </TabView>
 
                     <div className='d-flex justify-content-between'>
