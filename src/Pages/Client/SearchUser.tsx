@@ -59,50 +59,100 @@ const SearchUser: React.FC = () => {
           <section className="bg-light">
             <div className="container">
               <div className="row main-profile">
-                <div className='col-3   card  border-0'>
+                <div className='col-md-auto card border-2'>
                   <div className=' '>
-                    <div className="mb-4 ">
-                      <img className='profile-image' src={searchProfile.profilePic ? searchProfile.profilePic : userImage} alt="..." />
+                    <div className="">
+                      <img className='profile-image ' src={searchProfile.profilePic ? searchProfile.profilePic : userImage} alt="..." />
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 'bold', color: '#2c5073' }}>
+                      BASIC DETAILS
+                      <hr></hr>
                     </div>
                     <div className='text-left'>
-                      <p className="fw-normal fs-2 text-primary p-0 mb-1">{`${searchProfile.firstName} ${searchProfile.lastName}`}</p>
+                      <div className='row'>
+                        <ul style={{ fontSize: 14 }} className=""> 
 
-                      <p className="fw-light text-secondary p-0 mb-1">{searchProfile.designation}</p>
+                          <li style={{ fontSize: 16, fontWeight: 'bold' , color: '#0f34ba' }} className="list-group-item ">First Name
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.firstName}</li>
+                          <li style={{ fontSize: 16, fontWeight: 'bold', color: '#0f34ba' }} className="list-group-item ">Last Name
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.lastName}</li>
+                          <li className="list-group-item ">Gender &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.gender}</li>
+                          <li className="list-group-item ">Location &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.location}</li>
+                          <li className="list-group-item ">Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.phone}</li>
+                          <li className="list-group-item ">Company &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{searchProfile.currentCompany}</li>
+                          <li className="list-group-item ">Designation &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.designation}</li>
+                          <li className="list-group-item fs-10">Total Experience &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {searchProfile.overallExp} Years</li>
+                          <li className="list-group-item fs-10">Relevant Experience &nbsp;&nbsp;&nbsp;&nbsp;
+                            {searchProfile.relevantExp} Years</li>
 
-                      <p className="fw-light text-secondary p-0 mb-1">{searchProfile.email}</p>
-                      <p className="fw-light text-secondary p-0 mb-1">{searchProfile.location}</p>
-
-                      <p className="fw-light text-secondary p-0 mb-1">       <i className={" pi pi-phone"} style={{ fontSize: '1rem' }} ></i>
-                        <small>{'  '} {searchProfile.phone}</small></p>
-                      <button type="button" className="btn btn-primary">Select</button>
-
+                          <li className="list-group-item fs-10">Current CTC &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{searchProfile.currentCTC} LPA</li>
+                          <li className="list-group-item fs-10">Expected CTC &nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.expectedCTC} LPA</li>
+                          <li className="list-group-item fs-10">Notice Period &nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.noticePeriod} </li>
+                        </ul>
+                      </div>
 
                     </div>
-
+                    <br></br>
+                    <div style={{ fontSize: 16, fontWeight: 'bold', color: '#2c5073' }}>
+                      PROFESSIONAL RATING
+                      <hr></hr>
+                    </div>
                     <div className="mt-4 mb-lg-0 rating">
-                      <div className='d-flex justify-content-between gap-4  mb-2'>
+                      <div className='d-flex justify-content-between gap-5'>
                         <div><small>Programming</small>  </div>
                         <div> <Rating value={searchProfile.programmingR} readOnly cancel={false} /></div>
 
                       </div>
-                      <div className='d-flex justify-content-between gap-4  mb-2'>
+                      <div className='d-flex justify-content-between gap-4'>
                         <div>  <small>Data Engineer</small> </div>
                         <div> <Rating value={searchProfile.dataEngR} readOnly cancel={false} /></div>
 
                       </div>
-                      <div className='d-flex justify-content-between gap-4  mb-2'>
+                      <div className='d-flex justify-content-between gap-4  '>
                         <div>  <small>Cloud</small> </div>
                         <div> <Rating value={searchProfile.cloudEngR} readOnly cancel={false} /></div>
 
                       </div>
-                      <div className='d-flex justify-content-between gap-4  mb-2'>
+                      <div className='d-flex justify-content-between  gap-4 '>
                         <div><small>Communication</small> </div>
                         <div> <Rating value={searchProfile.communicationR} readOnly cancel={false} /></div>
 
                       </div>
-                      <div className='d-flex justify-content-between gap-4  mb-2'>
+                      <div className='d-flex justify-content-between gap-4 mb-2'>
                         <div> <small>Attitude</small> </div>
                         <div> <Rating value={searchProfile.attitudeR} readOnly cancel={false} /></div>
+
+                      </div>
+
+                      <div className='d-flex justify-content-between gap-2  mb-2'>
+                        <div style={{ fontSize: 15, fontWeight: 'bold' }} > Over All Rating </div>
+                        <div >
+                          <Rating value={searchProfile.overAllRating} readOnly cancel={false} /></div>
+
+                      </div>
+                      <br></br>
+                      <div className='d-flex justify-content-between gap-2  '>
+                        <div >Recruiter </div>
+                        <div >
+                          {searchProfile.managedBy}
+                        </div>
+
+                      </div>
+
+                      <div className='d-flex justify-content-between gap-2  mb-2'>
+                        <div > Interviewer</div>
+                        <div >
+                          {searchProfile.interviewBy}
+                        </div>
 
                       </div>
 
@@ -111,100 +161,52 @@ const SearchUser: React.FC = () => {
                   </div>
 
                 </div>
-                <div className='col-9 p-4 card  border-0'>
+                <div className='col-9 card  border-0'>
+                  <div style={{ fontSize: 20, fontWeight: 'bold', color: '#2c5073', textAlign:'center' }}>PROFILE DESCRIPTION</div>
                   <div className=' '>
                     <TabView>
                       <TabPanel header="Summary" leftIcon="pi pi-server mr-2">
                         <div className='row'>
                           <div className='col-12'>
-                            {
-                              Object.keys(searchProfile.summary || {})?.map((summary: string) => {
-                                return (
-                                  <Panel toggleable header={summary} className=' mb-1'>
-                                    <p className="m-0">
-                                      {searchProfile.summary[summary].toString()}
-                                    </p>
-                                  </Panel>
-                                )
-                              })
-                            }
-                          </div>
-                        </div>
-                      </TabPanel>
-                      <TabPanel header="About" leftIcon="pi pi-user mr-2">
-                        <div className='row'>
-                          <div className='col-6 pl-0'>
-                            <ul className="list-group">
-                              <li className="list-group-item">Current Company : {searchProfile.currentCompany}</li>
-                              <li className="list-group-item">Total Experience : {searchProfile.overallExp}</li>
-                              <li className="list-group-item">Relevant Experience : {searchProfile.relevantExp}</li>
-                              <li className="list-group-item">certification : {searchProfile.certificationList.toString()}</li>
-                            </ul>
-                          </div>
-                          <div className='col-6'>
-                            <ul className="list-group">
-                              <li className="list-group-item"> Designation: {searchProfile.designation}</li>
-                              <li className="list-group-item">Current CTC : {searchProfile.currentCTC}</li>
-                              <li className="list-group-item">Expected CTC : {searchProfile.expectedCTC}</li>
-                              <li className="list-group-item"> Notice Period: {searchProfile.noticePeriod}</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </TabPanel>
-                      <TabPanel header="Experience" leftIcon="pi pi-graduation-cap mr-2">
+                            <p style={{ fontSize: 15 }} > <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Skills:
+                            </div>  {searchProfile.summary.skills.toString()}</p>
+                            <p style={{ fontSize: 15 }} > <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Certification:
+                            </div>  {searchProfile.certificationList.toString()}</p>
 
-                        <div className='row'>
-                          <div className='col-12 text-right'>
-                            <button type="button" onClick={openResume} className="btn btn-outline-primary">View resume</button>
+                            <p  style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Summary:
+                            </div>  {searchProfile.summary.summary1}</p>
+                            <p  style={{ fontSize: 15 }}> {searchProfile.summary.summary2}</p>
+                            <p  style={{ fontSize: 15 }}> {searchProfile.summary.summary3}</p>
 
+                            <p  style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Experience:
+                            </div>  {searchProfile.experienceDetails.expD1}</p>
+                            <p  style={{ fontSize: 15 }}> {searchProfile.experienceDetails.expD1}</p>
+                            <p  style={{ fontSize: 15 }}> {searchProfile.experienceDetails.expD1}</p>
                           </div>
-                          <div className='col-12'>
-                            {
-                              Object.keys(searchProfile.experienceDetails || {})?.map((experienceDetail: string) => {
-                                return (
-                                  <Panel toggleable header={experienceDetail} className=' mb-1'>
-                                    <p className="m-0">
-                                      {searchProfile.experienceDetails[experienceDetail]}
-                                    </p>
-                                  </Panel>
-                                )
-                              })
-                            }
-
-                          </div>
-
                         </div>
                       </TabPanel>
                       <TabPanel header="Feedback" leftIcon="pi pi-comment mr-2" >
                         <div className='row'>
                           <div className='col-12'>
-                            <Panel toggleable header="Short Feedback" className=' mb-1'>
-                              <p className="m-0">
-                                {searchProfile.feedback?.shortFeedback}
-                              </p>
-                            </Panel>
 
-                            <Panel toggleable header="Long Feedback" className=' mb-1'>
-                              <p className="m-0">
-                                {searchProfile.feedback?.longFeedback}
-                              </p>
-                            </Panel>
-                            <Panel toggleable header="Video Feedback" className=' mb-1'>
-                              <video width="100%" controls >
+                          <p  style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}> Feedback:
+                            </div>  {searchProfile.feedback.shortFeedback}</p>
+
+                            <p  style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}> Interview Video:
+                            </div>   <video width="100%" controls >
                                 <source src={searchProfile.videoLink} type="video/mp4" />
-                              </video>
-                            </Panel>
+                              </video></p>
+
+                          
+
+                            
                           </div>
                         </div>
                       </TabPanel>
 
                     </TabView>
 
-                    <div className='d-flex justify-content-between'>
-                      <p className='fw-normal text-secondary fs-6  p-0 mb-1'>Manage By : {searchProfile.managedBy}</p>
-                      <p className='fw-normal text-secondary fs-6  p-0 mb-1'>Interview By :{searchProfile.interviewBy} </p>
-
-                    </div>
+                 
                   </div>
 
                 </div>
