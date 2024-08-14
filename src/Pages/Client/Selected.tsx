@@ -54,10 +54,6 @@ const Selected: React.FC = () => {
 
         </small>
         </p>
-        <small className="text-body-secondary">{rowData.email}</small>
-        {/* <p className='text-body-secondary  m-0'>        <i className={" pi pi-phone"} ></i>
-          <small className="text-body-secondary ">{rowData.phone}</small></p> */}
-
       </div>
     );
   };
@@ -98,7 +94,7 @@ const Selected: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+          <small>{rowData.currentCompany}</small>
         </p>
       </div>
     );
@@ -108,7 +104,7 @@ const Selected: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+         <small>{rowData.designation}</small>
         </p>
       </div>
     );
@@ -118,7 +114,7 @@ const Selected: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        <small>{rowData.currentCTC} LPA</small>
         </p>
       </div>
     );
@@ -128,7 +124,7 @@ const Selected: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+        <small>{rowData.expectedCTC} LPA</small>
         </p>
       </div>
     );
@@ -138,7 +134,7 @@ const Selected: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+         <small>{rowData.overallExp} Years</small>
         </p>
       </div>
     );
@@ -148,7 +144,7 @@ const Selected: React.FC = () => {
     return (
       <div className="align-items-center">
         <p className=" m-0 ">
-          <i className={" pi pi-map-marker"}>  </i> <small>{rowData.firstName}</small>
+          <small>{rowData.relevantExp} Years</small>
         </p>
       </div>
     );
@@ -215,13 +211,10 @@ const Selected: React.FC = () => {
                       <Column className="text-nowrap" headerClassName='column-title' field="location" body={locationBodyTemplate} header="Location"></Column>
                       <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={currentCompanyBodyTemplate} header="Current Company"></Column>
                       <Column className="text-nowrap" headerClassName='column-title' field="designation" body={designationBodyTemplate} header="Designation"></Column>
-                      <Column className="text-nowrap" headerClassName='column-title' field="currentCTC" body={currentCTCBodyTemplate} header="Current CTC"></Column>
-                      <Column className="text-nowrap" headerClassName='column-title' field="expectedCTC" body={expectedCTCBodyTemplate} header="Expected CTC"></Column>
                       <Column className="text-nowrap" headerClassName='column-title' field="OverallExp" body={overallExperienceBodyTemplate} header="Overall Experience"></Column>
                       <Column className="text-nowrap" headerClassName='column-title' field="relevantExp" body={relevantExperienceBodyTemplate} header="Relevant Experience"></Column>
-
-                      {/* <Column  className="text-nowrap" headerClassName='text-nowrap column-title' field="interviewBy" body={interviewBodyTemplate} header="Interviewer"></Column>
-                      <Column  className="text-nowrap" headerClassName='text-nowrap column-title' field="managedBy" body={manageByBodyTemplate} header="Manage by"></Column> */}
+                      <Column className="text-nowrap" headerClassName='column-title' field="currentCTC" body={currentCTCBodyTemplate} header="Current CTC"></Column>
+                      <Column className="text-nowrap" headerClassName='column-title' field="expectedCTC" body={expectedCTCBodyTemplate} header="Expected CTC"></Column>
                       <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
                     </DataTable>
                   )}
