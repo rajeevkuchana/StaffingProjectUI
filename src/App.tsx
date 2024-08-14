@@ -42,7 +42,7 @@ const App = () => {
             <Route path='/client/profile/:jobCategory/:jobProfileSub/:id/result-list' element={<Profiles />} />
             <Route path='/client/profile-detail/:jobCategory/:id' element={<SearchUser />} />
 
-            <Route path='/client/selected' element={<Selected />} />
+            <Route path='/client/shortlist' element={<Selected />} />
             <Route path='/interviwer/search' element={<InterviwerSearch />} />
             <Route path='/interviwer/create' element={<InterviwerUser />} />
             <Route path='/admin/user' element={<AddUsers />} />
