@@ -10,6 +10,7 @@ import { Panel } from 'primereact/panel'
 import { BreadCrumb } from 'primereact/breadcrumb'
 import { Skeleton } from 'primereact/skeleton'
 import userImage from './../../Images/userupload.png'
+import { Button } from 'primereact/button'
 
 const SearchUser: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -205,7 +206,7 @@ const SearchUser: React.FC = () => {
                       </TabPanel>
 
                     </TabView>
-
+                    <Button label="Shortlist" className='shortlist' size='small' />
                  
                   </div>
 

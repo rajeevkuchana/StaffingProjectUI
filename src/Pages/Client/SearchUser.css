@@ -18,3 +18,12 @@
     height: 12px;
     width: 12px;
   } */
+
+ .shortlist {
+    position: absolute;
+    top: 47px;
+    right: 0;
+}
+.p-tabview-nav {
+  padding: 0 !important;
+}
