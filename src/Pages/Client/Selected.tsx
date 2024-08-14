@@ -174,7 +174,7 @@ const Selected: React.FC = () => {
   };
 
   const onRowSelect = (event) => {
-    navigate(`/client/search/${event.data.profileId}`);
+    navigate(`/client/profile-detail/shortlist/${event.data.profileId}`);
   };
 
   const header = (
