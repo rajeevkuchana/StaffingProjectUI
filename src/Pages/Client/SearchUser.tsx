@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../App/Store'
-import { fetchSearchProfileById } from '../../Redux/profileSlice'
+import { fetchSearchProfileById,selectProfile } from '../../Redux/profileSlice'
 import './SearchUser.css'
 import { TabPanel, TabView } from 'primereact/tabview'
 import { Rating } from 'primereact/rating'
@@ -32,6 +32,10 @@ const SearchUser: React.FC = () => {
     if (w) {
       w.focus(); // okay now
     }
+  }
+
+  const selectUserProfile = ()=>{
+    dispatch(selectProfile(id))
   }
 
   return (
@@ -206,10 +210,8 @@ const SearchUser: React.FC = () => {
                       </TabPanel>
 
                     </TabView>
-                    <Button label="Shortlist" className='shortlist' size='small' />
-                 
+                    <Button label="Shortlist" onClick={selectUserProfile} className='shortlist' size='small' />
                   </div>
-
                 </div>
               </div>
             </div>

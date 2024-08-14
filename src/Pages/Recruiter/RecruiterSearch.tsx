@@ -15,7 +15,7 @@ import { IconField } from 'primereact/iconfield'
 import { InputText } from 'primereact/inputtext'
 import { InputIcon } from 'primereact/inputicon'
 import Loader from '../../Components/Loader'
-import { getUseEmail } from '../../Utils/Utils'
+import { getUserEmail } from '../../Utils/Utils'
 
 const RecruiterSearch: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -34,7 +34,7 @@ const RecruiterSearch: React.FC = () => {
           "jobCategory": 'fulltime',
           "jobType": 'job description',
           "jobProfile": [],
-          "email": getUseEmail()
+          "email": getUserEmail()
         }
       ));
     }

@@ -5,7 +5,7 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Checkbox } from 'primereact/checkbox';
 import { AppDispatch } from '../App/Store';
 import { useDispatch } from 'react-redux';
-import { getUseEmail, getUserRole, uuidv4 } from '../Utils/Utils';
+import { getUserEmail, getUserRole, uuidv4 } from '../Utils/Utils';
 import { Divider } from 'primereact/divider';
 import { useLocation } from 'react-router-dom';
 import './FilterSidebar.css';
@@ -30,7 +30,7 @@ const FilterSidebar = (props) => {
         "jobCategory": jobCategory[jobCategory.length - 1],
         "jobType": selectedJobType.value,
         "jobProfile": jobProfile.map(x => x.value),
-        "email": getUseEmail()
+        "email": getUserEmail()
       }
     );
   }, [selectedJobType, selectedDataAI, selectedFullStack, selectedQA, selectedDevOps, selectedClouEngineering]);

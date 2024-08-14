@@ -13,7 +13,7 @@ import { IconField } from 'primereact/iconfield'
 import { InputText } from 'primereact/inputtext'
 import { InputIcon } from 'primereact/inputicon'
 import FilterSidebar from '../../Components/FilterSidebar'
-import { getJobType, getUseEmail } from '../../Utils/Utils'
+import { getJobType, getUserEmail } from '../../Utils/Utils'
 import { Editor } from 'primereact/editor';
 import { data } from './JobData'
 import JobDescription from '../../Components/JobDescription'
@@ -62,7 +62,7 @@ const Profiles: React.FC = () => {
         experienceRange: experience,
         noticePeriod: noticePeriod,
         budget: budget,
-        "email": getUseEmail()
+        "email": getUserEmail()
       }
     ));
   }

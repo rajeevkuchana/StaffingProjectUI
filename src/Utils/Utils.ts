@@ -13,7 +13,7 @@ export const getUserRole = () => {
     return false;
 }
 
-export const getUseEmail = () => {
+export const getUserEmail = () => {
     if (localStorage.user) {
         return JSON.parse(localStorage.user).email
     }

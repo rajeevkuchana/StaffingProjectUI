@@ -2,7 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiBaseAddress } from '../Utils/Const';
 import axios from 'axios';
 import { IProfile } from '../Types/ProfileType';
-import { getUseEmail } from '../Utils/Utils';
+import { getUserEmail } from '../Utils/Utils';
 
 // Define a type for the slice state
 interface ProfileState {
@@ -52,7 +52,7 @@ export const fetchSearchProfileById = createAsyncThunk('profile/fetchSearchProfi
 });
 
 export const fetchSelectedProfile = createAsyncThunk('profile/fetchSelectedProfile', async () => {
-  const response = await axios.get<[]>(`${apiBaseAddress}/profiles/clientSelected?email=${getUseEmail()}`);
+  const response = await axios.get<[]>(`${apiBaseAddress}/profiles/clientSelected?email=${getUserEmail()}`);
   return response.data;
 });
 
@@ -75,6 +75,12 @@ export const fetchJobDescription = createAsyncThunk('profile/fetchJobDescription
   const response = await axios.get<[]>(`${apiBaseAddress}/profiles/jobDescription?jobCategory=${data.jobCategory}&jobCategoryCode=${data.subCategoryCode}`);
   return response.data;
 });
+
+export const selectProfile = createAsyncThunk('profile/selectProfile', async (data: any) => {
+  const response = await axios.get<[]>(`${apiBaseAddress}/profiles/select/${data}?email=${getUserEmail()}`);
+  return response.data;
+});
+
 
 const userSlice = createSlice({
   name: 'profile',
