@@ -72,7 +72,7 @@ export const fetchJobCategory = createAsyncThunk('profile/fetchJobCategory', asy
 });
 
 export const fetchJobDescription = createAsyncThunk('profile/fetchJobDescription', async (data: any) => {
-  const response = await axios.get<[]>(`${apiBaseAddress}/profiles/jobDescription?jobCategory=${data.jobCategory}&jobCategoryCode=${data.jobCategoryCode}`);
+  const response = await axios.get<[]>(`${apiBaseAddress}/profiles/jobDescription?jobCategory=${data.jobCategory}&jobCategoryCode=${data.subCategoryCode}`);
   return response.data;
 });
 

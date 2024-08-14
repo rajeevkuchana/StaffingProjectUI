@@ -59,7 +59,7 @@ const SearchUser: React.FC = () => {
           <section className="bg-light">
             <div className="container">
               <div className="row main-profile">
-                <div className='col-md-auto card border-2'>
+                <div className='col-md-3 card border-2'>
                   <div className=' '>
                     <div className="">
                       <img className='profile-image ' src={searchProfile.profilePic ? searchProfile.profilePic : userImage} alt="..." />
