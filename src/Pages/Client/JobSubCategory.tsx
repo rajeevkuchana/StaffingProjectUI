@@ -17,7 +17,7 @@ const JobSubCategory: React.FC = (data: any) => {
   const searchProfilesJobDesc = useSelector((state: RootState) => state.profile.searchProfilesJobDesc);  
   const [jobSubCategor, setJobSubCategor] = useState<any>();
   const [visible, setVisible] = useState(false);
-
+  const [subCategoryDisplay, setSubCategoryDisplay] = useState('');
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const JobSubCategory: React.FC = (data: any) => {
   }
 
   const showJobDescription = (data) => {
+    setSubCategoryDisplay(data.subCategoryDisplay);
     dispatch(fetchJobDescription(
       {
         jobCategory : jobCategory,
@@ -71,7 +72,7 @@ const JobSubCategory: React.FC = (data: any) => {
           <><NoDataFound actionText={'Back'} actionUrl={`/client/profile/${jobCategory}`}></NoDataFound></>
         )}
       </div>
-      <Dialog maximizable header="Job Description" visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }}>
+      <Dialog maximizable header={''} visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }}>
         <div  className="mb-5" dangerouslySetInnerHTML={{ __html: searchProfilesJobDesc.jobDescriptionText }} />
       </Dialog>
 
