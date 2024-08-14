@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../App/Store'
-import { fetchSearchProfileById,selectProfile } from '../../Redux/profileSlice'
+import { fetchSearchProfileById, selectProfile } from '../../Redux/profileSlice'
 import './SearchUser.css'
 import { TabPanel, TabView } from 'primereact/tabview'
 import { Rating } from 'primereact/rating'
@@ -34,7 +34,7 @@ const SearchUser: React.FC = () => {
     }
   }
 
-  const selectUserProfile = ()=>{
+  const selectUserProfile = () => {
     dispatch(selectProfile(id))
   }
 
@@ -75,9 +75,9 @@ const SearchUser: React.FC = () => {
                     </div>
                     <div className='text-left'>
                       <div className='row'>
-                        <ul style={{ fontSize: 14 }} className=""> 
+                        <ul style={{ fontSize: 14 }} className="">
 
-                          <li style={{ fontSize: 16, fontWeight: 'bold' , color: '#0f34ba' }} className="list-group-item ">First Name
+                          <li style={{ fontSize: 16, fontWeight: 'bold', color: '#0f34ba' }} className="list-group-item ">First Name
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.firstName}</li>
                           <li style={{ fontSize: 16, fontWeight: 'bold', color: '#0f34ba' }} className="list-group-item ">Last Name
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.lastName}</li>
@@ -167,7 +167,7 @@ const SearchUser: React.FC = () => {
 
                 </div>
                 <div className='col-9 card  border-0'>
-                  <div style={{ fontSize: 20, fontWeight: 'bold', color: '#2c5073', textAlign:'center' }}>PROFILE DESCRIPTION</div>
+                  <div style={{ fontSize: 20, fontWeight: 'bold', color: '#2c5073', textAlign: 'center' }}>PROFILE DESCRIPTION</div>
                   <div className=' '>
                     <TabView>
                       <TabPanel header="Summary" leftIcon="pi pi-server mr-2">
@@ -178,15 +178,15 @@ const SearchUser: React.FC = () => {
                             <p style={{ fontSize: 15 }} > <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Certification:
                             </div>  {searchProfile.certificationList.toString()}</p>
 
-                            <p  style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Summary:
+                            <p style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Summary:
                             </div>  {searchProfile.summary.summary1}</p>
-                            <p  style={{ fontSize: 15 }}> {searchProfile.summary.summary2}</p>
-                            <p  style={{ fontSize: 15 }}> {searchProfile.summary.summary3}</p>
+                            <p style={{ fontSize: 15 }}> {searchProfile.summary.summary2}</p>
+                            <p style={{ fontSize: 15 }}> {searchProfile.summary.summary3}</p>
 
-                            <p  style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Experience:
+                            <p style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Experience:
                             </div>  {searchProfile.experienceDetails.expD1}</p>
-                            <p  style={{ fontSize: 15 }}> {searchProfile.experienceDetails.expD1}</p>
-                            <p  style={{ fontSize: 15 }}> {searchProfile.experienceDetails.expD1}</p>
+                            <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails.expD1}</p>
+                            <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails.expD1}</p>
                           </div>
                         </div>
                       </TabPanel>
@@ -194,23 +194,27 @@ const SearchUser: React.FC = () => {
                         <div className='row'>
                           <div className='col-12'>
 
-                          <p  style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}> Feedback:
+                            <p style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}> Feedback:
                             </div>  {searchProfile.feedback.shortFeedback}</p>
 
-                            <p  style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}> Interview Video:
+                            <p style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}> Interview Video:
                             </div>   <video width="100%" controls >
                                 <source src={searchProfile.videoLink} type="video/mp4" />
                               </video></p>
 
-                          
 
-                            
+
+
                           </div>
                         </div>
                       </TabPanel>
 
                     </TabView>
-                    <Button label="Shortlist" onClick={selectUserProfile} className='shortlist' size='small' />
+                    {
+                      !searchProfile.selectedBy && (
+                        <Button label="Shortlist" onClick={selectUserProfile} className='shortlist' size='small' />
+                      )
+                    }
                   </div>
                 </div>
               </div>
