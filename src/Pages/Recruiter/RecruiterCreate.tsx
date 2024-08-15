@@ -158,7 +158,7 @@ const RecruiterProfileCreate: React.FC = () => {
                         <div className='row gy-3 gy-md-4 my-2'>
                           <div className="col-6 from-row">
                             <label className="form-label">Current Company <span className="text-danger">*</span></label>
-                            <input value={profile.currentCompany} type="email" className="form-control" onChange={(e) => setProfile({ ...profile, currentCompany: e.target.value })} required />
+                            <input value={profile.currentCompany} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, currentCompany: e.target.value })} required />
                           </div>
                           <div className="col-6 from-row">
                             <label className="form-label">Designation <span className="text-danger">*</span></label>

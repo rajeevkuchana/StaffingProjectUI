@@ -23,9 +23,9 @@ export const Experience = [
 ];
 
 export const NoticePeriod = [
-    { name: "Immediate Joiner", value: "notePer01", },
-    { name: "< 15 Days", value: "notePer02" },
-    { name: "< 30 Days", value: "notePer03" },
+    { name: "Immediate Joiner", value: "1", },
+    { name: "< 15 Days", value: "2" },
+    { name: "< 30 Days", value: "3" },
 ];
 
 export const jobType = [
