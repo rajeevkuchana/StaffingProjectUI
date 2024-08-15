@@ -18,7 +18,7 @@ const RecruiterProfile: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { jobCategory } = useParams<{ jobCategory: string }>();
   const { id } = useParams<{ id: string }>();
-  const [jobProfile, setJobProfile] = useState([{ value: id, label: id }]);
+  const [jobProfile, setJobProfile] = useState(Array<any>);
   const [experience, setExperience] = useState('');
   const [noticePeriod, setNoticePeriod] = useState('');
   const [budget, setBudget] = useState(Number);
@@ -157,7 +157,7 @@ const RecruiterProfile: React.FC = () => {
   };
 
   const onRowSelect = (event) => {
-   // navigate(`/client/profile-detail/${jobCategory}/${event.data.profileId}`);
+    navigate(`/client/profile-detail/${jobCategory}/${event.data.profileId}`);
   };
 
   const createProfile = () => {
@@ -175,11 +175,11 @@ const RecruiterProfile: React.FC = () => {
       </IconField>
     </div>
   );
-  
+
   return (
     <>
       <section className="bg-light">
-        {/* <div className='row m-1 border rounded'>
+        <div className='row m-1 border rounded'>
           <div className='col-6'>
             <label className="form-label">Enter profile </label>
             <CreatableSelect defaultValue={jobProfile} onChange={updateProfile} isMulti />
@@ -212,7 +212,7 @@ const RecruiterProfile: React.FC = () => {
             <label className="form-label">Budget (LPA)</label>
             <input value={budget} onChange={e => { setBudget(Number(e.target.value)) }} className="form-control" type='number' required />
           </div>
-        </div> */}
+        </div>
       </section>
       <div className="">
         <div className='row' style={{ height: "78vh" }}>

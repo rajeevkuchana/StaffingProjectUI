@@ -45,7 +45,7 @@ export default function WithAction() {
     else if (role === userRole.recruiter) {
       setLinks([
         { label: 'Home', href: '/' },
-        { label: 'Recruiter Profile View', href: '/recruiter/profile' },
+        { label: 'Profiles', href: '/recruiter/profile' },
       ])
     }
   }, [])

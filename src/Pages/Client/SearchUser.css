@@ -3,9 +3,6 @@
     width: 100%;
     border-radius: 50%;
 }
-.card-body{
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-}
 
 .horizontal-divider {
     margin-top: 1rem;

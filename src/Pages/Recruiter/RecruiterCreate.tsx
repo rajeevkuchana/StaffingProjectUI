@@ -31,22 +31,16 @@ const RecruiterProfileCreate: React.FC = () => {
       setPreview(undefined)
       return
     }
-
     const objectUrl = URL.createObjectURL(selectedFile) as any
     setPreview(objectUrl)
-
-    // free memory when ever this component is unmounted
     return () => URL.revokeObjectURL(objectUrl)
   }, [selectedFile])
 
   const onSelectFile = e => {
-
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined)
       return
     }
-
-    // I've kept this example simple by using the first image instead of multiple
     setSelectedFile(e.target.files[0])
   }
 
@@ -65,18 +59,11 @@ const RecruiterProfileCreate: React.FC = () => {
   return (
     <>
       <Toast ref={toast} />
-      <section className="bg-light">
-        <div className='row mb-1 BreadCrumb'>
-          <div className='col-12'>
-            <BreadCrumb model={items} home={home} />
-          </div>
-        </div>
-      </section>
-      <section className="bg-light">
+      <section>
         <div className="container">
           <form onSubmit={createProfile}>
-            <div className="row main-profile">
-              <div className='col-3 p-4  card  border-0'>
+            <div className="row">
+              <div className='col-3 p-4   border-0'>
                 <div className='card-body '>
                   <div className="mb-4 ">
                     <div className="imgUp">
@@ -90,204 +77,198 @@ const RecruiterProfileCreate: React.FC = () => {
                     </div>
                   </div>
                   <div className="mt-4 mb-lg-0">
-                    <div className='d-flex gap-4  mb-2'>
+                    <div className='d-flex justify-content-between  mb-2'>
                       <div>Programming</div>
                       <div> <Rating value={profile.programmingR} onChange={(e) => setProfile({ ...profile, programmingR: e.value || 0 })} cancel={false} /></div>
                     </div>
-                    <div className='d-flex gap-4  mb-2'>
+                    <div className='d-flex justify-content-between  mb-2'>
                       <div> Data Engineer</div>
                       <div> <Rating value={profile.dataEngR} onChange={(e) => setProfile({ ...profile, dataEngR: e.value || 0 })} cancel={false} /></div>
                     </div>
-                    <div className='d-flex gap-4  mb-2'>
+                    <div className='d-flex justify-content-between  mb-2'>
                       <div> Cloud</div>
                       <div> <Rating value={profile.cloudEngR} onChange={(e) => setProfile({ ...profile, cloudEngR: e.value || 0 })} cancel={false} /></div>
                     </div>
-                    <div className='d-flex gap-4  mb-2'>
+                    <div className='d-flex justify-content-between  mb-2'>
                       <div> Communication</div>
                       <div> <Rating value={profile.communicationR} onChange={(e) => setProfile({ ...profile, communicationR: e.value || 0 })} cancel={false} /></div>
                     </div>
-                    <div className='d-flex gap-4  mb-2'>
+                    <div className='d-flex justify-content-between  mb-2'>
                       <div>  Attitude</div>
                       <div> <Rating value={profile.attitudeR} onChange={(e) => setProfile({ ...profile, attitudeR: e.value || 0 })} cancel={false} /></div>
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
               <div className='col-9 p-4 card  border-0'>
                 <div className='card-body'>
+                  <div className='text-right mb-1'>
+                    <button className="btn bsb-btn-xl btn-primary" type="submit">Save Profile</button>
+                  </div>
+                  <Panel toggleable header="Personal Details" className='mb-1'>
+                    <div className='row gy-3 gy-md-4 my-2'>
+                      <div className="col-6 from-row">
+                        <label className="form-label">First Name <span className="text-danger">*</span></label>
+                        <input value={profile.firstName} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, firstName: e.target.value })} required />
+                      </div>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Last Name <span className="text-danger">*</span></label>
+                        <input value={profile.lastName} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} required />
+                      </div>
+                    </div>
+                    <div className='row gy-3 gy-md-4 my-2'>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Gender <span className="text-danger">*</span></label>
+                        <input value={profile.gender} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, gender: e.target.value })} required />
+                      </div>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Location <span className="text-danger">*</span></label>
+                        <input value={profile.location} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, location: e.target.value })} required />
+                      </div>
+
+                    </div>
+                    <div className='row gy-3 gy-md-4 my-2'>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Email <span className="text-danger">*</span></label>
+                        <input value={profile.email} type="email" className="form-control" onChange={(e) => setProfile({ ...profile, email: e.target.value })} required />
+                      </div>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Phone No <span className="text-danger">*</span></label>
+                        <input value={profile.phone} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, phone: e.target.value })} required />
+                      </div>
+                    </div>
+                    <div className='row gy-3 gy-md-4 my-2'>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Current Company <span className="text-danger">*</span></label>
+                        <input value={profile.currentCompany} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, currentCompany: e.target.value })} required />
+                      </div>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Designation <span className="text-danger">*</span></label>
+                        <input value={profile.designation} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, designation: e.target.value })} required />
+                      </div>
+                    </div>
+
+                    <div className='row gy-3 gy-md-4 my-2'>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Total Experience (Years)<span className="text-danger">*</span></label>
+                        <input value={profile.overallExp} type="number" className="form-control" onChange={(e) => setProfile({ ...profile, overallExp: Number(e.target.value) })} required />
+                      </div>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Current CTC (LPA) <span className="text-danger">*</span></label>
+                        <input value={profile.currentCTC} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, currentCTC: Number(e.target.value) })} required />
+                      </div>
+                    </div>
+
+                    <div className='row gy-3 gy-md-4 my-2'>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Relevant Experience (Years)<span className="text-danger">*</span></label>
+                        <input value={profile.relevantExp} type="number" className="form-control" onChange={(e) => setProfile({ ...profile, relevantExp: Number(e.target.value) })} required />
+                      </div>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Expected CTC (LPA) <span className="text-danger">*</span></label>
+                        <input value={profile.expectedCTC} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, expectedCTC: Number(e.target.value) })} required />
+                      </div>
+                    </div>
+
+                    <div className='row gy-3 gy-md-4 my-2'>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Notice Period <span className="text-danger">*</span></label>
+                        <select value={profile.noticePeriod} onChange={(e) => setProfile({ ...profile, noticePeriod: e.target.value })} className="form-control" aria-label="Default select example">
+                          {
+                            NoticePeriod.map(x => {
+                              return (
+                                <option value={x.value}>{x.name}</option>
+                              )
+                            })
+                          }
+                        </select>
+                      </div>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Categoty <span className="text-danger">*</span></label>
+                        <input value={profile.jobCategory} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, jobCategory: e.target.value })} required />
+                      </div>
+                    </div>
+
+                    <div className='row gy-3 gy-md-4 my-2'>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Recruiter <span className="text-danger">*</span></label>
+                        <input value={profile.managedBy} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, managedBy: e.target.value })} required />
+                      </div>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Interviewer  <span className="text-danger">*</span></label>
+                        <input value={profile.interviewBy} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, interviewBy: e.target.value })} required />
+                      </div>
+                    </div>
+
+                    <div className='row gy-3 gy-md-4 my-2'>
+                      <div className="col-12 from-row">
+                        <label className="form-label">Certifications </label>
+                        <CreatableSelect defaultValue={profile.certificationList} isMulti />
+                      </div>
+                    </div>
+
+                    <div className='row gy-3 gy-md-4 my-2'>
+                      <div className="col-12 from-row">
+                        <label className="form-label">Skills </label>
+                        <CreatableSelect defaultValue={profile.summary?.skills} isMulti />
+                      </div>
+                    </div>
+                  </Panel>
+                  <Panel toggleable header="Summary Details" className='mb-1'>
+
+                    <div className="form-group">
+                      <label className="form-label">Summary #1 <span className="text-danger">*</span></label>
+                      <textarea className="form-control" value={profile.summary?.summary1} onChange={(e) => setProfile({ ...profile, summary: { ...profile.summary, "summary1": e.target.value } })} rows={3}></textarea>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Summary #2 <span className="text-danger">*</span></label>
+                      <textarea className="form-control" value={profile.summary?.summary2} onChange={(e) => setProfile({ ...profile, summary: { ...profile.summary, "summary2": e.target.value } })} rows={3}></textarea>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Summary #3 <span className="text-danger">*</span></label>
+                      <textarea className="form-control" value={profile.summary?.summary3} onChange={(e) => setProfile({ ...profile, summary: { ...profile.summary, "summary3": e.target.value } })} rows={3}></textarea>
+                    </div>
+                  </Panel>
+                  <Panel toggleable header="Experience Details" className='mb-1'>
+
+                    <div className="form-group">
+                      <label className="form-label">Experience #1 <span className="text-danger">*</span></label>
+                      <textarea className="form-control" value={profile.experienceDetails?.expD1} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD1": e.target.value } })} rows={3}></textarea>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Experience #2 <span className="text-danger">*</span></label>
+                      <textarea className="form-control" value={profile.experienceDetails?.expD2} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD2": e.target.value } })} rows={3}></textarea>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Experience #3 <span className="text-danger">*</span></label>
+                      <textarea className="form-control" value={profile.experienceDetails?.expD3} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD3": e.target.value } })} rows={3}></textarea>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Experience #4 <span className="text-danger">*</span></label>
+                      <textarea className="form-control" value={profile.experienceDetails?.expD4} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD4": e.target.value } })} rows={3}></textarea>
+                    </div>
+                  </Panel>
+                  <Panel toggleable header="Feedback Details" className='mb-1'>
+                    <div className="form-group">
+                      <label className="form-label">Short Feedback <span className="text-danger">*</span></label>
+                      <textarea className="form-control" value={profile.feedback?.shortFeedback} onChange={(e) => setProfile({ ...profile, feedback: { ...profile.feedback, shortFeedback: e.target.value } })} rows={3}></textarea>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Long Feedback <span className="text-danger">*</span></label>
+                      <textarea className="form-control" value={profile.feedback?.longFeedback} onChange={(e) => setProfile({ ...profile, feedback: { ...profile.feedback, longFeedback: e.target.value } })} rows={3}></textarea>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Video feedback URL <span className="text-danger">*</span></label>
+                      <input value={profile.videoLink} type="url" className="form-control" onChange={(e) => setProfile({ ...profile, videoLink: e.target.value })} required />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Resume Link  <span className="text-danger">*</span></label>
+                      <input value={profile.resumeLink} type="url" className="form-control" onChange={(e) => setProfile({ ...profile, resumeLink: e.target.value })} required />
+                    </div>
+                  </Panel>
                   <div className='text-right'>
                     <button className="btn bsb-btn-xl btn-primary" type="submit">Save Profile</button>
                   </div>
-                  <TabView>
-                    <TabPanel header="About" leftIcon="pi pi-user mr-2">
-                      <Panel toggleable header="Personal Details" className=' mb-1'>
-                        <div className='row gy-3 gy-md-4 my-2'>
-                          <div className="col-6 from-row">
-                            <label className="form-label">First Name <span className="text-danger">*</span></label>
-                            <input value={profile.firstName} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, firstName: e.target.value })} required />
-                          </div>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Last Name <span className="text-danger">*</span></label>
-                            <input value={profile.lastName} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} required />
-                          </div>
-                        </div>
-                        <div className='row gy-3 gy-md-4 my-2'>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Gender <span className="text-danger">*</span></label>
-                            <input value={profile.gender} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, gender: e.target.value })} required />
-                          </div>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Location <span className="text-danger">*</span></label>
-                            <input value={profile.location} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, location: e.target.value })} required />
-                          </div>
-
-                        </div>
-                        <div className='row gy-3 gy-md-4 my-2'>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Email <span className="text-danger">*</span></label>
-                            <input value={profile.email} type="email" className="form-control" onChange={(e) => setProfile({ ...profile, email: e.target.value })} required />
-                          </div>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Phone No <span className="text-danger">*</span></label>
-                            <input value={profile.phone} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, phone: e.target.value })} required />
-                          </div>
-                        </div>
-                        <div className='row gy-3 gy-md-4 my-2'>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Current Company <span className="text-danger">*</span></label>
-                            <input value={profile.currentCompany} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, currentCompany: e.target.value })} required />
-                          </div>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Designation <span className="text-danger">*</span></label>
-                            <input value={profile.designation} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, designation: e.target.value })} required />
-                          </div>
-                        </div>
-
-                        <div className='row gy-3 gy-md-4 my-2'>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Total Experience (Years)<span className="text-danger">*</span></label>
-                            <input value={profile.overallExp} type="number" className="form-control" onChange={(e) => setProfile({ ...profile, overallExp: Number(e.target.value) })} required />
-                          </div>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Current CTC (LPA) <span className="text-danger">*</span></label>
-                            <input value={profile.currentCTC} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, currentCTC: Number(e.target.value) })} required />
-                          </div>
-                        </div>
-
-                        <div className='row gy-3 gy-md-4 my-2'>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Relevant Experience (Years)<span className="text-danger">*</span></label>
-                            <input value={profile.relevantExp} type="number" className="form-control" onChange={(e) => setProfile({ ...profile, relevantExp: Number(e.target.value) })} required />
-                          </div>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Expected CTC (LPA) <span className="text-danger">*</span></label>
-                            <input value={profile.expectedCTC} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, expectedCTC: Number(e.target.value) })} required />
-                          </div>
-                        </div>
-
-                        <div className='row gy-3 gy-md-4 my-2'>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Notice Period <span className="text-danger">*</span></label>
-                            <select value={profile.noticePeriod} onChange={(e) => setProfile({ ...profile, noticePeriod: e.target.value })} className="form-control" aria-label="Default select example">
-                              {
-                                NoticePeriod.map(x => {
-                                  return (
-                                    <option value={x.value}>{x.name}</option>
-                                  )
-                                })
-                              }
-                            </select>
-                          </div>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Categoty <span className="text-danger">*</span></label>
-                            <input value={profile.jobCategory} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, jobCategory: e.target.value })} required />
-                          </div>
-                        </div>
-
-                        <div className='row gy-3 gy-md-4 my-2'>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Recruiter <span className="text-danger">*</span></label>
-                            <input value={profile.managedBy} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, managedBy: e.target.value })} required />
-                          </div>
-                          <div className="col-6 from-row">
-                            <label className="form-label">Interviewer  <span className="text-danger">*</span></label>
-                            <input value={profile.interviewBy} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, interviewBy: e.target.value })} required />
-                          </div>
-                        </div>
-
-                        <div className='row gy-3 gy-md-4 my-2'>
-                          <div className="col-12 from-row">
-                            <label className="form-label">Certifications </label>
-                            <CreatableSelect defaultValue={profile.certificationList} isMulti />
-                          </div>
-                        </div>
-
-                        <div className='row gy-3 gy-md-4 my-2'>
-                          <div className="col-12 from-row">
-                            <label className="form-label">Skills </label>
-                            <CreatableSelect defaultValue={profile.summary?.skills} isMulti />
-                          </div>
-                        </div>
-                      </Panel>
-                      <Panel toggleable header="Summary Details" className=' mb-1'>
-
-                        <div className="form-group">
-                          <label className="form-label">Summary #1 <span className="text-danger">*</span></label>
-                          <textarea className="form-control" value={profile.summary?.summary1} onChange={(e) => setProfile({ ...profile, summary: { ...profile.summary, "summary1": e.target.value } })} rows={3}></textarea>
-                        </div>
-                        <div className="form-group">
-                          <label className="form-label">Summary #2 <span className="text-danger">*</span></label>
-                          <textarea className="form-control" value={profile.summary?.summary2} onChange={(e) => setProfile({ ...profile, summary: { ...profile.summary, "summary2": e.target.value } })} rows={3}></textarea>
-                        </div>
-                        <div className="form-group">
-                          <label className="form-label">Summary #3 <span className="text-danger">*</span></label>
-                          <textarea className="form-control" value={profile.summary?.summary3} onChange={(e) => setProfile({ ...profile, summary: { ...profile.summary, "summary3": e.target.value } })} rows={3}></textarea>
-                        </div>
-                      </Panel>
-                      <Panel toggleable header="Experience Details" className=' mb-1'>
-
-                        <div className="form-group">
-                          <label className="form-label">Experience #1 <span className="text-danger">*</span></label>
-                          <textarea className="form-control" value={profile.experienceDetails?.expD1} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD1": e.target.value } })} rows={3}></textarea>
-                        </div>
-                        <div className="form-group">
-                          <label className="form-label">Experience #2 <span className="text-danger">*</span></label>
-                          <textarea className="form-control" value={profile.experienceDetails?.expD2} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD2": e.target.value } })} rows={3}></textarea>
-                        </div>
-                        <div className="form-group">
-                          <label className="form-label">Experience #3 <span className="text-danger">*</span></label>
-                          <textarea className="form-control" value={profile.experienceDetails?.expD3} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD3": e.target.value } })} rows={3}></textarea>
-                        </div>
-                        <div className="form-group">
-                          <label className="form-label">Experience #4 <span className="text-danger">*</span></label>
-                          <textarea className="form-control" value={profile.experienceDetails?.expD4} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD4": e.target.value } })} rows={3}></textarea>
-                        </div>
-                      </Panel>
-                      <Panel toggleable header="Feedback Details" className=' mb-1'>
-
-                        <div className="form-group">
-                          <label className="form-label">Short Feedback <span className="text-danger">*</span></label>
-                          <textarea className="form-control" value={profile.feedback?.shortFeedback} onChange={(e) => setProfile({ ...profile, feedback: { ...profile.feedback, shortFeedback: e.target.value } })} rows={3}></textarea>
-                        </div>
-                        <div className="form-group">
-                          <label className="form-label">Long Feedback <span className="text-danger">*</span></label>
-                          <textarea className="form-control" value={profile.feedback?.longFeedback} onChange={(e) => setProfile({ ...profile, feedback: { ...profile.feedback, longFeedback: e.target.value } })} rows={3}></textarea>
-                        </div>
-                        <div className="form-group">
-                          <label className="form-label">Video feedback URL <span className="text-danger">*</span></label>
-                          <input value={profile.videoLink} type="url" className="form-control" onChange={(e) => setProfile({ ...profile, videoLink: e.target.value })} required />
-                        </div>
-                        <div className="form-group">
-                          <label className="form-label">Resume Link  <span className="text-danger">*</span></label>
-                          <input value={profile.resumeLink} type="url" className="form-control" onChange={(e) => setProfile({ ...profile, resumeLink: e.target.value })} required />
-                        </div>
-                      </Panel>
-                    </TabPanel>
-              
-                  </TabView>
                 </div>
               </div>
             </div>
