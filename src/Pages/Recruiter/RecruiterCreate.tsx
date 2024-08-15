@@ -64,6 +64,9 @@ const RecruiterProfileCreate: React.FC = () => {
     if(profile.summary){
       profile.summary.skills = event.map(x=>x.value)
     }
+    else{
+      profile.summary = {};
+    }
   }
 
   return (
