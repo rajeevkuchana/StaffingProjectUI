@@ -157,7 +157,7 @@ const RecruiterProfile: React.FC = () => {
   };
 
   const onRowSelect = (event) => {
-    navigate(`/client/profile-detail/${jobCategory}/${event.data.profileId}`);
+    navigate(`/recruiter/profile-detail/${event.data.profileId}`);
   };
 
   const createProfile = () => {

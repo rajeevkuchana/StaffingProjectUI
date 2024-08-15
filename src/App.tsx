@@ -25,6 +25,7 @@ import { uuidv4 } from './Utils/Utils'
 import JobSubCategory from './Pages/Client/JobSubCategory'
 import JobCategory from './Pages/Client/JobCategory'
 import Profiles from './Pages/Client/Profiles'
+import RecruiterProfileDetails from './Pages/Recruiter/RecruiterProfileDetails'
 
 const App = () => {
   const user = useSelector((state: any) => state.auth.user);
@@ -53,6 +54,8 @@ const App = () => {
 
             <Route path='/recruiter/profile' element={<RecruiterSearch />} />
             <Route path='/recruiter/profile-create' element={<RecruiterProfileCreate />} />
+            <Route path='/recruiter/profile-detail/:id' element={<RecruiterProfileDetails />} />
+
 
           </Route>
         </Routes>
