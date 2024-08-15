@@ -56,6 +56,16 @@ const RecruiterProfileCreate: React.FC = () => {
     }
   }, [createProfileStatus])
 
+  const certificationUpdate = (event: any) => {
+    profile.certificationList = event.map(x=>x.value)
+  }
+
+  const skillsUpdate = (event: any) => {
+    if(profile.summary){
+      profile.summary.skills = event.map(x=>x.value)
+    }
+  }
+
   return (
     <>
       <Toast ref={toast} />
@@ -203,14 +213,14 @@ const RecruiterProfileCreate: React.FC = () => {
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
                         <label className="form-label">Certifications </label>
-                        <CreatableSelect defaultValue={profile.certificationList} isMulti />
+                        <CreatableSelect onChange={certificationUpdate} defaultValue={profile.certificationList} isMulti />
                       </div>
                     </div>
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
                         <label className="form-label">Skills </label>
-                        <CreatableSelect defaultValue={profile.summary?.skills} isMulti />
+                        <CreatableSelect onChange={skillsUpdate} defaultValue={profile.summary?.skills} isMulti />
                       </div>
                     </div>
                   </Panel>
