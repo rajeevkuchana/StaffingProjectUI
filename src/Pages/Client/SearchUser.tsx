@@ -142,7 +142,6 @@ const SearchUser: React.FC = () => {
                         <div style={{ fontSize: 15, fontWeight: 'bold' }} > Over All Rating </div>
                         <div >
                           <Rating value={searchProfile.overAllRating} readOnly cancel={false} /></div>
-
                       </div>
                       <br></br>
                       <div className='d-flex justify-content-between gap-2  '>
@@ -150,21 +149,15 @@ const SearchUser: React.FC = () => {
                         <div >
                           {searchProfile.managedBy}
                         </div>
-
                       </div>
-
                       <div className='d-flex justify-content-between gap-2  mb-2'>
                         <div > Interviewer</div>
                         <div >
                           {searchProfile.interviewBy}
                         </div>
-
                       </div>
-
                     </div>
-
                   </div>
-
                 </div>
                 <div className='col-9 card  border-0'>
                   <div style={{ fontSize: 20, fontWeight: 'bold', color: '#2c5073', textAlign: 'center' }}>PROFILE DESCRIPTION</div>
@@ -206,11 +199,11 @@ const SearchUser: React.FC = () => {
                       </TabPanel>
 
                     </TabView>
-                    {
+                    {/* {
                       !searchProfile.selectedBy && (
                         <Button label="Shortlist" onClick={selectUserProfile} className='shortlist' size='small' />
                       )
-                    }
+                    } */}
                   </div>
                 </div>
               </div>
