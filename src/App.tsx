@@ -17,8 +17,6 @@ import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import SearchUser from './Pages/Client/SearchUser'
-import AdminSearch from './Pages/Admin/AdminSearch'
-import AdminProfileCreate from './Pages/Admin/AdminProfile'
 import RecruiterSearch from './Pages/Recruiter/RecruiterProfile'
 import RecruiterProfileCreate from './Pages/Recruiter/RecruiterCreate'
 import { uuidv4 } from './Utils/Utils'
@@ -26,6 +24,8 @@ import JobSubCategory from './Pages/Client/JobSubCategory'
 import JobCategory from './Pages/Client/JobCategory'
 import Profiles from './Pages/Client/Profiles'
 import RecruiterProfileDetails from './Pages/Recruiter/RecruiterProfileDetails'
+import AdminProfile from './Pages/Admin/AdminProfile'
+import AdminProfileDetails from './Pages/Admin/AdminProfileDetails'
 
 const App = () => {
   const user = useSelector((state: any) => state.auth.user);
@@ -42,21 +42,21 @@ const App = () => {
             <Route path='/client/profile/:jobCategory/:jobProfileSub' element={<JobSubCategory />} />
             <Route path='/client/profile/:jobCategory/:jobProfileSub/:id/result-list' element={<Profiles />} />
             <Route path='/client/profile-detail/:jobCategory/:id' element={<SearchUser />} />
-
             <Route path='/client/shortlist' element={<Selected />} />
 
 
             <Route path='/interviwer/search' element={<InterviwerSearch />} />
             <Route path='/interviwer/create' element={<InterviwerUser />} />
+
+
             <Route path='/admin/user' element={<AddUsers />} />
-            <Route path='/admin/profile' element={<AdminSearch />} />
-            <Route path='/admin/profile-create' element={<AdminProfileCreate />} />
+            <Route path='/admin/profile' element={<AdminProfile />} />
+            <Route path='/admin/profile-create' element={<AdminProfileDetails />} />
+
 
             <Route path='/recruiter/profile' element={<RecruiterSearch />} />
             <Route path='/recruiter/profile-create' element={<RecruiterProfileCreate />} />
             <Route path='/recruiter/profile-detail/:id' element={<RecruiterProfileDetails />} />
-
-
           </Route>
         </Routes>
       </main>
