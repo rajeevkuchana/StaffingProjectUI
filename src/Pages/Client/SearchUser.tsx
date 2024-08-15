@@ -174,19 +174,19 @@ const SearchUser: React.FC = () => {
                         <div className='row'>
                           <div className='col-12'>
                             <p style={{ fontSize: 15 }} > <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Skills:
-                            </div>  {searchProfile.summary.skills.toString()}</p>
+                            </div>  {searchProfile?.summary?.skills?.toString()}</p>
                             <p style={{ fontSize: 15 }} > <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Certification:
-                            </div>  {searchProfile.certificationList.toString()}</p>
+                            </div>  {searchProfile.certificationList?.toString()}</p>
 
                             <p style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Summary:
-                            </div>  {searchProfile.summary.summary1}</p>
-                            <p style={{ fontSize: 15 }}> {searchProfile.summary.summary2}</p>
-                            <p style={{ fontSize: 15 }}> {searchProfile.summary.summary3}</p>
+                            </div>  {searchProfile.summary?.summary1}</p>
+                            <p style={{ fontSize: 15 }}> {searchProfile.summary?.summary2}</p>
+                            <p style={{ fontSize: 15 }}> {searchProfile.summary?.summary3}</p>
 
                             <p style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Experience:
-                            </div>  {searchProfile.experienceDetails.expD1}</p>
-                            <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails.expD1}</p>
-                            <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails.expD1}</p>
+                            </div>  {searchProfile.experienceDetails?.expD1}</p>
+                            <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails?.expD1}</p>
+                            <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails?.expD1}</p>
                           </div>
                         </div>
                       </TabPanel>
@@ -195,16 +195,12 @@ const SearchUser: React.FC = () => {
                           <div className='col-12'>
 
                             <p style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}> Feedback:
-                            </div>  {searchProfile.feedback.shortFeedback}</p>
+                            </div>  {searchProfile?.feedback?.shortFeedback}</p>
 
                             <p style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}> Interview Video:
                             </div>   <video width="100%" controls >
                                 <source src={searchProfile.videoLink} type="video/mp4" />
                               </video></p>
-
-
-
-
                           </div>
                         </div>
                       </TabPanel>

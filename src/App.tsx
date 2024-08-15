@@ -19,8 +19,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import SearchUser from './Pages/Client/SearchUser'
 import AdminSearch from './Pages/Admin/AdminSearch'
 import AdminProfileCreate from './Pages/Admin/AdminProfile'
-import RecruiterSearch from './Pages/Recruiter/RecruiterSearch'
-import RecruiterProfileCreate from './Pages/Recruiter/RecruiterProfile'
+import RecruiterSearch from './Pages/Recruiter/RecruiterProfile'
+import RecruiterProfileCreate from './Pages/Recruiter/RecruiterCreate'
 import { uuidv4 } from './Utils/Utils'
 import JobSubCategory from './Pages/Client/JobSubCategory'
 import JobCategory from './Pages/Client/JobCategory'
@@ -43,11 +43,14 @@ const App = () => {
             <Route path='/client/profile-detail/:jobCategory/:id' element={<SearchUser />} />
 
             <Route path='/client/shortlist' element={<Selected />} />
+
+
             <Route path='/interviwer/search' element={<InterviwerSearch />} />
             <Route path='/interviwer/create' element={<InterviwerUser />} />
             <Route path='/admin/user' element={<AddUsers />} />
             <Route path='/admin/profile' element={<AdminSearch />} />
             <Route path='/admin/profile-create' element={<AdminProfileCreate />} />
+
             <Route path='/recruiter/profile' element={<RecruiterSearch />} />
             <Route path='/recruiter/profile-create' element={<RecruiterProfileCreate />} />
 
