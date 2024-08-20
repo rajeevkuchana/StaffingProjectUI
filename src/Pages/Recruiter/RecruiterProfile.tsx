@@ -77,7 +77,7 @@ const RecruiterProfile: React.FC = () => {
 
         </small>
         </p>
-        <small className="text-body-secondary">{rowData.email}</small>
+        
       </div>
     );
   };
@@ -97,6 +97,28 @@ const RecruiterProfile: React.FC = () => {
       <div className="align-items-center">
         <p className=" m-0 ">
           <small>{rowData.currentCompany}</small>
+        </p>
+      </div>
+    );
+  };
+
+
+  const phoneBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <small>{rowData.phone}</small>
+        </p>
+      </div>
+    );
+  };
+
+  
+  const emailBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <small>{rowData.email}</small>
         </p>
       </div>
     );
@@ -224,6 +246,8 @@ const RecruiterProfile: React.FC = () => {
                     {/* <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column> */}
                     <Column frozen className="text-nowrap" headerClassName='column-title' field="firstName" body={nameBodyTemplate} header="Name"></Column>
                     <Column className="text-nowrap" headerClassName='column-title' field="location" body={locationBodyTemplate} header="Location"></Column>
+                    <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={phoneBodyTemplate} header="Phone"></Column>
+                    <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={emailBodyTemplate} header="Email"></Column>
                     <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={currentCompanyBodyTemplate} header="Current Company"></Column>
                     <Column className="text-nowrap" headerClassName='column-title' field="designation" body={designationBodyTemplate} header="Designation"></Column>
                     <Column className="text-nowrap" headerClassName='column-title' field="currentCTC" body={currentCTCBodyTemplate} header="Current CTC"></Column>

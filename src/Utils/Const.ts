@@ -14,12 +14,14 @@ export const Roles = [
 ];
 
 export const Experience = [
+    { name: "All", value: "exRange00", },
     { name: "0-5 Years", value: "exRange01", },
     { name: "5-10 Years", value: "exRange02" },
     { name: "10+ Years", value: "exRange03" },
 ];
 
 export const NoticePeriod = [
+    { name: "All", value: "0", },
     { name: "Immediate Joiner", value: "1", },
     { name: "< 15 Days", value: "2" },
     { name: "< 30 Days", value: "3" },
