@@ -19,6 +19,7 @@ interface ProfileState {
   jobCategory: Array<any>;
   jobCategoryStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   searchProfilesJobDescStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
+  isProfileSelected : boolean
 
 }
 
@@ -37,7 +38,8 @@ const initialState: ProfileState = {
   selectedProfileStatus: 'idle',
   createProfileStatus: 'idle',
   jobCategoryStatus: 'idle',
-  error: null
+  error: null,
+  isProfileSelected : false
 };
 
 // Async thunk for fetching users
@@ -150,6 +152,12 @@ const userSlice = createSlice({
       })
       .addCase(fetchJobDescription.pending, (state: ProfileState, action) => {
         state.searchProfilesJobDescStatus = 'loading';
+      })
+      .addCase(selectProfile.fulfilled, (state: ProfileState, action) => {
+        state.isProfileSelected = true;
+      })
+      .addCase(selectProfile.pending, (state: ProfileState, action) => {
+        state.isProfileSelected = false
       })
   },
 });

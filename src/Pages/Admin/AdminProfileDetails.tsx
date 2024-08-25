@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../App/Store'
 import { fetchSearchProfileById, selectProfile } from '../../Redux/profileSlice'
@@ -16,10 +16,12 @@ const AdminProfileDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const dispatch = useDispatch<AppDispatch>();
   const searchProfile = useSelector((state: RootState) => state.profile.searchProfile);
+  const isProfileSelected = useSelector((state: RootState) => state.profile.isProfileSelected);
   const status = useSelector((state: RootState) => state.profile.searchProfileStatus);
   const error = useSelector((state: RootState) => state.profile.error);
   const items = [{ label: 'Search', url: '/client/search' }, { label: 'Profile' }];
   const home = { icon: 'pi pi-home', url: '/home' }
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (status === 'idle') {
@@ -34,9 +36,15 @@ const AdminProfileDetails: React.FC = () => {
     }
   }
 
-  const selectUserProfile = () => {
+   const selectUserProfile = () => {
     dispatch(selectProfile(id))
   }
+
+  useEffect(() => {
+    if (isProfileSelected) {
+      navigate('/recruiter/profile');
+    }
+  }, [isProfileSelected])
 
   return (
     <>

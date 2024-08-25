@@ -46,7 +46,10 @@ const RecruiterProfileCreate: React.FC = () => {
 
   const createProfile = async (e) => {
     e.preventDefault()
-    await dispatch(createProfileInterview(profile))
+    if (profile.programmingR && profile.dataEngR && profile.cloudEngR && profile.communicationR && profile.attitudeR) {
+
+      await dispatch(createProfileInterview(profile))
+    }
   }
 
   useEffect(() => {
@@ -57,14 +60,14 @@ const RecruiterProfileCreate: React.FC = () => {
   }, [createProfileStatus])
 
   const certificationUpdate = (event: any) => {
-    profile.certificationList = event.map(x=>x.value)
+    profile.certificationList = event.map(x => x.value)
   }
 
   const skillsUpdate = (event: any) => {
-    if(profile.summary){
-      profile.summary.skills = event.map(x=>x.value)
+    if (profile.summary) {
+      profile.summary.skills = event.map(x => x.value)
     }
-    else{
+    else {
       profile.summary = {};
     }
   }
@@ -90,24 +93,30 @@ const RecruiterProfileCreate: React.FC = () => {
                     </div>
                   </div>
                   <div className="mt-4 mb-lg-0">
+                    {
+                      (profile.lastName && (!profile.programmingR || !profile.dataEngR || !profile.cloudEngR || !profile.communicationR || !profile.attitudeR)) &&
+                      (
+                        <p className="text-danger">Select Rating</p>
+                      )
+                    }
                     <div className='d-flex justify-content-between  mb-2'>
-                      <div>Programming</div>
+                      <div>Programming <span className="text-danger">*</span></div>
                       <div> <Rating value={profile.programmingR} onChange={(e) => setProfile({ ...profile, programmingR: e.value || 0 })} cancel={false} /></div>
                     </div>
                     <div className='d-flex justify-content-between  mb-2'>
-                      <div> Data Engineer</div>
+                      <div> Data Engineer <span className="text-danger">*</span></div>
                       <div> <Rating value={profile.dataEngR} onChange={(e) => setProfile({ ...profile, dataEngR: e.value || 0 })} cancel={false} /></div>
                     </div>
                     <div className='d-flex justify-content-between  mb-2'>
-                      <div> Cloud</div>
+                      <div> Cloud <span className="text-danger">*</span></div>
                       <div> <Rating value={profile.cloudEngR} onChange={(e) => setProfile({ ...profile, cloudEngR: e.value || 0 })} cancel={false} /></div>
                     </div>
                     <div className='d-flex justify-content-between  mb-2'>
-                      <div> Communication</div>
+                      <div> Communication <span className="text-danger">*</span></div>
                       <div> <Rating value={profile.communicationR} onChange={(e) => setProfile({ ...profile, communicationR: e.value || 0 })} cancel={false} /></div>
                     </div>
                     <div className='d-flex justify-content-between  mb-2'>
-                      <div>  Attitude</div>
+                      <div>  Attitude <span className="text-danger">*</span></div>
                       <div> <Rating value={profile.attitudeR} onChange={(e) => setProfile({ ...profile, attitudeR: e.value || 0 })} cancel={false} /></div>
                     </div>
                   </div>
@@ -198,7 +207,13 @@ const RecruiterProfileCreate: React.FC = () => {
                       </div>
                       <div className="col-6 from-row">
                         <label className="form-label">Categoty <span className="text-danger">*</span></label>
-                        <input value={profile.jobCategory} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, jobCategory: e.target.value })} required />
+                        <select value={profile.jobCategory} onChange={(e) => setProfile({ ...profile, jobCategory: e.target.value })} className="form-control" aria-label="Default select example">
+                          <option value={'fulltime'}>Full-Time</option>
+                          <option value={'parttime'}>Part-Time</option>
+                          <option value={'c2h'}>Contract/C2H</option>
+                          <option value={'premium'}>Premium</option>
+                          <option value={'executive'}>Executive</option>
+                        </select>
                       </div>
                     </div>
 
