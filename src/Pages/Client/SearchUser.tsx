@@ -42,7 +42,7 @@ const SearchUser: React.FC = () => {
 
   useEffect(() => {
     if (isProfileSelected) {
-      navigate('/recruiter/profile');
+      navigate('/client/profile');
     }
   }, [isProfileSelected])
 
