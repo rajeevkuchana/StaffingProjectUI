@@ -207,11 +207,10 @@ const SearchUser: React.FC = () => {
                       </TabPanel>
 
                     </TabView>
-                    {/* {
-                      !searchProfile.selectedBy && (
+                    {    !searchProfile.selectedBy && (
                         <Button label="Shortlist" onClick={selectUserProfile} className='shortlist' size='small' />
                       )
-                    } */}
+                    } 
                   </div>
                 </div>
               </div>
