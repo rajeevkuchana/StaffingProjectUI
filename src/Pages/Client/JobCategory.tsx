@@ -50,7 +50,7 @@ const JobCategory: React.FC = () => {
                       <img src={`${item.categoryIcon || 'https://i.imgur.com/6NKPrhO.png'}`} />
                     </div>
                     <h4>{item.categoryDisplay}</h4>
-                    <p>{item.categoryDescriptions || 'Job category descriptions'}</p>
+                    <p className='our-desc-c'>{item.categoryDescriptions || 'Job category descriptions'}</p>
                   </div>
                 </div>
               </Link>

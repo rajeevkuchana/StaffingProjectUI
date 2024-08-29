@@ -15,6 +15,14 @@
   transition: all .4s ease-in-out;
   box-shadow: 0 0 25px 0 rgba(20, 27, 202, .17)
 }
+.our-desc-sc {
+ text-align: left;
+ font-size: small;
+}
+
+.our-desc-c {
+   font-size: small;
+ }
 
 .our-services .icon {
   margin-bottom: -21px;
@@ -24,7 +32,7 @@
 
 .our-services:hover h4,
 .our-services:hover p {
-  color: #fff
+  color: #fff;
 }
 
 .job-desc {
@@ -54,4 +62,8 @@ a.job-sub-category {
 
 .job-sub-category {
   min-height: 200px;
+}
+
+p.job-category{
+  text-align: left;
 }

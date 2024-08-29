@@ -57,7 +57,7 @@ const JobSubCategory: React.FC = (data: any) => {
                       <img src="https://i.imgur.com/6NKPrhO.png" />
                     </div>
                     <h4>{item.subCategoryDisplay}</h4>
-                    <p>{item.subCategoryDesc}</p>
+                    <p className='our-desc-sc'>{item.subCategoryDesc}</p>
 
                   </div>
                 </div>
