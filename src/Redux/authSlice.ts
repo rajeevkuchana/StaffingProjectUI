@@ -28,12 +28,16 @@ const authSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(verifyUser.fulfilled, (state: any, action) => {
-        state.loginStatus = 'succeeded';
-        state.user = action.payload
-        localStorage.setItem('user', JSON.stringify(state.user));
-        window.location.href = window.location.origin + "/home"
-
+      .addCase(verifyUser.fulfilled, (state: any, action : any) => {
+        if(action.payload?.role){
+          state.loginStatus = 'succeeded';
+          state.user = action.payload
+          localStorage.setItem('user', JSON.stringify(state.user));
+          window.location.href = window.location.origin + "/home"
+        }
+        else{
+          state.loginStatus = 'failed';
+        }
       })
       .addCase(verifyUser.pending, (state: any, action) => {
         state.loginStatus = 'idle';

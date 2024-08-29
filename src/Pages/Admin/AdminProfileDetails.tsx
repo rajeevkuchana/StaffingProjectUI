@@ -42,7 +42,7 @@ const AdminProfileDetails: React.FC = () => {
 
   useEffect(() => {
     if (isProfileSelected) {
-      navigate('/recruiter/profile');
+      navigate('/admin/profile');
     }
   }, [isProfileSelected])
 
