@@ -206,7 +206,7 @@ const RecruiterProfileCreate: React.FC = () => {
                         </select>
                       </div>
                       <div className="col-6 from-row">
-                        <label className="form-label">Categoty <span className="text-danger">*</span></label>
+                        <label className="form-label">Category <span className="text-danger">*</span></label>
                         <select value={profile.jobCategory} onChange={(e) => setProfile({ ...profile, jobCategory: e.target.value })} className="form-control" aria-label="Default select example">
                           <option value={'fulltime'}>Full-Time</option>
                           <option value={'parttime'}>Part-Time</option>
