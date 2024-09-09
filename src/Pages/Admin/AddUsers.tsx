@@ -129,7 +129,7 @@ const AddUsers: React.FC = () => {
               <select value={user.role} onChange={(e) => setUser({ ...user, role: e.target.value })} className="form-control" aria-label="Default select example">
                 <option selected>Admin</option>
                 <option >Client</option>
-                <option >Interviewer</option>
+                
                 <option >Recruiter</option>
               </select>
             </div>

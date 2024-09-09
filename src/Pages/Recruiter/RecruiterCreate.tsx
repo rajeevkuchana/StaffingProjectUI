@@ -275,24 +275,22 @@ const RecruiterProfileCreate: React.FC = () => {
                       <label className="form-label">Experience #4 <span className="text-danger">*</span></label>
                       <textarea className="form-control" value={profile.experienceDetails?.expD4} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD4": e.target.value } })} rows={3}></textarea>
                     </div>
-                  </Panel>
-                  <Panel toggleable header="Feedback Details" className='mb-1'>
-                    <div className="form-group">
-                      <label className="form-label">Short Feedback <span className="text-danger">*</span></label>
-                      <textarea className="form-control" value={profile.feedback?.shortFeedback} onChange={(e) => setProfile({ ...profile, feedback: { ...profile.feedback, shortFeedback: e.target.value } })} rows={3}></textarea>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Long Feedback <span className="text-danger">*</span></label>
-                      <textarea className="form-control" value={profile.feedback?.longFeedback} onChange={(e) => setProfile({ ...profile, feedback: { ...profile.feedback, longFeedback: e.target.value } })} rows={3}></textarea>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Video feedback URL <span className="text-danger">*</span></label>
-                      <input value={profile.videoLink} type="url" className="form-control" onChange={(e) => setProfile({ ...profile, videoLink: e.target.value })} required />
-                    </div>
                     <div className="form-group">
                       <label className="form-label">Resume Link  <span className="text-danger">*</span></label>
                       <input value={profile.resumeLink} type="url" className="form-control" onChange={(e) => setProfile({ ...profile, resumeLink: e.target.value })} required />
                     </div>
+                  </Panel>
+                  <Panel toggleable header="Feedback Details" className='mb-1'>
+                    <div className="form-group">
+                      <label className="form-label">Feedback <span className="text-danger">*</span></label>
+                      <textarea className="form-control" value={profile.feedback?.shortFeedback} onChange={(e) => setProfile({ ...profile, feedback: { ...profile.feedback, shortFeedback: e.target.value } })} rows={3}></textarea>
+                    </div>
+                   
+                    <div className="form-group">
+                      <label className="form-label">Video feedback URL <span className="text-danger">*</span></label>
+                      <input value={profile.videoLink} type="url" className="form-control" onChange={(e) => setProfile({ ...profile, videoLink: e.target.value })} required />
+                    </div>
+                   
                   </Panel>
                   <div className='text-right'>
                     <button className="btn bsb-btn-xl btn-primary" type="submit">Save Profile</button>
