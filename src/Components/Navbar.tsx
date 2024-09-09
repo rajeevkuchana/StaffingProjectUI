@@ -38,7 +38,7 @@ export default function WithAction() {
       setLinks([
         { label: 'Home', href: '/' },
         { label: 'Users', href: '/admin/user' },
-        { label: 'Admin Profiles View', href: '/admin/profile' },
+        { label: 'Profiles', href: '/admin/profile' },
 
       ])
     }
