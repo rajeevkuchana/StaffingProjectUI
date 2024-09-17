@@ -228,17 +228,18 @@ const RecruiterProfileCreate: React.FC = () => {
                       </div>
                     </div>
 
+
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
                         <label className="form-label">Certifications </label>
-                        <CreatableSelect onChange={certificationUpdate} defaultValue={profile.certificationList} isMulti />
+                        <CreatableSelect onChange={certificationUpdate} defaultValue={profile.certificationList} isMulti required/>
                       </div>
                     </div>
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
                         <label className="form-label">Skills </label>
-                        <CreatableSelect onChange={skillsUpdate} defaultValue={profile.summary?.skills} isMulti />
+                        <CreatableSelect onChange={skillsUpdate} defaultValue={profile.summary?.skills} isMulti required/>
                       </div>
                     </div>
                   </Panel>
@@ -246,14 +247,14 @@ const RecruiterProfileCreate: React.FC = () => {
 
                     <div className="form-group">
                       <label className="form-label">Summary #1 <span className="text-danger">*</span></label>
-                      <textarea className="form-control" value={profile.summary?.summary1} onChange={(e) => setProfile({ ...profile, summary: { ...profile.summary, "summary1": e.target.value } })} rows={3}></textarea>
+                      <textarea className="form-control" value={profile.summary?.summary1} onChange={(e) => setProfile({ ...profile, summary: { ...profile.summary, "summary1": e.target.value } })} rows={3} required></textarea>
                     </div>
                     <div className="form-group">
                       <label className="form-label">Summary #2 <span className="text-danger">*</span></label>
-                      <textarea className="form-control" value={profile.summary?.summary2} onChange={(e) => setProfile({ ...profile, summary: { ...profile.summary, "summary2": e.target.value } })} rows={3}></textarea>
+                      <textarea className="form-control" value={profile.summary?.summary2} onChange={(e) => setProfile({ ...profile, summary: { ...profile.summary, "summary2": e.target.value } })} rows={3} required></textarea>
                     </div>
                     <div className="form-group">
-                      <label className="form-label">Summary #3 <span className="text-danger">*</span></label>
+                      <label className="form-label">Summary #3 </label>
                       <textarea className="form-control" value={profile.summary?.summary3} onChange={(e) => setProfile({ ...profile, summary: { ...profile.summary, "summary3": e.target.value } })} rows={3}></textarea>
                     </div>
                   </Panel>
@@ -261,18 +262,18 @@ const RecruiterProfileCreate: React.FC = () => {
 
                     <div className="form-group">
                       <label className="form-label">Experience #1 <span className="text-danger">*</span></label>
-                      <textarea className="form-control" value={profile.experienceDetails?.expD1} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD1": e.target.value } })} rows={3}></textarea>
+                      <textarea className="form-control" value={profile.experienceDetails?.expD1} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD1": e.target.value } })} rows={3} required></textarea>
                     </div>
                     <div className="form-group">
-                      <label className="form-label">Experience #2 <span className="text-danger">*</span></label>
+                      <label className="form-label">Experience #2 </label>
                       <textarea className="form-control" value={profile.experienceDetails?.expD2} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD2": e.target.value } })} rows={3}></textarea>
                     </div>
                     <div className="form-group">
-                      <label className="form-label">Experience #3 <span className="text-danger">*</span></label>
+                      <label className="form-label">Experience #3 </label>
                       <textarea className="form-control" value={profile.experienceDetails?.expD3} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD3": e.target.value } })} rows={3}></textarea>
                     </div>
                     <div className="form-group">
-                      <label className="form-label">Experience #4 <span className="text-danger">*</span></label>
+                      <label className="form-label">Experience #4 </label>
                       <textarea className="form-control" value={profile.experienceDetails?.expD4} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD4": e.target.value } })} rows={3}></textarea>
                     </div>
                     {/*  <div className="form-group">
@@ -283,7 +284,7 @@ const RecruiterProfileCreate: React.FC = () => {
                   <Panel toggleable header="Feedback Details" className='mb-1'>
                     <div className="form-group">
                       <label className="form-label">Feedback <span className="text-danger">*</span></label>
-                      <textarea className="form-control" value={profile.feedback?.shortFeedback} onChange={(e) => setProfile({ ...profile, feedback: { ...profile.feedback, shortFeedback: e.target.value } })} rows={3}></textarea>
+                      <textarea className="form-control" value={profile.feedback?.shortFeedback} onChange={(e) => setProfile({ ...profile, feedback: { ...profile.feedback, shortFeedback: e.target.value } })} rows={3} required></textarea>
                     </div>
                       
                     <div className="form-group">
