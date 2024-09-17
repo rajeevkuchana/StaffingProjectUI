@@ -231,14 +231,14 @@ const RecruiterProfileCreate: React.FC = () => {
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
-                        <label className="form-label">Certifications </label>
+                        <label className="form-label">Certifications  <span className="text-danger">*</span></label>
                         <CreatableSelect onChange={certificationUpdate} defaultValue={profile.certificationList} isMulti required/>
                       </div>
                     </div>
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
-                        <label className="form-label">Skills </label>
+                        <label className="form-label">Skills  <span className="text-danger">*</span></label>
                         <CreatableSelect onChange={skillsUpdate} defaultValue={profile.summary?.skills} isMulti required/>
                       </div>
                     </div>
