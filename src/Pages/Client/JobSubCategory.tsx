@@ -73,7 +73,7 @@ const JobSubCategory: React.FC = (data: any) => {
         )}
       </div>
       <Dialog maximizable header={''} visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }}>
-        <div  className="mb-5" dangerouslySetInnerHTML={{ __html: searchProfilesJobDesc.jobDescriptionText }} />
+        <div  className="mb-5" dangerouslySetInnerHTML={{ __html: searchProfilesJobDesc?.jobDescriptionText }} />
       </Dialog>
 
     </>
