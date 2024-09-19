@@ -34,6 +34,7 @@ export interface IProfile {
     selectedBy?: any
     noticePeriod?: number | string
     selectedDateTime?: any
+    matchPer?: string
 }
 
 export interface Summary {

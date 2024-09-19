@@ -227,7 +227,14 @@ const RecruiterProfileCreate: React.FC = () => {
                         <input value={profile.interviewBy} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, interviewBy: e.target.value })} required />
                       </div>
                     </div>
-
+                    <div className='row gy-3 gy-md-4 my-2'>
+                      <div className="col-6 from-row">
+                        <label className="form-label">Match % <span className="text-danger">*</span></label>
+                        <input value={profile.matchPer} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, matchPer: e.target.value })} required />
+                      </div>
+                      
+                      
+                    </div>
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
