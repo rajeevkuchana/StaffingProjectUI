@@ -5,7 +5,7 @@ export const userRole = {
     recruiter: "Recruiter"
 }
 
-export const apiBaseAddress = 'http://18.232.90.66:8090';
+export const apiBaseAddress = 'http://3.81.66.16:8090';
 //export const apiBaseAddress = 'http://localhost:8090';
 
 export const Roles = [
