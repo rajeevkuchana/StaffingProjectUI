@@ -26,6 +26,8 @@ import Profiles from './Pages/Client/Profiles'
 import RecruiterProfileDetails from './Pages/Recruiter/RecruiterProfileDetails'
 import AdminProfile from './Pages/Admin/AdminProfile'
 import AdminProfileDetails from './Pages/Admin/AdminProfileDetails'
+import Category from './Pages/Admin/Category'
+import Shortlist from './Pages/Recruiter/Selected'
 
 const App = () => {
   const user = useSelector((state: any) => state.auth.user);
@@ -44,19 +46,20 @@ const App = () => {
             <Route path='/client/profile-detail/:jobCategory/:id' element={<SearchUser />} />
             <Route path='/client/shortlist' element={<Selected />} />
 
-
             <Route path='/interviwer/search' element={<InterviwerSearch />} />
             <Route path='/interviwer/create' element={<InterviwerUser />} />
-
 
             <Route path='/admin/user' element={<AddUsers />} />
             <Route path='/admin/profile' element={<AdminProfile />} />
             <Route path='/admin/profile-create' element={<AdminProfileDetails />} />
-
+            <Route path='/admin/category' element={<Category />} />
 
             <Route path='/recruiter/profile' element={<RecruiterSearch />} />
             <Route path='/recruiter/profile-create' element={<RecruiterProfileCreate />} />
+            <Route path='/recruiter/profile-edit/:id' element={<RecruiterProfileCreate />} />
             <Route path='/recruiter/profile-detail/:id' element={<RecruiterProfileDetails />} />
+            <Route path='/recruiter/shortlist' element={<Shortlist />} />
+
           </Route>
         </Routes>
       </main>

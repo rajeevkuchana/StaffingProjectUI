@@ -6,13 +6,14 @@ import { Rating } from 'primereact/rating'
 import { Panel } from 'primereact/panel'
 import '../Interview/InterviewCreare.css'
 import signInImage from './../../Images/userupload.png'
-import { createProfileInterview } from '../../Redux/profileSlice'
+import { createProfileInterview, fetchSearchProfileById, updateProfileInterview } from '../../Redux/profileSlice'
 import { AppDispatch, RootState } from '../../App/Store'
 import { useDispatch, useSelector } from 'react-redux'
 import { Toast } from 'primereact/toast'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { NoticePeriod } from '../../Utils/Const'
 import CreatableSelect from 'react-select/creatable'
+import { uuidv4 } from '../../Utils/Utils'
 
 const RecruiterProfileCreate: React.FC = () => {
   const items = [{ label: 'Recruiter Profile', url: '/recruiter/profile' }, { label: 'Create Profile' }];
@@ -21,9 +22,13 @@ const RecruiterProfileCreate: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState()
   const [preview, setPreview] = useState()
   const createProfileStatus = useSelector((state: RootState) => state.profile.createProfileStatus);
+  const searchProfile = useSelector((state: RootState) => state.profile.searchProfile);
+
   const toast = useRef<any>(null);
   let navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+  const { id } = useParams();
+  const [isEditMode, setIsEditMode] = useState(false);
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
@@ -36,6 +41,21 @@ const RecruiterProfileCreate: React.FC = () => {
     return () => URL.revokeObjectURL(objectUrl)
   }, [selectedFile])
 
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      if (id) {
+        setIsEditMode(true);
+        try {
+          const profileData = await dispatch(fetchSearchProfileById(id || ''));
+          setProfile(profileData.payload as IProfile);
+        } catch (error) {
+          console.error('Error fetching profile data:', error);
+        }
+      }
+    };
+    fetchProfileData();
+  }, [id, dispatch]); 
+
   const onSelectFile = e => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined)
@@ -47,8 +67,12 @@ const RecruiterProfileCreate: React.FC = () => {
   const createProfile = async (e) => {
     e.preventDefault()
     if (profile.programmingR && profile.dataEngR && profile.cloudEngR && profile.communicationR && profile.attitudeR) {
-
-      await dispatch(createProfileInterview(profile))
+      if(isEditMode){
+        await dispatch(updateProfileInterview(profile))
+      }
+      else{
+        await dispatch(createProfileInterview(profile))
+      }
     }
   }
 
@@ -60,12 +84,22 @@ const RecruiterProfileCreate: React.FC = () => {
   }, [createProfileStatus])
 
   const certificationUpdate = (event: any) => {
-    profile.certificationList = event.map(x => x.value)
+    const certificationList = event.map(x => x.value);
+    setProfile((prevState) => ({
+      ...prevState, // copy the previous state
+      certificationList: [... certificationList] // create a new array with added or modified values
+    }));
   }
 
   const skillsUpdate = (event: any) => {
     if (profile.summary) {
-      profile.summary.skills = event.map(x => x.value)
+      const skills = event.map(x => x.value);
+      setProfile((prevState) => ({
+        ...prevState, // copy the previous state
+        summary : {
+          skills : [...skills]
+        } // create a new array with added or modified values
+      }));
     }
     else {
       profile.summary = {};
@@ -199,7 +233,7 @@ const RecruiterProfileCreate: React.FC = () => {
                           {
                             NoticePeriod.map(x => {
                               return (
-                                <option value={x.value}>{x.name}</option>
+                                <option key={`test-${uuidv4()}`} value={x.value}>{x.name}</option>
                               )
                             })
                           }
@@ -239,14 +273,14 @@ const RecruiterProfileCreate: React.FC = () => {
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
                         <label className="form-label">Certifications  <span className="text-danger">*</span></label>
-                        <CreatableSelect onChange={certificationUpdate} defaultValue={profile.certificationList} isMulti required/>
+                        <CreatableSelect value={profile.certificationList?.map((x=>{return {value:x,label:x}}))} onChange={certificationUpdate}  isMulti required/>
                       </div>
                     </div>
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
                         <label className="form-label">Skills  <span className="text-danger">*</span></label>
-                        <CreatableSelect onChange={skillsUpdate} defaultValue={profile.summary?.skills} isMulti required/>
+                        <CreatableSelect onChange={skillsUpdate} value={profile.summary?.skills?.map((x=>{return {value:x,label:x}}))} isMulti required/>
                       </div>
                     </div>
                   </Panel>

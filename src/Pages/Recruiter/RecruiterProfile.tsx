@@ -13,6 +13,7 @@ import { Experience, NoticePeriod } from '../../Utils/Const'
 import { IconField } from 'primereact/iconfield'
 import { InputText } from 'primereact/inputtext'
 import { InputIcon } from 'primereact/inputicon'
+import { Button } from 'primereact/button'
 
 const RecruiterProfile: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -77,7 +78,7 @@ const RecruiterProfile: React.FC = () => {
 
         </small>
         </p>
-        
+
       </div>
     );
   };
@@ -113,7 +114,7 @@ const RecruiterProfile: React.FC = () => {
     );
   };
 
-  
+
   const emailBodyTemplate = (rowData) => {
     return (
       <div className="align-items-center">
@@ -174,6 +175,15 @@ const RecruiterProfile: React.FC = () => {
     );
   };
 
+
+  const actionBodyTemplate = (rowData) => {
+    return (
+      <div className='flex gap-2'>
+        <Button size="small" style={{ borderRadius: '5px', width: "20px", height: "25px" }} icon="pi pi-pen-to-square" onClick={() => { onEditClick(rowData)}} rounded aria-label="Cancel" />
+      </div>
+    )
+  };
+
   const ratingBodyTemplate = (rowData) => {
     return <Rating value={rowData.overAllRating} readOnly cancel={false} />;
   };
@@ -184,6 +194,10 @@ const RecruiterProfile: React.FC = () => {
 
   const createProfile = () => {
     navigate(`/recruiter/profile-create`);
+  };
+
+  const onEditClick = (event) => {
+    navigate(`/recruiter/profile-edit/${event.profileId}`);
   };
 
   const header = (
@@ -255,6 +269,7 @@ const RecruiterProfile: React.FC = () => {
                     <Column className="text-nowrap" headerClassName='column-title' field="OverallExp" body={overallExperienceBodyTemplate} header="Overall Experience"></Column>
                     <Column className="text-nowrap" headerClassName='column-title' field="relevantExp" body={relevantExperienceBodyTemplate} header="Relevant Experience"></Column>
                     <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
+                    <Column frozen alignFrozen='right' className="text-nowrap" headerClassName='text-nowrap column-title' field="id" body={actionBodyTemplate} header="Action"></Column>
                   </DataTable>
                 </>
               }

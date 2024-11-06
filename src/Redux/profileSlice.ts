@@ -16,11 +16,12 @@ interface ProfileState {
   selectedProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   createProfileStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
-  jobCategory: Array<any>;
+  jobCategory: any;
   jobCategoryStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
+  jobCategories: Array<any>;
+  jobCategoriesStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   searchProfilesJobDescStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
-  isProfileSelected : boolean
-
+  isProfileSelected: boolean
 }
 
 // Helper function to get the initial state from local storage
@@ -28,18 +29,19 @@ const initialState: ProfileState = {
   searchProfile: {} as IProfile,
   searchProfilesJobDesc: '',
   searchProfilesJobDescStatus: 'idle',
-
   searchProfiles: [],
   selectedProfile: {} as any,
   selectedProfiles: [],
-  jobCategory: [],
+  jobCategory: {} as any,
+  jobCategoryStatus: 'idle',
+  jobCategories: [],
   searchProfileStatus: 'idle',
   searchProfilesStatus: 'idle',
   selectedProfileStatus: 'idle',
   createProfileStatus: 'idle',
-  jobCategoryStatus: 'idle',
+  jobCategoriesStatus: 'idle',
   error: null,
-  isProfileSelected : false
+  isProfileSelected: false
 };
 
 // Async thunk for fetching users
@@ -68,8 +70,28 @@ export const createProfileInterview = createAsyncThunk('profile/createProfileInt
   return response.data;
 });
 
+export const updateProfileInterview = createAsyncThunk('profile/updateProfileInterview', async (data: IProfile) => {
+  const response = await axios.put<[]>(`${apiBaseAddress}/profiles/edit/${data.profileId}`, data);
+  return response.data;
+});
+
 export const fetchJobCategory = createAsyncThunk('profile/fetchJobCategory', async (id: string) => {
   const response = await axios.get<[]>(`${apiBaseAddress}/profiles/jobProfiles?jobCategory=${id}`);
+  return response.data;
+});
+
+export const createJobCategory = createAsyncThunk('profile/createJobCategory', async (data: any) => {
+  const response = await axios.post<[]>(`${apiBaseAddress}/profiles/add/jobProfile`, data);
+  return response.data;
+});
+
+export const updateJobCategory = createAsyncThunk('profile/updateJobCategory', async (data: any) => {
+  const response = await axios.put<[]>(`${apiBaseAddress}/profiles/edit/jobProfile`, data);
+  return response.data;
+});
+
+export const deleteJobCategory = createAsyncThunk('profile/deleteJobCategory', async (data: any) => {
+  const response = await axios.delete<[]>(`${apiBaseAddress}/profiles/delete/jobProfile?categoryCode=${data}`);
   return response.data;
 });
 
@@ -78,11 +100,15 @@ export const fetchJobDescription = createAsyncThunk('profile/fetchJobDescription
   return response.data;
 });
 
+export const createJobDescription = createAsyncThunk('profile/createJobDescription', async (data: any) => {
+  const response = await axios.post<[]>(`${apiBaseAddress}/profiles/add/jobDescription`,data);
+  return response.data;
+});
+
 export const selectProfile = createAsyncThunk('profile/selectProfile', async (data: any) => {
   const response = await axios.get<[]>(`${apiBaseAddress}/profiles/select/${data}?email=${getUserEmail()}`);
   return response.data;
 });
-
 
 const userSlice = createSlice({
   name: 'profile',
@@ -138,14 +164,37 @@ const userSlice = createSlice({
       .addCase(createProfileInterview.fulfilled, (state: ProfileState, action) => {
         state.createProfileStatus = 'succeeded';
       })
+      .addCase(updateProfileInterview.pending, (state: ProfileState, action) => {
+        state.createProfileStatus = 'loading';
+      })
+      .addCase(updateProfileInterview.rejected, (state: ProfileState, action) => {
+        state.createProfileStatus = 'failed';
+      })
+      .addCase(updateProfileInterview.fulfilled, (state: ProfileState, action) => {
+        state.createProfileStatus = 'succeeded';
+      })
       .addCase(fetchJobCategory.pending, (state: ProfileState, action) => {
-        state.jobCategoryStatus = 'loading';
+        state.jobCategoriesStatus = 'loading';
       })
       .addCase(fetchJobCategory.fulfilled, (state: ProfileState, action) => {
-        state.jobCategoryStatus = 'succeeded';
-        state.jobCategory = [...action.payload];
-        console.log(state.jobCategory)
+        state.jobCategoriesStatus = 'succeeded';
+        state.jobCategories = [...action.payload];
       })
+      .addCase(createJobCategory.pending, (state: ProfileState, action) => {
+        state.jobCategoryStatus = 'loading';
+      })
+      .addCase(createJobCategory.fulfilled, (state: ProfileState, action) => {
+        state.jobCategoryStatus = 'succeeded';
+        state.jobCategory = { ...action.payload };
+      })
+      .addCase(updateJobCategory.pending, (state: ProfileState, action) => {
+        state.jobCategoryStatus = 'loading';
+      })
+      .addCase(updateJobCategory.fulfilled, (state: ProfileState, action) => {
+        state.jobCategoryStatus = 'succeeded';
+        state.jobCategory = { ...action.payload };
+      })
+
       .addCase(fetchJobDescription.fulfilled, (state: ProfileState, action) => {
         state.searchProfilesJobDescStatus = 'succeeded';
         state.searchProfilesJobDesc = action.payload
