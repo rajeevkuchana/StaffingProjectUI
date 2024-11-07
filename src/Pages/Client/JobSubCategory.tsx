@@ -13,7 +13,7 @@ const JobSubCategory: React.FC = (data: any) => {
   const dispatch = useDispatch<AppDispatch>();
   const { jobCategory } = useParams<{ jobCategory: string }>()
   const { jobProfileSub } = useParams<{ jobProfileSub: string }>()
-  const jobCategoryList = useSelector((state: RootState) => state.profile.jobCategory);
+  const jobCategoryList = useSelector((state: RootState) => state.profile.jobCategories);
   const searchProfilesJobDesc = useSelector((state: RootState) => state.profile.searchProfilesJobDesc);  
   const [jobSubCategor, setJobSubCategor] = useState<any>();
   const [visible, setVisible] = useState(false);

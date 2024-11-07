@@ -8,8 +8,8 @@ import CreatableSelect from 'react-select/creatable'
 const JobCategory: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { jobCategory } = useParams<{ jobCategory: string }>()
-  const jobCategorys = useSelector((state: RootState) => state.profile.jobCategory);
-  const status = useSelector((state: RootState) => state.profile.jobCategoryStatus);
+  const jobCategorys = useSelector((state: RootState) => state.profile.jobCategories);
+  const status = useSelector((state: RootState) => state.profile.jobCategoriesStatus);
   const [jobProfile, setJobProfile] = useState([]);
   let navigate = useNavigate();
 

@@ -39,13 +39,14 @@ export default function WithAction() {
         { label: 'Home', href: '/' },
         { label: 'Users', href: '/admin/user' },
         { label: 'Profiles', href: '/admin/profile' },
-
+        { label: 'Category', href: '/admin/category' },
       ])
     }
     else if (role === userRole.recruiter) {
       setLinks([
         { label: 'Home', href: '/' },
         { label: 'Profiles', href: '/recruiter/profile' },
+        { label: 'Shortlist', href: '/recruiter/shortlist' },
       ])
     }
   }, [])
