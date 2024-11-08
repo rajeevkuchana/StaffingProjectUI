@@ -65,7 +65,7 @@ export const fetchSelectedProfileById = createAsyncThunk('profile/fetchSelectedP
   return response.data;
 });
 
-export const createProfileInterview = createAsyncThunk('profile/createProfileInterview', async (data: IProfile) => {
+export const createProfileInterview = createAsyncThunk('profile/createProfileInterview', async (data: any) => {
   const response = await axios.post<[]>(`${apiBaseAddress}/profiles/add`, data);
   return response.data;
 });

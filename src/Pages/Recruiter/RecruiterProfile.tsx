@@ -175,15 +175,6 @@ const RecruiterProfile: React.FC = () => {
     );
   };
 
-
-  const actionBodyTemplate = (rowData) => {
-    return (
-      <div className='flex gap-2'>
-        <Button size="small" style={{ borderRadius: '5px', width: "20px", height: "25px" }} icon="pi pi-pen-to-square" onClick={() => { onEditClick(rowData)}} rounded aria-label="Cancel" />
-      </div>
-    )
-  };
-
   const ratingBodyTemplate = (rowData) => {
     return <Rating value={rowData.overAllRating} readOnly cancel={false} />;
   };
@@ -194,10 +185,6 @@ const RecruiterProfile: React.FC = () => {
 
   const createProfile = () => {
     navigate(`/recruiter/profile-create`);
-  };
-
-  const onEditClick = (event) => {
-    navigate(`/recruiter/profile-edit/${event.profileId}`);
   };
 
   const header = (
@@ -255,23 +242,22 @@ const RecruiterProfile: React.FC = () => {
           <div className='col-12  h-100'>
             <div className='card overflow-auto h-100 profile-table'>
               {status === "succeeded" &&
-                <>
-                  <DataTable header={header} scrollable scrollHeight="flex" onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
-                    {/* <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column> */}
-                    <Column frozen className="text-nowrap" headerClassName='column-title' field="firstName" body={nameBodyTemplate} header="Name"></Column>
-                    <Column className="text-nowrap" headerClassName='column-title' field="location" body={locationBodyTemplate} header="Location"></Column>
-                    <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={phoneBodyTemplate} header="Phone"></Column>
-                    <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={emailBodyTemplate} header="Email"></Column>
-                    <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={currentCompanyBodyTemplate} header="Current Company"></Column>
-                    <Column className="text-nowrap" headerClassName='column-title' field="designation" body={designationBodyTemplate} header="Designation"></Column>
-                    <Column className="text-nowrap" headerClassName='column-title' field="currentCTC" body={currentCTCBodyTemplate} header="Current CTC"></Column>
-                    <Column className="text-nowrap" headerClassName='column-title' field="expectedCTC" body={expectedCTCBodyTemplate} header="Expected CTC"></Column>
-                    <Column className="text-nowrap" headerClassName='column-title' field="OverallExp" body={overallExperienceBodyTemplate} header="Overall Experience"></Column>
-                    <Column className="text-nowrap" headerClassName='column-title' field="relevantExp" body={relevantExperienceBodyTemplate} header="Relevant Experience"></Column>
-                    <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
-                    <Column frozen alignFrozen='right' className="text-nowrap" headerClassName='text-nowrap column-title' field="id" body={actionBodyTemplate} header="Action"></Column>
-                  </DataTable>
-                </>
+
+                <DataTable header={header} scrollable scrollHeight="flex" onRowSelect={onRowSelect} globalFilter={globalFilter} selectionMode="single" paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
+                  {/* <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column> */}
+                  <Column frozen className="text-nowrap" headerClassName='column-title' field="firstName" body={nameBodyTemplate} header="Name"></Column>
+                  <Column className="text-nowrap" headerClassName='column-title' field="location" body={locationBodyTemplate} header="Location"></Column>
+                  <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={phoneBodyTemplate} header="Phone"></Column>
+                  <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={emailBodyTemplate} header="Email"></Column>
+                  <Column className="text-nowrap" headerClassName='column-title' field="currentCompany" body={currentCompanyBodyTemplate} header="Current Company"></Column>
+                  <Column className="text-nowrap" headerClassName='column-title' field="designation" body={designationBodyTemplate} header="Designation"></Column>
+                  <Column className="text-nowrap" headerClassName='column-title' field="currentCTC" body={currentCTCBodyTemplate} header="Current CTC"></Column>
+                  <Column className="text-nowrap" headerClassName='column-title' field="expectedCTC" body={expectedCTCBodyTemplate} header="Expected CTC"></Column>
+                  <Column className="text-nowrap" headerClassName='column-title' field="OverallExp" body={overallExperienceBodyTemplate} header="Overall Experience"></Column>
+                  <Column className="text-nowrap" headerClassName='column-title' field="relevantExp" body={relevantExperienceBodyTemplate} header="Relevant Experience"></Column>
+                  <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
+                </DataTable>
+
               }
             </div>
           </div>

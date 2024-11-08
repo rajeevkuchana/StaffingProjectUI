@@ -19,7 +19,10 @@ const RecruiterProfileCreate: React.FC = () => {
   const items = [{ label: 'Recruiter Profile', url: '/recruiter/profile' }, { label: 'Create Profile' }];
   const home = { icon: 'pi pi-home', url: '/home' }
   const [profile, setProfile] = useState<IProfile>({});
-  const [selectedFile, setSelectedFile] = useState()
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [resume, setResume] = useState(null);
+  const [interviewVideo, setInterviewVideo] = useState(null);
+  const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState()
   const createProfileStatus = useSelector((state: RootState) => state.profile.createProfileStatus);
   const searchProfile = useSelector((state: RootState) => state.profile.searchProfile);
@@ -54,24 +57,34 @@ const RecruiterProfileCreate: React.FC = () => {
       }
     };
     fetchProfileData();
-  }, [id, dispatch]); 
+  }, [id, dispatch]);
 
-  const onSelectFile = e => {
-    if (!e.target.files || e.target.files.length === 0) {
-      setSelectedFile(undefined)
-      return
+  // Handle file selection
+  const handleFileChange = (e, type) => {
+    const file = e.target.files[0];
+    if (type === 'profilePicture') {
+      setProfilePicture(file);
+      setSelectedFile(e.target.files[0])
+    } else if (type === 'resume') {
+      setResume(file);
+    } else if (type === 'interviewVideo') {
+      setInterviewVideo(file);
     }
-    setSelectedFile(e.target.files[0])
-  }
+  };
 
   const createProfile = async (e) => {
     e.preventDefault()
     if (profile.programmingR && profile.dataEngR && profile.cloudEngR && profile.communicationR && profile.attitudeR) {
-      if(isEditMode){
+      if (isEditMode) {
         await dispatch(updateProfileInterview(profile))
       }
-      else{
-        await dispatch(createProfileInterview(profile))
+      else {
+        const form = new FormData();
+        if (profilePicture) form.append('profilePicture', profilePicture);
+        if (resume) form.append('resume', resume);
+        if (interviewVideo) form.append('interviewVideo', interviewVideo);
+        form.append('data', JSON.stringify(profile));
+        await dispatch(createProfileInterview(form))
       }
     }
   }
@@ -87,7 +100,7 @@ const RecruiterProfileCreate: React.FC = () => {
     const certificationList = event.map(x => x.value);
     setProfile((prevState) => ({
       ...prevState, // copy the previous state
-      certificationList: [... certificationList] // create a new array with added or modified values
+      certificationList: [...certificationList] // create a new array with added or modified values
     }));
   }
 
@@ -96,8 +109,8 @@ const RecruiterProfileCreate: React.FC = () => {
       const skills = event.map(x => x.value);
       setProfile((prevState) => ({
         ...prevState, // copy the previous state
-        summary : {
-          skills : [...skills]
+        summary: {
+          skills: [...skills]
         } // create a new array with added or modified values
       }));
     }
@@ -122,7 +135,8 @@ const RecruiterProfileCreate: React.FC = () => {
                         {!preview && <img className='profile-image' src={signInImage} />}
                       </div>
                       <label className="btn btn-primary">
-                        Upload<input type="file" onChange={onSelectFile} className="uploadFile img" style={{ width: "0px", height: "0px", overflow: "hidden" }} />
+                        Upload<input type="file" onChange={(e) => handleFileChange(e, 'profilePicture')}
+                          className="uploadFile img" style={{ width: "0px", height: "0px", overflow: "hidden" }} />
                       </label>
                     </div>
                   </div>
@@ -266,21 +280,21 @@ const RecruiterProfileCreate: React.FC = () => {
                         <label className="form-label">Match % <span className="text-danger">*</span></label>
                         <input value={profile.matchPer} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, matchPer: e.target.value })} required />
                       </div>
-                      
-                      
+
+
                     </div>
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
                         <label className="form-label">Certifications  <span className="text-danger">*</span></label>
-                        <CreatableSelect value={profile.certificationList?.map((x=>{return {value:x,label:x}}))} onChange={certificationUpdate}  isMulti required/>
+                        <CreatableSelect value={profile.certificationList?.map((x => { return { value: x, label: x } }))} onChange={certificationUpdate} isMulti required />
                       </div>
                     </div>
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
                         <label className="form-label">Skills  <span className="text-danger">*</span></label>
-                        <CreatableSelect onChange={skillsUpdate} value={profile.summary?.skills?.map((x=>{return {value:x,label:x}}))} isMulti required/>
+                        <CreatableSelect onChange={skillsUpdate} value={profile.summary?.skills?.map((x => { return { value: x, label: x } }))} isMulti required />
                       </div>
                     </div>
                   </Panel>
@@ -317,22 +331,22 @@ const RecruiterProfileCreate: React.FC = () => {
                       <label className="form-label">Experience #4 </label>
                       <textarea className="form-control" value={profile.experienceDetails?.expD4} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD4": e.target.value } })} rows={3}></textarea>
                     </div>
-                    {/*  <div className="form-group">
+                    <div className="form-group">
                       <label className="form-label">Resume Link  <span className="text-danger">*</span></label>
-                      <input value={profile.resumeLink} type="url" className="form-control" onChange={(e) => setProfile({ ...profile, resumeLink: e.target.value })} required />
-                        </div>*/}
+                      <input value={profile.resumeLink} type="file" className="form-control" onChange={(e) => handleFileChange(e, 'resume')} required />
+                    </div>
                   </Panel>
                   <Panel toggleable header="Feedback Details" className='mb-1'>
                     <div className="form-group">
                       <label className="form-label">Feedback <span className="text-danger">*</span></label>
                       <textarea className="form-control" value={profile.feedback?.shortFeedback} onChange={(e) => setProfile({ ...profile, feedback: { ...profile.feedback, shortFeedback: e.target.value } })} rows={3} required></textarea>
                     </div>
-                      
+
                     <div className="form-group">
                       <label className="form-label">Video feedback URL <span className="text-danger">*</span></label>
-                      <input value={profile.videoLink} type="url" className="form-control" onChange={(e) => setProfile({ ...profile, videoLink: e.target.value })} required />
+                      <input value={profile.videoLink} type="file" className="form-control" onChange={(e) => handleFileChange(e, 'interviewVideo')} required />
                     </div>
-                 
+
                   </Panel>
                   <div className='text-right'>
                     <button className="btn bsb-btn-xl btn-primary" type="submit">Save Profile</button>

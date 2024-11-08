@@ -33,7 +33,7 @@ const RecruiterProfileDetails: React.FC = () => {
     }
   }
 
-   const selectUserProfile = () => {
+  const selectUserProfile = () => {
     dispatch(selectProfile(id))
   }
 
@@ -42,6 +42,11 @@ const RecruiterProfileDetails: React.FC = () => {
       navigate('/recruiter/profile');
     }
   }, [isProfileSelected])
+
+  const onEditClick = () => {
+    navigate(`/recruiter/profile-edit/${id}`);
+  };
+
 
   return (
     <>
@@ -204,11 +209,18 @@ const RecruiterProfileDetails: React.FC = () => {
                       </TabPanel>
 
                     </TabView>
-                    {
-                      !searchProfile.selectedBy && (
-                        <Button label="Shortlist" onClick={selectUserProfile} className='shortlist' size='small' />
-                      )
-                    }
+                    <div className='shortlist d-flex  gap-2'>
+                    <Button  icon="pi pi-pen-to-square" label='Edit Profile' onClick={onEditClick} rounded aria-label="Cancel" />
+
+                      {
+                        !searchProfile.selectedBy && (
+                          <Button label="Shortlist" onClick={selectUserProfile} size='small' />
+                        )
+
+                      }
+
+                    </div>
+
                   </div>
                 </div>
               </div>

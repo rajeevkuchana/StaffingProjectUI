@@ -28,6 +28,7 @@ import AdminProfile from './Pages/Admin/AdminProfile'
 import AdminProfileDetails from './Pages/Admin/AdminProfileDetails'
 import Category from './Pages/Admin/Category'
 import Shortlist from './Pages/Recruiter/Selected'
+import CategoryDescription from './Pages/Admin/CategoryDescription'
 
 const App = () => {
   const user = useSelector((state: any) => state.auth.user);
@@ -53,6 +54,7 @@ const App = () => {
             <Route path='/admin/profile' element={<AdminProfile />} />
             <Route path='/admin/profile-create' element={<AdminProfileDetails />} />
             <Route path='/admin/category' element={<Category />} />
+            <Route path='/admin/description' element={<CategoryDescription />} />
 
             <Route path='/recruiter/profile' element={<RecruiterSearch />} />
             <Route path='/recruiter/profile-create' element={<RecruiterProfileCreate />} />
