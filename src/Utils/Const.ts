@@ -5,7 +5,7 @@ export const userRole = {
     recruiter: "Recruiter"
 }
 
-export const apiBaseAddress = 'http://3.81.66.16:8090';
+export const apiBaseAddress = 'http://10.0.0.4:8090';
 
 export const Roles = [
     { name: userRole.client, code: userRole.client, },
