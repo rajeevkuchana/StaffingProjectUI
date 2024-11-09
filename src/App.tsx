@@ -60,7 +60,8 @@ const App = () => {
             <Route path='/recruiter/profile-create' element={<RecruiterProfileCreate />} />
             <Route path='/recruiter/profile-edit/:id' element={<RecruiterProfileCreate />} />
             <Route path='/recruiter/profile-detail/:id' element={<RecruiterProfileDetails />} />
-            <Route path='/recruiter/shortlist' element={<Shortlist />} />
+            <Route path='/recruiter/shortlist'
+             element={<Shortlist />} />
 
           </Route>
         </Routes>

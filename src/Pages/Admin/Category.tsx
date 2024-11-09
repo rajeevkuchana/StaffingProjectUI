@@ -27,13 +27,13 @@ const Category: React.FC = () => {
     categoryDisplay: '',
     jobCategory: 'fulltime',
     categoryDescriptions: '',
-    categoryIcon: 'https://i.imgur.com/6NKPrhO.png',
+    categoryIcon: '',
     jobProfilesSubCats: [
       {
-        subCategoryCode: 'AzureDE',
-        subCategoryDisplay: 'Azure Data Engineer',
-        subCategoryDesc: 'This Description for Azure DE',
-        subCategoryIcon: 'https://i.imgur.com/6NKPrhO.png',
+        subCategoryCode: '',
+        subCategoryDisplay: '',
+        subCategoryDesc: '',
+        subCategoryIcon: '',
       }
     ]
   }
@@ -194,7 +194,7 @@ const Category: React.FC = () => {
           <Column field="subCategoryCode" header="Sub Category Code" sortable></Column>
           <Column field="subCategoryDisplay" header="Sub Category" sortable></Column>
           <Column field="subCategoryDesc" header="Description" sortable></Column>
-          <Column body={actionSubCategoryBodyTemplate} field="subCategoryCode" header="Action"></Column>
+          {/* <Column body={actionSubCategoryBodyTemplate} field="subCategoryCode" header="Action"></Column> */}
 
         </DataTable>
       </div>

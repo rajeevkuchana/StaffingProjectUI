@@ -131,7 +131,7 @@ const RecruiterProfileCreate: React.FC = () => {
                   <div className="mb-4 ">
                     <div className="imgUp">
                       <div className="imagePreview align-middle">
-                        {preview && <img className='profile-image' src={preview} />}
+                        {preview && <img className='profile-image' src={'preview'} />}
                         {!preview && <img className='profile-image' src={signInImage} />}
                       </div>
                       <label className="btn btn-primary">
@@ -333,7 +333,7 @@ const RecruiterProfileCreate: React.FC = () => {
                     </div>
                     <div className="form-group">
                       <label className="form-label">Resume Link  <span className="text-danger">*</span></label>
-                      <input value={profile.resumeLink} type="file" className="form-control" onChange={(e) => handleFileChange(e, 'resume')} required />
+                      <input type="file" className="form-control" onChange={(e) => handleFileChange(e, 'resume')} required />
                     </div>
                   </Panel>
                   <Panel toggleable header="Feedback Details" className='mb-1'>
@@ -344,7 +344,7 @@ const RecruiterProfileCreate: React.FC = () => {
 
                     <div className="form-group">
                       <label className="form-label">Video feedback URL <span className="text-danger">*</span></label>
-                      <input value={profile.videoLink} type="file" className="form-control" onChange={(e) => handleFileChange(e, 'interviewVideo')} required />
+                      <input type="file" className="form-control" onChange={(e) => handleFileChange(e, 'interviewVideo')} required />
                     </div>
 
                   </Panel>
