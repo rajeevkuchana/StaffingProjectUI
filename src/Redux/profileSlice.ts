@@ -70,8 +70,8 @@ export const createProfileInterview = createAsyncThunk('profile/createProfileInt
   return response.data;
 });
 
-export const updateProfileInterview = createAsyncThunk('profile/updateProfileInterview', async (data: IProfile) => {
-  const response = await axios.put<[]>(`${apiBaseAddress}/profiles/edit/${data.profileId}`, data);
+export const updateProfileInterview = createAsyncThunk('profile/updateProfileInterview', async (data: any) => {
+  const response = await axios.put<[]>(`${apiBaseAddress}/profiles/edit`, data);
   return response.data;
 });
 

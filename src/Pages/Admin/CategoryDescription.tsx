@@ -92,7 +92,7 @@ const CategoryDescription = () => {
                 </div>
 
                 <div className="col-4 from-row">
-                    <select value={selectedJobSubCategoryData} name="jobCategory" onChange={(e: any) => { setJobSubCategoryData(e.target.value) }} className="form-control" aria-label="Default select example">
+                    <select value={selectedJobSubCategoryData} name="jobCategory" onChange={(e: any) => { setSelectedJobSubCategoryData(e.target.value) }} className="form-control" aria-label="Default select example">
                         {
                             jobSubCategoryData && jobSubCategoryData.jobProfilesSubCats.map(x => {
                                 return (

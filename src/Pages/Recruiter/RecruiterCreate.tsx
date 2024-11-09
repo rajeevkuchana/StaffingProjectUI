@@ -74,16 +74,17 @@ const RecruiterProfileCreate: React.FC = () => {
 
   const createProfile = async (e) => {
     e.preventDefault()
+    const form = new FormData();
+    if (profilePicture) form.append('profilePicture', profilePicture);
+    if (resume) form.append('resume', resume);
+    if (interviewVideo) form.append('interviewVideo', interviewVideo);
+    form.append('data', JSON.stringify(profile));
     if (profile.programmingR && profile.dataEngR && profile.cloudEngR && profile.communicationR && profile.attitudeR) {
       if (isEditMode) {
-        await dispatch(updateProfileInterview(profile))
+        await dispatch(updateProfileInterview(form))
       }
       else {
-        const form = new FormData();
-        if (profilePicture) form.append('profilePicture', profilePicture);
-        if (resume) form.append('resume', resume);
-        if (interviewVideo) form.append('interviewVideo', interviewVideo);
-        form.append('data', JSON.stringify(profile));
+
         await dispatch(createProfileInterview(form))
       }
     }
