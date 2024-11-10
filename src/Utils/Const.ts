@@ -5,7 +5,7 @@ export const userRole = {
     recruiter: "Recruiter"
 }
 
-export const apiBaseAddress = 'http://3.81.66.16:8090';
+export const apiBaseAddress = 'https://portal.quantlytixsolutions.com/backend';
 
 export const Roles = [
     { name: userRole.client, code: userRole.client, },
