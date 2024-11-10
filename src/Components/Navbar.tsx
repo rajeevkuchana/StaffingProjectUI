@@ -40,6 +40,7 @@ export default function WithAction() {
         { label: 'Users', href: '/admin/user' },
         { label: 'Profiles', href: '/admin/profile' },
         { label: 'Category', href: '/admin/category' },
+        { label: 'Job Description', href: '/admin/description' },
       ])
     }
     else if (role === userRole.recruiter) {

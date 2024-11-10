@@ -130,9 +130,9 @@ const InterviewSearch: React.FC = () => {
 
   const header = (
     <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
-      <div>
+      {/* <div>
         <button type="button" onClick={createInterview} className="btn btn-primary">Create Interview Profile</button>
-      </div>
+      </div> */}
       <IconField iconPosition="left">
         <InputIcon className="pi pi-search" />
         <InputText type="search" onInput={(e: any) => setGlobalFilter(e.target.value)} placeholder="Search..." />

@@ -56,7 +56,7 @@ export const fetchSearchProfileById = createAsyncThunk('profile/fetchSearchProfi
 });
 
 export const fetchSelectedProfile = createAsyncThunk('profile/fetchSelectedProfile', async () => {
-  const response = await axios.get<[]>(`${apiBaseAddress}/profiles/clientSelected?email=${getUserEmail()}`);
+  const response = await axios.get<[]>(`${apiBaseAddress}/profiles/selected?email=${getUserEmail()}`);
   return response.data;
 });
 
@@ -65,13 +65,13 @@ export const fetchSelectedProfileById = createAsyncThunk('profile/fetchSelectedP
   return response.data;
 });
 
-export const createProfileInterview = createAsyncThunk('profile/createProfileInterview', async (data: IProfile) => {
+export const createProfileInterview = createAsyncThunk('profile/createProfileInterview', async (data: any) => {
   const response = await axios.post<[]>(`${apiBaseAddress}/profiles/add`, data);
   return response.data;
 });
 
-export const updateProfileInterview = createAsyncThunk('profile/updateProfileInterview', async (data: IProfile) => {
-  const response = await axios.put<[]>(`${apiBaseAddress}/profiles/edit/${data.profileId}`, data);
+export const updateProfileInterview = createAsyncThunk('profile/updateProfileInterview', async (data: any) => {
+  const response = await axios.put<[]>(`${apiBaseAddress}/profiles/edit`, data);
   return response.data;
 });
 
@@ -137,7 +137,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchSearchProfileById.fulfilled, (state: ProfileState, action: PayloadAction<any>) => {
         state.searchProfileStatus = 'succeeded';
-        state.searchProfile = action.payload;
+        state.searchProfile = {...action.payload};
       })
       .addCase(fetchSearchProfileById.rejected, (state: ProfileState, action) => {
         state.searchProfileStatus = 'failed';

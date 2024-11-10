@@ -33,7 +33,7 @@ const RecruiterProfileDetails: React.FC = () => {
     }
   }
 
-   const selectUserProfile = () => {
+  const selectUserProfile = () => {
     dispatch(selectProfile(id))
   }
 
@@ -42,6 +42,11 @@ const RecruiterProfileDetails: React.FC = () => {
       navigate('/recruiter/profile');
     }
   }, [isProfileSelected])
+
+  const onEditClick = () => {
+    navigate(`/recruiter/profile-edit/${id}`);
+  };
+
 
   return (
     <>
@@ -155,12 +160,12 @@ const RecruiterProfileDetails: React.FC = () => {
                           {searchProfile.managedBy}
                         </div>
                       </div>
-                      <div className='d-flex justify-content-between gap-2  mb-2'>
+                      {/* <div className='d-flex justify-content-between gap-2  mb-2'>
                         <div > Interviewer</div>
                         <div >
                           {searchProfile.interviewBy}
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -185,6 +190,11 @@ const RecruiterProfileDetails: React.FC = () => {
                             </div>  {searchProfile.experienceDetails?.expD1}</p>
                             <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails?.expD2}</p>
                             <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails?.expD3}</p>
+                            {searchProfile?.resumeLink && (
+                              <div>
+                                <a href={searchProfile?.resumeLink} target="_blank" rel="noopener noreferrer">Download Resume</a>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </TabPanel>
@@ -204,11 +214,10 @@ const RecruiterProfileDetails: React.FC = () => {
                       </TabPanel>
 
                     </TabView>
-                    {
-                      !searchProfile.selectedBy && (
-                        <Button label="Shortlist" onClick={selectUserProfile} className='shortlist' size='small' />
-                      )
-                    }
+                    <div className='shortlist d-flex  gap-2'>
+                      <Button icon="pi pi-pen-to-square" label='Edit Profile' onClick={onEditClick} rounded aria-label="Cancel" />
+                    </div>
+
                   </div>
                 </div>
               </div>
