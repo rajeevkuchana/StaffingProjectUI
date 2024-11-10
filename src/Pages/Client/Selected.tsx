@@ -190,13 +190,6 @@ const Selected: React.FC = () => {
 
   return (
     <>
-      {/* <section className="bg-light">
-        <div className='row mb-1 BreadCrumb'>
-          <div className='col-12'>
-            <BreadCrumb model={items} home={home} />
-          </div>
-        </div>
-      </section> */}
       <div className="">
         <div className='row' style={{ height: "90vh" }}>
           <div className='col-12  h-100'>

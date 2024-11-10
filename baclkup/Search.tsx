@@ -7,7 +7,6 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import './Search.css'
 import { Rating } from 'primereact/rating'
-import { BreadCrumb } from 'primereact/breadcrumb'
 import Loader from '../../Components/Loader'
 import { IconField } from 'primereact/iconfield'
 import { InputText } from 'primereact/inputtext'
@@ -228,13 +227,6 @@ const Search: React.FC = () => {
 
   return (
     <>
-      {/* <section className="bg-light">
-        <div className='row mb-1 BreadCrumb'>
-          <div className='col-12'>
-            <BreadCrumb model={items} home={home} />
-          </div>
-        </div>
-      </section> */}
       <div className="">
         <div className='row' style={{ height: "90vh" }}>
           <div className='col-3 h-100'>

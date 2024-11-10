@@ -7,7 +7,7 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Tag } from 'primereact/tag'
 import { Rating } from 'primereact/rating'
-import { BreadCrumb } from 'primereact/breadcrumb'
+
 import { IconField } from 'primereact/iconfield'
 import { InputText } from 'primereact/inputtext'
 import { InputIcon } from 'primereact/inputicon'
@@ -142,14 +142,9 @@ const InterviewSearch: React.FC = () => {
 
 
   return (
-    <><section className="bg-light">
-      <div className='row mb-1 BreadCrumb'>
-        <div className='col-12'>
-          <BreadCrumb model={items} home={home} />
-        </div>
-      </div>
-    </section><div className="card">
-        {status === "succeeded" && <DataTable header={header}  globalFilter={globalFilter} selectionMode="single" paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
+    <>
+      <div className="card">
+        {status === "succeeded" && <DataTable header={header} globalFilter={globalFilter} selectionMode="single" paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} value={searchProfiles} tableStyle={{ minWidth: '50rem' }}>
           <Column className='profile' field="profilePic" body={profileBodyTemplate} header=""></Column>
           <Column filter field="firstName" body={nameBodyTemplate} header="Name"></Column>
           <Column filter field="location" body={locationBodyTemplate} header="Location"></Column>

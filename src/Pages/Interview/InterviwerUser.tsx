@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { BreadCrumb } from 'primereact/breadcrumb'
+
 import { TabPanel, TabView } from 'primereact/tabview'
 import { IProfile } from '../../Types/ProfileType'
 import { Rating } from 'primereact/rating'
@@ -63,13 +63,6 @@ const InterviwerCreate: React.FC = () => {
   return (
     <>
       <Toast ref={toast} />
-      <section className="bg-light">
-        <div className='row mb-1 BreadCrumb'>
-          <div className='col-12'>
-            <BreadCrumb model={items} home={home} />
-          </div>
-        </div>
-      </section>
       <section className="bg-light">
         <div className="container">
           <form onSubmit={createProfile}>

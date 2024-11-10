@@ -7,7 +7,7 @@ import '../Client/SearchUser.css'
 import { TabPanel, TabView } from 'primereact/tabview'
 import { Rating } from 'primereact/rating'
 import { Panel } from 'primereact/panel'
-import { BreadCrumb } from 'primereact/breadcrumb'
+
 import { Skeleton } from 'primereact/skeleton'
 import userImage from './../../Images/userupload.png'
 import { Button } from 'primereact/button'
