@@ -282,15 +282,15 @@ const RecruiterProfileCreate: React.FC = () => {
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
-                        <label className="form-label">Certifications  <span className="text-danger">*</span></label>
-                        <CreatableSelect value={profile.certificationList?.map((x => { return { value: x, label: x } }))} onChange={certificationUpdate} isMulti required />
+                        <label className="form-label">Certifications  </label>
+                        <CreatableSelect value={profile.certificationList?.map((x => { return { value: x, label: x } }))} onChange={certificationUpdate} isMulti  />
                       </div>
                     </div>
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
-                        <label className="form-label">Skills </label>
-                        <CreatableSelect onChange={skillsUpdate} value={profile.summary?.skills?.map((x => { return { value: x, label: x } }))} isMulti  />
+                        <label className="form-label">Skills <span className="text-danger">*</span></label>
+                        <CreatableSelect onChange={skillsUpdate} value={profile.summary?.skills?.map((x => { return { value: x, label: x } }))} isMulti  required />
                       </div>
                     </div>
                   </Panel>
