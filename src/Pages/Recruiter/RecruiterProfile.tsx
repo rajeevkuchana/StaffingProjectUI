@@ -190,7 +190,7 @@ const RecruiterProfile: React.FC = () => {
   const header = (
     <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
       <div>
-        <button type="button" onClick={createProfile} className="btn btn-primary">Add Profile</button>
+        <button type="button" onClick={createProfile} className="btn btn-primary">Create Profile</button>
       </div>
       <IconField iconPosition="left">
         <InputIcon className="pi pi-search" />

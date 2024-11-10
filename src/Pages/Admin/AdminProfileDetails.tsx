@@ -36,9 +36,9 @@ const AdminProfileDetails: React.FC = () => {
     }
   }
 
-   const selectUserProfile = () => {
-    dispatch(selectProfile(id))
-  }
+  const onEditClick = () => {
+    navigate(`/admin/profile-edit/${id}`);
+  };
 
   useEffect(() => {
     if (isProfileSelected) {
@@ -158,12 +158,12 @@ const AdminProfileDetails: React.FC = () => {
                           {searchProfile.managedBy}
                         </div>
                       </div>
-                      <div className='d-flex justify-content-between gap-2  mb-2'>
+                      {/* <div className='d-flex justify-content-between gap-2  mb-2'>
                         <div > Interviewer</div>
                         <div >
                           {searchProfile.interviewBy}
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -207,11 +207,9 @@ const AdminProfileDetails: React.FC = () => {
                       </TabPanel>
 
                     </TabView>
-                    {/* {
-                      !searchProfile.selectedBy && (
-                        <Button label="Shortlist" onClick={selectUserProfile} className='shortlist' size='small' />
-                      )
-                    } */}
+                    <div className='shortlist d-flex  gap-2'>
+                      <Button icon="pi pi-pen-to-square" label='Edit Profile' onClick={onEditClick} rounded aria-label="Cancel" />
+                    </div>
                   </div>
                 </div>
               </div>

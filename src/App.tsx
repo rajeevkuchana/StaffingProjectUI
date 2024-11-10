@@ -52,7 +52,9 @@ const App = () => {
 
             <Route path='/admin/user' element={<AddUsers />} />
             <Route path='/admin/profile' element={<AdminProfile />} />
-            <Route path='/admin/profile-create' element={<AdminProfileDetails />} />
+            <Route path='/admin/profile-detail/:id' element={<AdminProfileDetails />} />
+            <Route path='/admin/profile-edit/:id' element={<RecruiterProfileCreate />} />
+
             <Route path='/admin/category' element={<Category />} />
             <Route path='/admin/description' element={<CategoryDescription />} />
 
@@ -61,7 +63,7 @@ const App = () => {
             <Route path='/recruiter/profile-edit/:id' element={<RecruiterProfileCreate />} />
             <Route path='/recruiter/profile-detail/:id' element={<RecruiterProfileDetails />} />
             <Route path='/recruiter/shortlist'
-             element={<Shortlist />} />
+              element={<Shortlist />} />
 
           </Route>
         </Routes>

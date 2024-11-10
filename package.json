@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://3.81.66.16:8090/",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.688.0",
+    "@aws-sdk/s3-request-presigner": "^3.688.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@reduxjs/toolkit": "^2.2.5",

@@ -157,7 +157,7 @@ const AdminProfile: React.FC = () => {
   };
 
   const onRowSelect = (event) => {
-    navigate(`/recruiter/profile-detail/${event.data.profileId}`);
+    navigate(`/admin/profile-detail/${event.data.profileId}`);
   };
 
   const createProfile = () => {

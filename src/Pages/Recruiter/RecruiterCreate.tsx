@@ -11,19 +11,17 @@ import { AppDispatch, RootState } from '../../App/Store'
 import { useDispatch, useSelector } from 'react-redux'
 import { Toast } from 'primereact/toast'
 import { useNavigate, useParams } from 'react-router-dom'
-import { NoticePeriod } from '../../Utils/Const'
+import { NoticePeriod, userRole } from '../../Utils/Const'
 import CreatableSelect from 'react-select/creatable'
-import { uuidv4 } from '../../Utils/Utils'
+import { getUserEmail, getUserRole, uuidv4 } from '../../Utils/Utils'
 
 const RecruiterProfileCreate: React.FC = () => {
   const items = [{ label: 'Recruiter Profile', url: '/recruiter/profile' }, { label: 'Create Profile' }];
   const home = { icon: 'pi pi-home', url: '/home' }
-  const [profile, setProfile] = useState<IProfile>({});
+  const [profile, setProfile] = useState<IProfile>({ managedBy: getUserEmail() });
   const [profilePicture, setProfilePicture] = useState(null);
   const [resume, setResume] = useState(null);
   const [interviewVideo, setInterviewVideo] = useState(null);
-  const [selectedFile, setSelectedFile] = useState();
-  const [preview, setPreview] = useState()
   const createProfileStatus = useSelector((state: RootState) => state.profile.createProfileStatus);
   const searchProfile = useSelector((state: RootState) => state.profile.searchProfile);
 
@@ -33,24 +31,13 @@ const RecruiterProfileCreate: React.FC = () => {
   const { id } = useParams();
   const [isEditMode, setIsEditMode] = useState(false);
 
-  // create a preview as a side effect, whenever selected file is changed
-  useEffect(() => {
-    if (!selectedFile) {
-      setPreview(undefined)
-      return
-    }
-    const objectUrl = URL.createObjectURL(selectedFile) as any
-    setPreview(objectUrl)
-    return () => URL.revokeObjectURL(objectUrl)
-  }, [selectedFile])
-
   useEffect(() => {
     const fetchProfileData = async () => {
       if (id) {
         setIsEditMode(true);
         try {
           const profileData = await dispatch(fetchSearchProfileById(id || ''));
-          setProfile(profileData.payload as IProfile);
+          await setProfile(profileData.payload as IProfile);
         } catch (error) {
           console.error('Error fetching profile data:', error);
         }
@@ -64,11 +51,13 @@ const RecruiterProfileCreate: React.FC = () => {
     const file = e.target.files[0];
     if (type === 'profilePicture') {
       setProfilePicture(file);
-      setSelectedFile(e.target.files[0])
+      setProfile({ ...profile, profilePic: URL.createObjectURL(file) as any });
     } else if (type === 'resume') {
       setResume(file);
+      setProfile({ ...profile, resumeLink: URL.createObjectURL(file) as any });
     } else if (type === 'interviewVideo') {
       setInterviewVideo(file);
+      setProfile({ ...profile, videoLink: URL.createObjectURL(file) as any });
     }
   };
 
@@ -93,7 +82,13 @@ const RecruiterProfileCreate: React.FC = () => {
   useEffect(() => {
     if (createProfileStatus === "succeeded") {
       toast.current.show({ severity: 'info', summary: 'Created', detail: 'Profile created succeefully', life: 3000 });
-      navigate('/recruiter/profile');
+      const role = getUserRole();
+      if (role === userRole.admin) {
+        navigate('/admin/profile');
+      }
+      else if (role === userRole.recruiter) {
+        navigate('/recruiter/profile');
+      }
     }
   }, [createProfileStatus])
 
@@ -132,11 +127,10 @@ const RecruiterProfileCreate: React.FC = () => {
                   <div className="mb-4 ">
                     <div className="imgUp">
                       <div className="imagePreview align-middle">
-                        {preview && <img className='profile-image' src={'preview'} />}
-                        {!preview && <img className='profile-image' src={signInImage} />}
+                        {!profile?.profilePic && <img className='profile-image' src={signInImage} />}
                       </div>
                       <label className="btn btn-primary">
-                        Upload<input type="file" onChange={(e) => handleFileChange(e, 'profilePicture')}
+                        Upload<input type="file" required={!isEditMode} accept="image/*" onChange={(e) => handleFileChange(e, 'profilePicture')}
                           className="uploadFile img" style={{ width: "0px", height: "0px", overflow: "hidden" }} />
                       </label>
                     </div>
@@ -266,16 +260,16 @@ const RecruiterProfileCreate: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className='row gy-3 gy-md-4 my-2'>
+                    {/* <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-6 from-row">
                         <label className="form-label">Recruiter <span className="text-danger">*</span></label>
-                        <input value={profile.managedBy} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, managedBy: e.target.value })} required />
+                        <input value={profile.managedBy} readOnly type="text" className="form-control" onChange={(e) => setProfile({ ...profile, managedBy: e.target.value })} required />
                       </div>
                       <div className="col-6 from-row">
                         <label className="form-label">Interviewer  <span className="text-danger">*</span></label>
                         <input value={profile.interviewBy} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, interviewBy: e.target.value })} required />
                       </div>
-                    </div>
+                    </div> */}
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-6 from-row">
                         <label className="form-label">Match % <span className="text-danger">*</span></label>
@@ -334,7 +328,8 @@ const RecruiterProfileCreate: React.FC = () => {
                     </div>
                     <div className="form-group">
                       <label className="form-label">Resume Link  <span className="text-danger">*</span></label>
-                      <input type="file" className="form-control" onChange={(e) => handleFileChange(e, 'resume')} required />
+                      <input type="file" required={!isEditMode} accept="application/pdf" className="form-control" onChange={(e) => handleFileChange(e, 'resume')} />
+                    
                     </div>
                   </Panel>
                   <Panel toggleable header="Feedback Details" className='mb-1'>
@@ -345,7 +340,8 @@ const RecruiterProfileCreate: React.FC = () => {
 
                     <div className="form-group">
                       <label className="form-label">Video feedback URL <span className="text-danger">*</span></label>
-                      <input type="file" className="form-control" onChange={(e) => handleFileChange(e, 'interviewVideo')} required />
+                      <input type="file" required={!isEditMode} className="form-control" onChange={(e) => handleFileChange(e, 'interviewVideo')} />
+                   
                     </div>
 
                   </Panel>

@@ -1,9 +1,9 @@
 export const isUserLogin = () => {
 
-    // if (localStorage.user) {
-    //     return JSON.parse(localStorage.user).id ? true : false;
-    // }
-    return true;
+    if (localStorage.user) {
+        return JSON.parse(localStorage.user).id ? true : false;
+    }
+    return false;
 }
 
 export const getUserRole = () => {

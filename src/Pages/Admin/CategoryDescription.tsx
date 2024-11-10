@@ -19,7 +19,6 @@ const CategoryDescription = () => {
     const status = useSelector((state: RootState) => state.user.status);
     const searchProfilesJobDesc = useSelector((state: RootState) => state.profile.searchProfilesJobDesc);
 
-
     useEffect(() => {
         if (searchProfilesJobDesc?.jobDescriptionText?.length) {
             setText(searchProfilesJobDesc?.jobDescriptionText)
@@ -46,9 +45,14 @@ const CategoryDescription = () => {
         if (jobCategories.length) {
             setJobSubCategoryData(jobCategories.find(x => x.categoryCode === jobCategoryData))
             setSelectedJobSubCategoryData(jobCategories.find(x => x.categoryCode === jobCategoryData)?.jobProfilesSubCats[0]?.subCategoryCode || '')
-
         }
     }, [jobCategoryData]);
+
+    useEffect(() => {
+        if (selectedJobSubCategoryData?.length) {
+            getDescription()
+        }
+    }, [selectedJobSubCategoryData]);
 
     const createDescription = () => {
         const desc = {
@@ -60,6 +64,7 @@ const CategoryDescription = () => {
     }
 
     const getDescription = () => {
+        setText('')
         dispatch(fetchJobDescription(
             {
                 "subCategoryCode": selectedJobSubCategoryData,
@@ -71,7 +76,7 @@ const CategoryDescription = () => {
     return (
         <>
             <div className='row gy-3 gy-md-4 my-2'>
-                <div className="col-3 from-row">
+                <div className="col-4 from-row">
                     <select value={jobCategory} name="jobCategory" onChange={(e: any) => { setJobCategory(e.target.value) }} className="form-control" aria-label="Default select example">
                         <option value={'fulltime'}>Full-Time</option>
                         <option value={'parttime'}>Part-Time</option>
@@ -102,9 +107,7 @@ const CategoryDescription = () => {
                         }
                     </select>
                 </div>
-                <div className="col-1 from-row">
-                    <Button size="small" onClick={ getDescription} icon="pi pi-search"></Button>
-                </div>
+               
             </div>
             <div className="row ">
                 <Editor value={searchProfilesJobDesc?.jobDescriptionText} onTextChange={(e: any) => setText(e.htmlValue)} style={{ height: '320px' }} />
