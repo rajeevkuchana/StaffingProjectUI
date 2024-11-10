@@ -14,7 +14,7 @@ import './admin.css'
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
-import { BreadCrumb } from 'primereact/breadcrumb';
+
 const AddUsers: React.FC = () => {
   const [user, setUser] = useState<ISignUpDetails>({ email: '', password: '', company: '', role: userRole.client, username: '' });
   const dispatch = useDispatch<AppDispatch>();
@@ -85,13 +85,6 @@ const AddUsers: React.FC = () => {
     <>
       <Toast ref={toast} />
       <ConfirmDialog />
-      <section className="bg-light">
-        <div className='row mb-1 BreadCrumb'>
-          <div className='col-12'>
-            <BreadCrumb model={items} home={home} />
-          </div>
-        </div>
-      </section>
       <div className="card">
         <DataTable globalFilter={globalFilter} header={header} paginator rows={5} rowsPerPageOptions={[5, 10, 25]}
           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"

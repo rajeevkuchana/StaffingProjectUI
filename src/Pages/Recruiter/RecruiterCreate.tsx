@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { BreadCrumb } from 'primereact/breadcrumb'
+
 import { TabPanel, TabView } from 'primereact/tabview'
 import { IProfile } from '../../Types/ProfileType'
 import { Rating } from 'primereact/rating'
@@ -128,9 +128,10 @@ const RecruiterProfileCreate: React.FC = () => {
                     <div className="imgUp">
                       <div className="imagePreview align-middle">
                         {!profile?.profilePic && <img className='profile-image' src={signInImage} />}
+                        {profile?.profilePic && <img className='profile-image' src={profile?.profilePic || ''} />}
                       </div>
                       <label className="btn btn-primary">
-                        Upload<input type="file" required={!isEditMode} accept="image/*" onChange={(e) => handleFileChange(e, 'profilePicture')}
+                        Upload<input type="file" accept="image/*" onChange={(e) => handleFileChange(e, 'profilePicture')}
                           className="uploadFile img" style={{ width: "0px", height: "0px", overflow: "hidden" }} />
                       </label>
                     </div>
@@ -168,7 +169,7 @@ const RecruiterProfileCreate: React.FC = () => {
               <div className='col-9 p-4 card  border-0'>
                 <div className='card-body'>
                   <div className='text-right mb-1'>
-                    <button className="btn bsb-btn-xl btn-primary" type="submit">Save Profile</button>
+                    <button className="btn bsb-btn-xl btn-primary" type="submit">Save</button>
                   </div>
                   <Panel toggleable header="Personal Details" className='mb-1'>
                     <div className='row gy-3 gy-md-4 my-2'>
@@ -288,8 +289,8 @@ const RecruiterProfileCreate: React.FC = () => {
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
-                        <label className="form-label">Skills  <span className="text-danger">*</span></label>
-                        <CreatableSelect onChange={skillsUpdate} value={profile.summary?.skills?.map((x => { return { value: x, label: x } }))} isMulti required />
+                        <label className="form-label">Skills </label>
+                        <CreatableSelect onChange={skillsUpdate} value={profile.summary?.skills?.map((x => { return { value: x, label: x } }))} isMulti  />
                       </div>
                     </div>
                   </Panel>
@@ -327,9 +328,13 @@ const RecruiterProfileCreate: React.FC = () => {
                       <textarea className="form-control" value={profile.experienceDetails?.expD4} onChange={(e) => setProfile({ ...profile, experienceDetails: { ...profile.experienceDetails, "expD4": e.target.value } })} rows={3}></textarea>
                     </div>
                     <div className="form-group">
-                      <label className="form-label">Resume Link  <span className="text-danger">*</span></label>
-                      <input type="file" required={!isEditMode} accept="application/pdf" className="form-control" onChange={(e) => handleFileChange(e, 'resume')} />
-                    
+                      <label className="form-label">Resume Link </label>
+                      <input type="file" accept="application/pdf" className="form-control" onChange={(e) => handleFileChange(e, 'resume')} />
+                      {profile?.resumeLink && (
+                        <div>
+                          <a href={profile?.resumeLink} target="_blank" rel="noopener noreferrer">Download Resume</a>
+                        </div>
+                      )}
                     </div>
                   </Panel>
                   <Panel toggleable header="Feedback Details" className='mb-1'>
@@ -339,14 +344,18 @@ const RecruiterProfileCreate: React.FC = () => {
                     </div>
 
                     <div className="form-group">
-                      <label className="form-label">Video feedback URL <span className="text-danger">*</span></label>
-                      <input type="file" required={!isEditMode} className="form-control" onChange={(e) => handleFileChange(e, 'interviewVideo')} />
-                   
+                      <label className="form-label">Video feedback URL</label>
+                      <input type="file" className="form-control" onChange={(e) => handleFileChange(e, 'interviewVideo')} />
+                      {profile?.videoLink && (
+                        <div>
+                          <a href={profile?.videoLink} target="_blank" rel="noopener noreferrer">Download Feedback Video</a>
+                        </div>
+                      )}
                     </div>
 
                   </Panel>
                   <div className='text-right'>
-                    <button className="btn bsb-btn-xl btn-primary" type="submit">Save Profile</button>
+                    <button className="btn bsb-btn-xl btn-primary" type="submit">Save</button>
                   </div>
                 </div>
               </div>

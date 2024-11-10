@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://portal.quantlytixsolutions.com/backend',
+      target: 'https://portal.quantlytixsolutions.com/backend/',
       changeOrigin: true,
     })
   );

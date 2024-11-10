@@ -16,6 +16,7 @@ const Profiles: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { jobCategory } = useParams<{ jobCategory: string }>();
   const { id } = useParams<{ id: string }>();
+  const {jobProfileSub} =  useParams<{ jobProfileSub: string }>();
   const [jobProfile, setJobProfile] = useState([{ value: id, label: id }]);
   const [experience, setExperience] = useState('');
   const [noticePeriod, setNoticePeriod] = useState('');
@@ -43,6 +44,8 @@ const Profiles: React.FC = () => {
   }, []);
 
   const updateProfileData = () => {
+    localStorage.setItem("jobProfile", id || '')
+    localStorage.setItem("subCategory", jobProfileSub || '')
     dispatch(fetchSearchProfile(
       {
         "jobCategory": jobCategory,
