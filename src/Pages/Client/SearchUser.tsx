@@ -13,7 +13,8 @@ import userImage from './../../Images/userupload.png'
 import { Button } from 'primereact/button'
 
 const SearchUser: React.FC = () => {
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{ id: string }>();
+  const { jobCategory } = useParams<{ jobCategory: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const searchProfile = useSelector((state: RootState) => state.profile.searchProfile);
   const isProfileSelected = useSelector((state: RootState) => state.profile.isProfileSelected);
@@ -36,13 +37,13 @@ const SearchUser: React.FC = () => {
     }
   }
 
-   const selectUserProfile = () => {
+  const selectUserProfile = () => {
     dispatch(selectProfile(id))
   }
 
   useEffect(() => {
     if (isProfileSelected) {
-      navigate('/client/profile');
+      navigate(`/client/profile/${jobCategory}/${ localStorage.getItem("subCategory")}/${localStorage.getItem("jobProfile")}/result-list`);
     }
   }, [isProfileSelected])
 
@@ -158,12 +159,12 @@ const SearchUser: React.FC = () => {
                           {searchProfile.managedBy}
                         </div>
                       </div>
-                      <div className='d-flex justify-content-between gap-2  mb-2'>
+                      {/* <div className='d-flex justify-content-between gap-2  mb-2'>
                         <div > Interviewer</div>
                         <div >
                           {searchProfile.interviewBy}
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -207,10 +208,10 @@ const SearchUser: React.FC = () => {
                       </TabPanel>
 
                     </TabView>
-                    {    !searchProfile.selectedBy && (
-                        <Button label="Shortlist" onClick={selectUserProfile} className='shortlist' size='small' />
-                      )
-                    } 
+                    {!searchProfile.selectedBy && (
+                      <Button label="Shortlist" onClick={selectUserProfile} className='shortlist' size='small' />
+                    )
+                    }
                   </div>
                 </div>
               </div>

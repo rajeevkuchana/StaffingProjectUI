@@ -128,6 +128,7 @@ const RecruiterProfileCreate: React.FC = () => {
                     <div className="imgUp">
                       <div className="imagePreview align-middle">
                         {!profile?.profilePic && <img className='profile-image' src={signInImage} />}
+                        {profile?.profilePic && <img className='profile-image' src={profile?.profilePic || ''} />}
                       </div>
                       <label className="btn btn-primary">
                         Upload<input type="file" required={!isEditMode} accept="image/*" onChange={(e) => handleFileChange(e, 'profilePicture')}
@@ -329,7 +330,11 @@ const RecruiterProfileCreate: React.FC = () => {
                     <div className="form-group">
                       <label className="form-label">Resume Link  <span className="text-danger">*</span></label>
                       <input type="file" required={!isEditMode} accept="application/pdf" className="form-control" onChange={(e) => handleFileChange(e, 'resume')} />
-                    
+                      {profile?.resumeLink && (
+                        <div>
+                          <a href={profile?.resumeLink} target="_blank" rel="noopener noreferrer">Download Resume</a>
+                        </div>
+                      )}
                     </div>
                   </Panel>
                   <Panel toggleable header="Feedback Details" className='mb-1'>
@@ -341,7 +346,11 @@ const RecruiterProfileCreate: React.FC = () => {
                     <div className="form-group">
                       <label className="form-label">Video feedback URL <span className="text-danger">*</span></label>
                       <input type="file" required={!isEditMode} className="form-control" onChange={(e) => handleFileChange(e, 'interviewVideo')} />
-                   
+                      {profile?.videoLink && (
+                        <div>
+                          <a href={profile?.videoLink} target="_blank" rel="noopener noreferrer">Download Feedback Video</a>
+                        </div>
+                      )}
                     </div>
 
                   </Panel>
