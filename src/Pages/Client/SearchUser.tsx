@@ -43,7 +43,7 @@ const SearchUser: React.FC = () => {
 
   useEffect(() => {
     if (isProfileSelected) {
-      navigate(`/client/profile/${jobCategory}/${ localStorage.getItem("subCategory")}/${localStorage.getItem("jobProfile")}/result-list`);
+      navigate(`/client/profile/${jobCategory}/${localStorage.getItem("subCategory")}/${localStorage.getItem("jobProfile")}/result-list`);
     }
   }, [isProfileSelected])
 
@@ -188,7 +188,12 @@ const SearchUser: React.FC = () => {
                             <p style={{ fontSize: 15 }}> <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Experience:
                             </div>  {searchProfile.experienceDetails?.expD1}</p>
                             <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails?.expD2}</p>
-                            <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails?.expD3}</p>
+                            <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails?.expD3}</p>{}
+                            {searchProfile?.resumeLink && (
+                              <div>
+                                <a href={searchProfile?.resumeLink} target="_blank" rel="noopener noreferrer">Download Resume</a>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </TabPanel>

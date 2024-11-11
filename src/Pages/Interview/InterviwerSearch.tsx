@@ -133,10 +133,10 @@ const InterviewSearch: React.FC = () => {
       {/* <div>
         <button type="button" onClick={createInterview} className="btn btn-primary">Create Interview Profile</button>
       </div> */}
-      <IconField iconPosition="left">
+      {/* <IconField iconPosition="left">
         <InputIcon className="pi pi-search" />
         <InputText type="search" onInput={(e: any) => setGlobalFilter(e.target.value)} placeholder="Search..." />
-      </IconField>
+      </IconField> */}
     </div>
   );
 

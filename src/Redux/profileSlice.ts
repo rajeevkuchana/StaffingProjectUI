@@ -91,7 +91,7 @@ export const updateJobCategory = createAsyncThunk('profile/updateJobCategory', a
 });
 
 export const deleteJobCategory = createAsyncThunk('profile/deleteJobCategory', async (data: any) => {
-  const response = await axios.delete<[]>(`${apiBaseAddress}/profiles/delete/jobProfile?categoryCode=${data}`);
+  const response = await axios.delete<[]>(`${apiBaseAddress}/profiles/delete/jobProfile?categoryCode=${data.categoryCode}&jobCategory=${data.jobCategory}`);
   return response.data;
 });
 

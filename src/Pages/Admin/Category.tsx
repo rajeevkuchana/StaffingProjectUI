@@ -89,7 +89,7 @@ const Category: React.FC = () => {
       defaultFocus: 'reject',
       acceptClassName: 'p-button-danger',
       accept: async () => {
-        await dispatch(deleteJobCategory(rowData.categoryCode))
+        await dispatch(deleteJobCategory({categoryCode:rowData.categoryCode,jobCategory:jobCategory}))
         dispatch(fetchJobCategory(jobCategory))
         setVisible(false);
       }
@@ -164,10 +164,10 @@ const Category: React.FC = () => {
             <option value={'premium'}>Premium</option>
             <option value={'executive'}>Executive</option>
           </select>
-          <IconField iconPosition="left">
+          {/* <IconField iconPosition="left">
             <InputIcon className="pi pi-search" />
             <InputText type="search" onInput={(e: any) => setGlobalFilter(e.target.value)} placeholder="Search..." />
-          </IconField>
+          </IconField> */}
         </div>
 
       </div>
@@ -204,13 +204,6 @@ const Category: React.FC = () => {
     <>
       <Toast ref={toast} />
       <ConfirmDialog />
-      <section className="bg-light">
-        <div className='row mb-1 BreadCrumb'>
-          <div className='col-6'>
-            <BreadCrumb model={items} home={home} />
-          </div>
-        </div>
-      </section>
       <div className="card">
         <DataTable globalFilter={globalFilter} header={header} paginator rows={5} rowsPerPageOptions={[5, 10, 25]}
           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
