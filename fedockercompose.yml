@@ -1,0 +1,9 @@
+version: "3"
+services:
+  FE:
+    image: feapplication:latest
+    container_name: FE
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - DANGEROUSLY_DISABLE_HOST_CHECK=true
