@@ -14,7 +14,7 @@ import './admin.css'
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
-
+import { BreadCrumb } from 'primereact/breadcrumb';
 import { createJobCategory, deleteJobCategory, fetchJobCategory, updateJobCategory } from '../../Redux/profileSlice';
 import CategoryEditor from '../../Components/CategoryEditor';
 
@@ -98,11 +98,10 @@ const Category: React.FC = () => {
 
   const handleInputChange = (event, index: number | null = null) => {
     const { name, value } = event.target;
-
     if (index !== null) {
-      // Handle change for subcategories
       const updatedSubCats = [...formData.jobProfilesSubCats];
-      updatedSubCats[index][name] = value;
+      // Create a shallow copy of the object at the specific index
+      updatedSubCats[index] = { ...updatedSubCats[index], [name]: value }
       setFormData({ ...formData, jobProfilesSubCats: updatedSubCats });
     } else {
       // Handle change for main category fields
@@ -142,7 +141,7 @@ const Category: React.FC = () => {
   const actionSubCategoryBodyTemplate = (rowData) => {
     return (
       <div className='flex gap-2'>
-        <Button size="small" style={{ borderRadius: '5px', width: "20px", height: "25px" }} icon="pi pi-pen-to-square" onClick={() => { setVisibleCategory(true);setSubcategoryCode(rowData.subCategoryCode) }} rounded aria-label="Cancel" />
+        <Button size="small" style={{ borderRadius: '5px', width: "20px", height: "25px" }} icon="pi pi-pen-to-square" onClick={() => { setVisibleCategory(true); setSubcategoryCode(rowData.subCategoryCode) }} rounded aria-label="Cancel" />
       </div>
     )
   };
@@ -205,6 +204,13 @@ const Category: React.FC = () => {
     <>
       <Toast ref={toast} />
       <ConfirmDialog />
+      <section className="bg-light">
+        <div className='row mb-1 BreadCrumb'>
+          <div className='col-6'>
+            <BreadCrumb model={items} home={home} />
+          </div>
+        </div>
+      </section>
       <div className="card">
         <DataTable globalFilter={globalFilter} header={header} paginator rows={5} rowsPerPageOptions={[5, 10, 25]}
           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
