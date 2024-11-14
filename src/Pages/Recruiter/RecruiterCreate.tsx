@@ -6,7 +6,7 @@ import { Rating } from 'primereact/rating'
 import { Panel } from 'primereact/panel'
 import '../Interview/InterviewCreare.css'
 import signInImage from './../../Images/userupload.png'
-import { createProfileInterview, fetchSearchProfileById, updateProfileInterview } from '../../Redux/profileSlice'
+import { createProfile, fetchSearchProfileById, updateProfile } from '../../Redux/profileSlice'
 import { AppDispatch, RootState } from '../../App/Store'
 import { useDispatch, useSelector } from 'react-redux'
 import { Toast } from 'primereact/toast'
@@ -61,7 +61,7 @@ const RecruiterProfileCreate: React.FC = () => {
     }
   };
 
-  const createProfile = async (e) => {
+  const addProfile = async (e) => {
     e.preventDefault()
     const form = new FormData();
     if (profilePicture) form.append('profilePicture', profilePicture);
@@ -70,11 +70,11 @@ const RecruiterProfileCreate: React.FC = () => {
     form.append('data', JSON.stringify(profile));
     if (profile.programmingR && profile.dataEngR && profile.cloudEngR && profile.communicationR && profile.attitudeR) {
       if (isEditMode) {
-        await dispatch(updateProfileInterview(form))
+        await dispatch(updateProfile(form))
       }
       else {
 
-        await dispatch(createProfileInterview(form))
+        await dispatch(createProfile(form))
       }
     }
   }
@@ -120,7 +120,7 @@ const RecruiterProfileCreate: React.FC = () => {
       <Toast ref={toast} />
       <section>
         <div className="container">
-          <form onSubmit={createProfile}>
+          <form onSubmit={addProfile}>
             <div className="row">
               <div className='col-3 p-4   border-0'>
                 <div className='card-body '>

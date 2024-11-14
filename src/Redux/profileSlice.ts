@@ -65,13 +65,18 @@ export const fetchSelectedProfileById = createAsyncThunk('profile/fetchSelectedP
   return response.data;
 });
 
-export const createProfileInterview = createAsyncThunk('profile/createProfileInterview', async (data: any) => {
+export const createProfile = createAsyncThunk('profile/createProfile', async (data: any) => {
   const response = await axios.post<[]>(`${apiBaseAddress}/profiles/add`, data);
   return response.data;
 });
 
-export const updateProfileInterview = createAsyncThunk('profile/updateProfileInterview', async (data: any) => {
+export const updateProfile = createAsyncThunk('profile/updateProfile', async (data: any) => {
   const response = await axios.put<[]>(`${apiBaseAddress}/profiles/edit`, data);
+  return response.data;
+});
+
+export const deleteProfile = createAsyncThunk('profile/deleteProfile', async (data: any) => {
+  const response = await axios.delete<[]>(`${apiBaseAddress}/profiles/delete/${data}`);
   return response.data;
 });
 
@@ -155,22 +160,31 @@ const userSlice = createSlice({
         state.selectedProfileStatus = 'failed';
         state.error = action.error.message || 'Failed to fetch users';
       })
-      .addCase(createProfileInterview.pending, (state: ProfileState, action) => {
+      .addCase(createProfile.pending, (state: ProfileState, action) => {
         state.createProfileStatus = 'loading';
       })
-      .addCase(createProfileInterview.rejected, (state: ProfileState, action) => {
+      .addCase(createProfile.rejected, (state: ProfileState, action) => {
         state.createProfileStatus = 'failed';
       })
-      .addCase(createProfileInterview.fulfilled, (state: ProfileState, action) => {
+      .addCase(createProfile.fulfilled, (state: ProfileState, action) => {
         state.createProfileStatus = 'succeeded';
       })
-      .addCase(updateProfileInterview.pending, (state: ProfileState, action) => {
+      .addCase(updateProfile.pending, (state: ProfileState, action) => {
         state.createProfileStatus = 'loading';
       })
-      .addCase(updateProfileInterview.rejected, (state: ProfileState, action) => {
+      .addCase(updateProfile.rejected, (state: ProfileState, action) => {
         state.createProfileStatus = 'failed';
       })
-      .addCase(updateProfileInterview.fulfilled, (state: ProfileState, action) => {
+      .addCase(updateProfile.fulfilled, (state: ProfileState, action) => {
+        state.createProfileStatus = 'succeeded';
+      })
+      .addCase(deleteProfile.pending, (state: ProfileState, action) => {
+        state.createProfileStatus = 'loading';
+      })
+      .addCase(deleteProfile.rejected, (state: ProfileState, action) => {
+        state.createProfileStatus = 'failed';
+      })
+      .addCase(deleteProfile.fulfilled, (state: ProfileState, action) => {
         state.createProfileStatus = 'succeeded';
       })
       .addCase(fetchJobCategory.pending, (state: ProfileState, action) => {
