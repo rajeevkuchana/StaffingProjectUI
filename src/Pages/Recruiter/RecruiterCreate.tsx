@@ -6,7 +6,7 @@ import { Rating } from 'primereact/rating'
 import { Panel } from 'primereact/panel'
 import '../Interview/InterviewCreare.css'
 import signInImage from './../../Images/userupload.png'
-import { createProfileInterview, fetchSearchProfileById, updateProfileInterview } from '../../Redux/profileSlice'
+import { createProfile, fetchSearchProfileById, updateProfile } from '../../Redux/profileSlice'
 import { AppDispatch, RootState } from '../../App/Store'
 import { useDispatch, useSelector } from 'react-redux'
 import { Toast } from 'primereact/toast'
@@ -61,7 +61,7 @@ const RecruiterProfileCreate: React.FC = () => {
     }
   };
 
-  const createProfile = async (e) => {
+  const addProfile = async (e) => {
     e.preventDefault()
     const form = new FormData();
     if (profilePicture) form.append('profilePicture', profilePicture);
@@ -70,11 +70,11 @@ const RecruiterProfileCreate: React.FC = () => {
     form.append('data', JSON.stringify(profile));
     if (profile.programmingR && profile.dataEngR && profile.cloudEngR && profile.communicationR && profile.attitudeR) {
       if (isEditMode) {
-        await dispatch(updateProfileInterview(form))
+        await dispatch(updateProfile(form))
       }
       else {
 
-        await dispatch(createProfileInterview(form))
+        await dispatch(createProfile(form))
       }
     }
   }
@@ -120,7 +120,7 @@ const RecruiterProfileCreate: React.FC = () => {
       <Toast ref={toast} />
       <section>
         <div className="container">
-          <form onSubmit={createProfile}>
+          <form onSubmit={addProfile}>
             <div className="row">
               <div className='col-3 p-4   border-0'>
                 <div className='card-body '>
@@ -282,15 +282,15 @@ const RecruiterProfileCreate: React.FC = () => {
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
-                        <label className="form-label">Certifications  </label>
-                        <CreatableSelect value={profile.certificationList?.map((x => { return { value: x, label: x } }))} onChange={certificationUpdate} isMulti  />
+                        <label className="form-label">Certifications  <span className="text-danger">*</span></label>
+                        <CreatableSelect value={profile.certificationList?.map((x => { return { value: x, label: x } }))} onChange={certificationUpdate} isMulti required />
                       </div>
                     </div>
 
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
-                        <label className="form-label">Skills <span className="text-danger">*</span></label>
-                        <CreatableSelect onChange={skillsUpdate} value={profile.summary?.skills?.map((x => { return { value: x, label: x } }))} isMulti  required />
+                        <label className="form-label">Skills </label>
+                        <CreatableSelect onChange={skillsUpdate} value={profile.summary?.skills?.map((x => { return { value: x, label: x } }))} isMulti  />
                       </div>
                     </div>
                   </Panel>

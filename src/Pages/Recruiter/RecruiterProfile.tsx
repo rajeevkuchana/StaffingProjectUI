@@ -192,10 +192,10 @@ const RecruiterProfile: React.FC = () => {
       <div>
         <button type="button" onClick={createProfile} className="btn btn-primary">Create Profile</button>
       </div>
-      <IconField iconPosition="left">
+      {/* <IconField iconPosition="left">
         <InputIcon className="pi pi-search" />
         <InputText type="search" onInput={(e: any) => setGlobalFilter(e.target.value)} placeholder="Search..." />
-      </IconField>
+      </IconField> */}
     </div>
   );
 

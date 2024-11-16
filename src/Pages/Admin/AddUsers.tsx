@@ -24,12 +24,9 @@ const AddUsers: React.FC = () => {
   const deleteStatus = useSelector((state: RootState) => state.user.deleteStatus);
   const createStatus = useSelector((state: RootState) => state.user.createStatus);
 
-  const error = useSelector((state: RootState) => state.user.error);
   const [visible, setVisible] = useState(false);
   const toast = useRef<any>(null);
   const [globalFilter, setGlobalFilter] = useState(null);
-  const items = [{ label: 'Users' }];
-  const home = { icon: 'pi pi-home', url: '/home' }
 
   useEffect(() => {
     if (status === 'idle') {
