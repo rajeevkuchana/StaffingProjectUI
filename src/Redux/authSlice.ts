@@ -4,7 +4,7 @@ import { apiBaseAddress } from '../Utils/Const';
 
 // Helper function to get the initial state from local storage
 const getInitialState = () => {
-  const user = localStorage.getItem('user');
+  const user = localStorage.getItem('keycloak-user');
   return user ? JSON.parse(user) : null;
 };
 
@@ -18,11 +18,11 @@ const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       state.user = action.payload;
-      localStorage.setItem('user', JSON.stringify(action.payload));
+      localStorage.setItem('keycloak-user', JSON.stringify(action.payload));
     },
     logout: (state) => {
       state.user = null;
-      localStorage.removeItem('user');
+      localStorage.removeItem('keycloak-user');
     }
   },
 
@@ -32,7 +32,7 @@ const authSlice = createSlice({
         if(action.payload?.role){
           state.loginStatus = 'succeeded';
           state.user = action.payload
-          localStorage.setItem('user', JSON.stringify(state.user));
+          localStorage.setItem('keycloak-user', JSON.stringify(state.user));
           window.location.href = window.location.origin + "/home"
         }
         else{

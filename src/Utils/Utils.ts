@@ -1,21 +1,29 @@
+import jwt_decode from "jwt-decode";
+import { userRole } from "./Const";
+
 export const isUserLogin = () => {
 
-    if (localStorage.user) {
-        return JSON.parse(localStorage.user).id ? true : false;
+    if (localStorage.getItem("keycloak-user")) {
+        return JSON.parse(localStorage.user).sid ? true : false;
     }
     return false;
 }
 
 export const getUserRole = () => {
-    if (localStorage.user) {
-        return JSON.parse(localStorage.user).role
+    if (localStorage.getItem("keycloak-token")) {
+        const token = parseJwt(localStorage.getItem("keycloak-token"))
+        const roles = token.realm_access?.roles || [];
+        if (roles.includes(userRole.admin)) return userRole.admin
+        if (roles.includes(userRole.client)) return userRole.client
+        if (roles.includes(userRole.interviwer)) return userRole.interviwer
+        if (roles.includes(userRole.recruiter)) return userRole.recruiter
     }
-    return false;
 }
 
 export const getUserEmail = () => {
-    if (localStorage.user) {
-        return JSON.parse(localStorage.user).email
+    if (localStorage.getItem("keycloak-user")) {
+        const user = JSON.parse(localStorage.getItem("keycloak-user") || '')
+        return user.email
     }
     return false;
 }
@@ -37,3 +45,11 @@ export const uuidv4 = () => {
         (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
     );
 }
+
+export const parseJwt = (token) => {
+    try {
+        return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+        return null;
+    }
+};
