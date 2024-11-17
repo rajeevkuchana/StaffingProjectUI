@@ -29,49 +29,54 @@ import AdminProfileDetails from './Pages/Admin/AdminProfileDetails'
 import Category from './Pages/Admin/Category'
 import Shortlist from './Pages/Recruiter/Selected'
 import CategoryDescription from './Pages/Admin/CategoryDescription'
+import { ReactKeycloakProvider } from '@react-keycloak/web'
+import keycloak from './Keycloak'
 
 const App = () => {
   const user = useSelector((state: any) => state.auth.user);
   return (
-    <BrowserRouter>
-      {<Navbar />}
-      <main className='container  pt-2'>
-        <Routes>
-          <Route path='/login' element={<SignIn />} />
-          <Route path='/home' element={<Home />} />
-          <Route path='/' element={<Home />} />
-          <Route element={<PrivateRoutes />}>
-            <Route path='/client/profile/:jobCategory' element={<JobCategory />} />
-            <Route path='/client/profile/:jobCategory/:jobProfileSub' element={<JobSubCategory />} />
-            <Route path='/client/profile/:jobCategory/:jobProfileSub/:id/result-list' element={<Profiles />} />
-            <Route path='/client/profile-detail/:jobCategory/:id' element={<SearchUser />} />
-            <Route path='/client/shortlist' element={<Selected />} />
+    <ReactKeycloakProvider authClient={keycloak}>
 
-            <Route path='/interviwer/search' element={<InterviwerSearch />} />
-            <Route path='/interviwer/create' element={<InterviwerUser />} />
+      <BrowserRouter>
+        {<Navbar />}
+        <main className='container  pt-2'>
+          <Routes>
+            <Route path='/login' element={<SignIn />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/' element={<Home />} />
+            <Route element={<PrivateRoutes />}>
+              <Route path='/client/profile/:jobCategory' element={<JobCategory />} />
+              <Route path='/client/profile/:jobCategory/:jobProfileSub' element={<JobSubCategory />} />
+              <Route path='/client/profile/:jobCategory/:jobProfileSub/:id/result-list' element={<Profiles />} />
+              <Route path='/client/profile-detail/:jobCategory/:id' element={<SearchUser />} />
+              <Route path='/client/shortlist' element={<Selected />} />
 
-            <Route path='/admin/user' element={<AddUsers />} />
-            <Route path='/admin/profile' element={<AdminProfile />} />
-            <Route path='/admin/profile-detail/:id' element={<AdminProfileDetails />} />
-            <Route path='/admin/profile-edit/:id' element={<RecruiterProfileCreate />} />
+              <Route path='/interviwer/search' element={<InterviwerSearch />} />
+              <Route path='/interviwer/create' element={<InterviwerUser />} />
 
-            <Route path='/admin/category' element={<Category />} />
-            <Route path='/admin/description' element={<CategoryDescription />} />
+              <Route path='/admin/user' element={<AddUsers />} />
+              <Route path='/admin/profile' element={<AdminProfile />} />
+              <Route path='/admin/profile-detail/:id' element={<AdminProfileDetails />} />
+              <Route path='/admin/profile-edit/:id' element={<RecruiterProfileCreate />} />
 
-            <Route path='/recruiter/profile' element={<RecruiterSearch />} />
-            <Route path='/recruiter/profile-create' element={<RecruiterProfileCreate />} />
-            <Route path='/recruiter/profile-edit/:id' element={<RecruiterProfileCreate />} />
-            <Route path='/recruiter/profile-detail/:id' element={<RecruiterProfileDetails />} />
-            <Route path='/recruiter/shortlist'
-              element={<Shortlist />} />
+              <Route path='/admin/category' element={<Category />} />
+              <Route path='/admin/description' element={<CategoryDescription />} />
 
-          </Route>
-        </Routes>
-      </main>
+              <Route path='/recruiter/profile' element={<RecruiterSearch />} />
+              <Route path='/recruiter/profile-create' element={<RecruiterProfileCreate />} />
+              <Route path='/recruiter/profile-edit/:id' element={<RecruiterProfileCreate />} />
+              <Route path='/recruiter/profile-detail/:id' element={<RecruiterProfileDetails />} />
+              <Route path='/recruiter/shortlist'
+                element={<Shortlist />} />
 
-      {<Footer />}
+            </Route>
+          </Routes>
+        </main>
 
-    </BrowserRouter>
+        {<Footer />}
+
+      </BrowserRouter>
+    </ReactKeycloakProvider>
   )
 }
 
