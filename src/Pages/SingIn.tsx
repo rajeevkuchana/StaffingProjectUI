@@ -5,7 +5,6 @@ import { ILoginDetails } from './../Types/AuthType';
 import { Roles, userRole } from '../Utils/Const';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, verifyUser } from '../Redux/authSlice';
 import './SignIn.css'
 import { Divider } from 'primereact/divider';
 import { AppDispatch, RootState } from '../App/Store';

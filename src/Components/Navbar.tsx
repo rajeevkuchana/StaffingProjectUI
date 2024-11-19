@@ -2,12 +2,16 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { userRole } from '../Utils/Const';
 import { clearLocalStorage, getUserRole, uuidv4 } from '../Utils/Utils';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Redux/authSlice';
 import logo from '../Images/logo.png';
 import { Avatar } from 'primereact/avatar';
 import './Navbar.css';
 import { useKeycloak } from '@react-keycloak/web';
+import { Button } from 'react-bootstrap';
+import { ILoginDetails } from '../Types/AuthType';
+import { verifyUser } from '../Redux/authSlice';
+import { AppDispatch, RootState } from '../App/Store';
 
 // Define the type for the link object
 interface LinkItem {
@@ -19,10 +23,11 @@ export default function Navbar() {
   const [links, setLinks] = useState<LinkItem[]>([]); // Specify type for state
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { keycloak, initialized } = useKeycloak();  // Fetch Keycloak instance
-  const [userRoles, setUserRoles] = useState<string[]>([]);  // Store roles
+  const loginStatus = useSelector((state: RootState) => state.auth.loginStatus);
+  const user = useSelector((state: RootState) => state.auth.user);
 
+  const dispatch = useDispatch<AppDispatch>();
+  const { keycloak, initialized } = useKeycloak();  // Fetch Keycloak instance
   // Define role mappings
   const roleMappings = {
     client: [
@@ -49,36 +54,64 @@ export default function Navbar() {
   };
 
   useEffect(() => {
+    if (loginStatus === "succeeded") {
+      if (keycloak.authenticated) {
+        if (user.id) {
+          // Get roles from Keycloak token
+          const token = keycloak.token;
+          const _user = keycloak.tokenParsed;
+
+          // Store the token and user info in localStorage
+          localStorage.setItem('keycloak-token', token);
+          localStorage.setItem('keycloak-user-info', JSON.stringify(_user));
+
+
+          const _roles = getUserRole()
+          //  setUserRoles(user.);  // Save roles in state
+
+          // Set links based on roles
+          let updatedLinks: LinkItem[] = [];  // Initialize with correct type
+          if (_roles === userRole.client) updatedLinks = [...updatedLinks, ...roleMappings.client];
+          if (_roles === userRole.interviwer) updatedLinks = [...updatedLinks, ...roleMappings.interviewer];
+          if (_roles === userRole.admin) updatedLinks = [...updatedLinks, ...roleMappings.admin];
+          if (_roles === userRole.recruiter) updatedLinks = [...updatedLinks, ...roleMappings.recruiter];
+
+          setLinks(updatedLinks);
+        }
+        else {
+          keycloak.logout()
+        }
+      }
+    }
+  }, [loginStatus])
+
+  useEffect(() => {
     if (!initialized) return; // Wait until Keycloak is initialized
 
     if (keycloak.authenticated) {
-      // Get roles from Keycloak token
+      const _user = keycloak.tokenParsed;
       const token = keycloak.token;
-      const user = keycloak.tokenParsed;
-
       // Store the token and user info in localStorage
       localStorage.setItem('keycloak-token', token);
-      localStorage.setItem('keycloak-user', JSON.stringify(user));
-      
-      const _roles = getUserRole()
-    //  setUserRoles(user.);  // Save roles in state
-
-      // Set links based on roles
-      let updatedLinks: LinkItem[] = [];  // Initialize with correct type
-      if (_roles===userRole.client) updatedLinks = [...updatedLinks, ...roleMappings.client];
-      if (_roles===userRole.interviwer) updatedLinks = [...updatedLinks, ...roleMappings.interviewer];
-      if (_roles===userRole.admin)  updatedLinks = [...updatedLinks, ...roleMappings.admin];
-      if (_roles===userRole.recruiter)  updatedLinks = [...updatedLinks, ...roleMappings.recruiter];
-
-      setLinks(updatedLinks);
+      localStorage.setItem('keycloak-user-info', JSON.stringify(_user));
+      dispatch(verifyUser({ email: _user.email }))
     }
   }, [keycloak, initialized]);
+
+
 
   const logoutHandler = () => {
     dispatch(logout());  // Dispatch Redux logout
     clearLocalStorage();  // Clear local storage
     keycloak.logout().then(() => {
       navigate('/login');  // Redirect to login page after logout
+    });
+  };
+
+  const loginHandler = () => {
+    keycloak.login().then(() => {
+    }).catch((error) => {
+      console.error('Login failed:', error);
     });
   };
 
@@ -150,13 +183,7 @@ export default function Navbar() {
 
           {/* Show Login button when not authenticated */}
           {!keycloak.authenticated && (
-            <ul className="mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link active" to={'/login'}>
-                  Login
-                </Link>
-              </li>
-            </ul>
+            <button type="button" className="btn btn-primary btn-dark btn-lg" onClick={loginHandler}>Login</button>
           )}
         </div>
       </div>
