@@ -79,9 +79,12 @@ export default function Navbar() {
           setLinks(updatedLinks);
         }
         else {
-          keycloak.logout()
+          logoutHandler()
         }
       }
+    }
+    else if (loginStatus === "failed") {
+      logoutHandler()
     }
   }, [loginStatus])
 
@@ -98,14 +101,12 @@ export default function Navbar() {
     }
   }, [keycloak, initialized]);
 
-
-
   const logoutHandler = () => {
+    alert("you are not authorized user to login")
     dispatch(logout());  // Dispatch Redux logout
     clearLocalStorage();  // Clear local storage
-    keycloak.logout().then(() => {
-      navigate('/login');  // Redirect to login page after logout
-    });
+    keycloak.logout();
+    navigate('/login');  // Redirect to login page after logout
   };
 
   const loginHandler = () => {

@@ -49,7 +49,7 @@ const authSlice = createSlice({
 });
 
 export const verifyUser = createAsyncThunk('users/varifyUser', async (user: any) => {
-  const response = await axios.post<[]>(`${apiBaseAddress}/user/verify`, user);
+  const response = await axios.post<[]>(`http://3.81.66.16:8090/user/verify`, user);
   return response.data;
 });
 
