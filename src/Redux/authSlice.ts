@@ -33,7 +33,6 @@ const authSlice = createSlice({
           state.loginStatus = 'succeeded';
           state.user = action.payload
           localStorage.setItem('keycloak-user', JSON.stringify(state.user));
-          window.location.href = window.location.origin + "/home"
         }
         else{
           state.loginStatus = 'failed';
