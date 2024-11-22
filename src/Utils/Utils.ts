@@ -4,7 +4,7 @@ import { userRole } from "./Const";
 export const isUserLogin = () => {
 
     if (localStorage.getItem("keycloak-user-info")) {
-        return JSON.parse(localStorage.user).sid ? true : false;
+        return JSON.parse(localStorage["keycloak-user-info"]).sid ? true : false;
     }
     return false;
 }

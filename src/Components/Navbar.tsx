@@ -84,6 +84,7 @@ export default function Navbar() {
       }
     }
     else if (loginStatus === "failed") {
+      alert("you are not authorized user to login")
       logoutHandler()
     }
   }, [loginStatus])
@@ -99,10 +100,10 @@ export default function Navbar() {
       localStorage.setItem('keycloak-user-info', JSON.stringify(_user));
       dispatch(verifyUser({ email: _user.email }))
     }
+    
   }, [keycloak, initialized]);
 
   const logoutHandler = () => {
-    alert("you are not authorized user to login")
     dispatch(logout());  // Dispatch Redux logout
     clearLocalStorage();  // Clear local storage
     keycloak.logout();
@@ -170,7 +171,7 @@ export default function Navbar() {
               <ul className="dropdown-menu dropdown-menu-lg-end">
                 <li>
                   <button className="dropdown-item" type="button">
-                    {keycloak.tokenParsed.preferred_username}
+                    {user?.username}
                   </button>
                 </li>
                 <li>
