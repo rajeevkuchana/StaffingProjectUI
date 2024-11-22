@@ -186,10 +186,11 @@ const AdminProfile: React.FC = () => {
 
   useEffect(() => {
     if (createProfileStatus === "succeeded") {
-      navigate('/admin/profile');
+      updateProfileData()
     }
   }, [createProfileStatus])
 
+  
   const header = (
     <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
       <div>

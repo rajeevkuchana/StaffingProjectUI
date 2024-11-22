@@ -100,6 +100,9 @@ export default function Navbar() {
       localStorage.setItem('keycloak-user-info', JSON.stringify(_user));
       dispatch(verifyUser({ email: _user.email }))
     }
+    else{
+      keycloak.login()
+    }
     
   }, [keycloak, initialized]);
 

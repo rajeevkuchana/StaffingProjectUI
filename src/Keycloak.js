@@ -3,5 +3,6 @@ const keycloak = new Keycloak({
     url: "https://portal.quantlytixsolutions.com/auth",
     realm: "quantlytix",
     clientId: "QuantlytixUI",
+   
 });
 export default keycloak;
