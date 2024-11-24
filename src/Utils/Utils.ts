@@ -3,26 +3,29 @@ import { userRole } from "./Const";
 
 export const isUserLogin = () => {
 
-    if (localStorage.getItem("keycloak-user")) {
-        return JSON.parse(localStorage.user).sid ? true : false;
+    if (localStorage.getItem("keycloak-user-info")) {
+        return JSON.parse(localStorage["keycloak-user-info"]).sid ? true : false;
     }
     return false;
 }
 
 export const getUserRole = () => {
-    if (localStorage.getItem("keycloak-token")) {
-        const token = parseJwt(localStorage.getItem("keycloak-token"))
-        const roles = token.realm_access?.roles || [];
-        if (roles.includes(userRole.admin)) return userRole.admin
-        if (roles.includes(userRole.client)) return userRole.client
-        if (roles.includes(userRole.interviwer)) return userRole.interviwer
-        if (roles.includes(userRole.recruiter)) return userRole.recruiter
+    // if (localStorage.getItem("keycloak-token")) {
+    //     const token = parseJwt(localStorage.getItem("keycloak-token"))
+    //     const roles = token.realm_access?.roles || [];
+    //     if (roles.includes(userRole.admin)) return userRole.admin
+    //     if (roles.includes(userRole.client)) return userRole.client
+    //     if (roles.includes(userRole.interviwer)) return userRole.interviwer
+    //     if (roles.includes(userRole.recruiter)) return userRole.recruiter
+    // }
+    if (localStorage.getItem("keycloak-user")) {
+        return JSON.parse(localStorage["keycloak-user"]).role 
     }
 }
 
 export const getUserEmail = () => {
-    if (localStorage.getItem("keycloak-user")) {
-        const user = JSON.parse(localStorage.getItem("keycloak-user") || '')
+    if (localStorage.getItem("keycloak-user-info")) {
+        const user = JSON.parse(localStorage.getItem("keycloak-user-info") || '')
         return user.email
     }
     return false;

@@ -188,6 +188,11 @@ const AdminProfileDetails: React.FC = () => {
                             </div>  {searchProfile.experienceDetails?.expD1}</p>
                             <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails?.expD2}</p>
                             <p style={{ fontSize: 15 }}> {searchProfile.experienceDetails?.expD3}</p>
+                            {searchProfile?.resumeLink && (
+                              <div>
+                                <a href={searchProfile?.resumeLink} target="_blank" rel="noopener noreferrer">Download Resume</a>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </TabPanel>

@@ -27,6 +27,8 @@ const AdminProfile: React.FC = () => {
   const [globalFilter, setGlobalFilter] = useState(null);
   const searchProfiles = useSelector((state: RootState) => state.profile.searchProfiles);
   const status = useSelector((state: RootState) => state.profile.searchProfilesStatus);
+  const createProfileStatus = useSelector((state: RootState) => state.profile.createProfileStatus);
+
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -182,6 +184,13 @@ const AdminProfile: React.FC = () => {
     navigate(`/recruiter/profile-create`);
   };
 
+  useEffect(() => {
+    if (createProfileStatus === "succeeded") {
+      updateProfileData()
+    }
+  }, [createProfileStatus])
+
+  
   const header = (
     <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
       <div>
