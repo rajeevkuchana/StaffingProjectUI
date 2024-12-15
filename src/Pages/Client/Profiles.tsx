@@ -78,7 +78,7 @@ const Profiles: React.FC = () => {
 
         </small>
         </p>
-        <small className="text-body-secondary">{rowData.email}</small>
+        
       </div>
     );
   };
@@ -162,6 +162,26 @@ const Profiles: React.FC = () => {
     );
   };
 
+  const createdDateBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <small>{rowData.interviewDateTime}</small>
+        </p>
+      </div>
+    );
+  };
+
+  const noticePeriodBodyTemplate = (rowData) => {
+    return (
+      <div className="align-items-center">
+        <p className=" m-0 ">
+          <small>{NoticePeriod.find((option) => option.value === rowData.noticePeriod+"")?.name || "None"} </small>
+        </p>
+      </div>
+    );
+  };
+
   const ratingBodyTemplate = (rowData) => {
     return <Rating value={rowData.overAllRating} readOnly cancel={false} />;
   };
@@ -225,6 +245,8 @@ const Profiles: React.FC = () => {
                     <Column className="text-nowrap" headerClassName='column-title' field="OverallExp" body={overallExperienceBodyTemplate} header="Overall Experience"></Column>
                     <Column className="text-nowrap" headerClassName='column-title' field="relevantExp" body={relevantExperienceBodyTemplate} header="Relevant Experience"></Column>
                     <Column className="text-nowrap" headerClassName='column-title' field="relevantExp" body={matchPerBodyTemplate} header="Match-%"></Column>
+                    <Column className="text-nowrap" headerClassName='column-title' field="relevantExp" body={createdDateBodyTemplate} header="Uploaded On"></Column>
+                    <Column className="text-nowrap" headerClassName='column-title' field="relevantExp" body={noticePeriodBodyTemplate} header="Notice Period"></Column>
                     <Column className="text-nowrap" headerClassName='text-nowrap column-title' field="overAllRating" body={ratingBodyTemplate} header="Rating"></Column>
                   </DataTable>
                 </>

@@ -7,6 +7,7 @@ import './SearchUser.css'
 import { TabPanel, TabView } from 'primereact/tabview'
 import { Rating } from 'primereact/rating'
 import { Panel } from 'primereact/panel'
+import { NoticePeriod, userRole } from '../../Utils/Const'
 
 import { Skeleton } from 'primereact/skeleton'
 import userImage from './../../Images/userupload.png'
@@ -110,7 +111,8 @@ const SearchUser: React.FC = () => {
                           <li className="list-group-item fs-10">Expected CTC &nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.expectedCTC} LPA</li>
                           <li className="list-group-item fs-10">Notice Period &nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {searchProfile.noticePeriod} </li>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            {NoticePeriod.find((option) => option.value === searchProfile.noticePeriod+"")?.name || "None"} </li>
                         </ul>
                       </div>
 

@@ -81,7 +81,7 @@ const AdminProfile: React.FC = () => {
 
         </small>
         </p>
-        <small className="text-body-secondary">{rowData.email}</small>
+      
       </div>
     );
   };

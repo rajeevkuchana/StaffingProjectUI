@@ -83,7 +83,7 @@ const AddUsers: React.FC = () => {
       <Toast ref={toast} />
       <ConfirmDialog />
       <div className="card">
-        <DataTable globalFilter={globalFilter} header={header} paginator rows={5} rowsPerPageOptions={[5, 10, 25]}
+        <DataTable globalFilter={globalFilter} header={header} paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products" value={users} tableStyle={{ minWidth: '50rem' }}>
           <Column field="username" sortable header="Full Name"></Column>
