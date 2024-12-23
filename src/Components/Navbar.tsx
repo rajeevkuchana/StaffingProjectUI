@@ -64,6 +64,7 @@ export default function Navbar() {
           // Store the token and user info in localStorage
           localStorage.setItem('keycloak-token', token);
           localStorage.setItem('keycloak-user-info', JSON.stringify(_user));
+          localStorage.setItem('keycloak-sso-login', 'true');
 
 
           const _roles = getUserRole()
@@ -98,6 +99,7 @@ export default function Navbar() {
       // Store the token and user info in localStorage
       localStorage.setItem('keycloak-token', token);
       localStorage.setItem('keycloak-user-info', JSON.stringify(_user));
+      localStorage.setItem('keycloak-sso-login', 'true');
       dispatch(verifyUser({ email: _user.email }))
     }
     else{
@@ -109,15 +111,20 @@ export default function Navbar() {
   const logoutHandler = () => {
     dispatch(logout());  // Dispatch Redux logout
     clearLocalStorage();  // Clear local storage
-    keycloak.logout();
-    navigate('/login');  // Redirect to login page after logout
-  };
-
-  const loginHandler = () => {
-    keycloak.login().then(() => {
+    keycloak.logout().then(() => {
+      navigate('/login');
     }).catch((error) => {
       console.error('Login failed:', error);
     });
+    // Redirect to login page after logout
+  };
+
+  const loginHandler = () => {
+    // keycloak.login().then(() => {
+    // }).catch((error) => {
+    //   console.error('Login failed:', error);
+    // });
+    navigate('/login');
   };
 
   return (
