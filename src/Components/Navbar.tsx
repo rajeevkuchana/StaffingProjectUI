@@ -25,6 +25,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const loginStatus = useSelector((state: RootState) => state.auth.loginStatus);
   const user = useSelector((state: RootState) => state.auth.user);
+  const varifyUser = useSelector((state: RootState) => state.auth.varifyUser);
 
   const dispatch = useDispatch<AppDispatch>();
   const { keycloak, initialized } = useKeycloak();  // Fetch Keycloak instance
@@ -56,7 +57,7 @@ export default function Navbar() {
   useEffect(() => {
     if (loginStatus === "succeeded") {
       if (keycloak.authenticated) {
-        if (user.id) {
+        if (varifyUser.id) {
           // Get roles from Keycloak token
           const token = keycloak.token;
           const _user = keycloak.tokenParsed;
@@ -178,7 +179,7 @@ export default function Navbar() {
           </ul>
 
           {/* Show the dropdown with Avatar and Logout when authenticated */}
-          {keycloak.authenticated || user && (
+          {user && (
             <div className="btn-group">
               <button
                 type="button"
@@ -187,7 +188,7 @@ export default function Navbar() {
                 aria-expanded="false"
               >
                 <Avatar
-                  label={getUserEmail()[0].toUpperCase()}
+                  label={user?.name[0].toUpperCase()}
                   style={{ backgroundColor: '#2196F3', color: '#ffffff' }}
                   shape="circle"
                 />
@@ -195,7 +196,7 @@ export default function Navbar() {
               <ul className="dropdown-menu dropdown-menu-lg-end">
                 <li>
                   <button className="dropdown-item" type="button">
-                    {user?.username}
+                    {user?.name}
                   </button>
                 </li>
                 <li>
@@ -212,6 +213,7 @@ export default function Navbar() {
             <button type="button" className="btn btn-primary btn-dark btn-lg" onClick={loginHandler}>Login</button>
           )}
         </div>
+
       </div>
     </nav>
   );

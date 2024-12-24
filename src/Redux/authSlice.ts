@@ -13,9 +13,8 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: getInitialState(),
-    loginStatus: 'idle',
-    loginData : {}
-
+    varifyUser: {} as any,
+    loginStatus: 'idle'
   },
   reducers: {
     login: (state, action) => {
@@ -30,16 +29,16 @@ const authSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-    .addCase(verifyUser.fulfilled, (state: any, action : any) => {
-      if(action.payload?.role){
-        state.loginStatus = 'succeeded';
-        state.user = action.payload
-        localStorage.setItem('varify-user', JSON.stringify(state.user));
-      }
-      else{
-        state.loginStatus = 'failed';
-      }
-    })
+      .addCase(verifyUser.fulfilled, (state: any, action: any) => {
+        if (action.payload?.role) {
+          state.loginStatus = 'succeeded';
+          state.varifyUser = action.payload
+          localStorage.setItem('varify-user', JSON.stringify(state.user));
+        }
+        else {
+          state.loginStatus = 'failed';
+        }
+      })
       .addCase(verifyUser.pending, (state: any, action) => {
         state.loginStatus = 'idle';
       })
@@ -49,7 +48,7 @@ const authSlice = createSlice({
       .addCase(keyclockAPILogin.fulfilled, (state: any, action: any) => {
         if (action.payload?.access_token) {
           state.loginStatus = 'succeeded';
-          state.loginData = parseJwt(action.payload?.access_token);
+          state.user = parseJwt(action.payload?.access_token);
           // Store the token and user info in localStorage
           localStorage.setItem('keycloak-token', action.payload?.access_token);
           localStorage.setItem('keycloak-sso-login', 'false');
