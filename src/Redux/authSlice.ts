@@ -5,7 +5,7 @@ import qs from 'qs';
 import { parseJwt } from '../Utils/Utils';
 // Helper function to get the initial state from local storage
 const getInitialState = () => {
-  const user = localStorage.getItem('keycloak-user');
+  const user = localStorage.getItem('keycloak-user-info');
   return user ? JSON.parse(user) : null;
 };
 
@@ -20,11 +20,11 @@ const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       state.user = action.payload;
-      localStorage.setItem('keycloak-user', JSON.stringify(action.payload));
+      localStorage.setItem('keycloak-user-info', JSON.stringify(action.payload));
     },
     logout: (state) => {
       state.user = null;
-      localStorage.removeItem('keycloak-user');
+      localStorage.removeItem('keycloak-user-info');
     }
   },
 
@@ -34,7 +34,7 @@ const authSlice = createSlice({
       if(action.payload?.role){
         state.loginStatus = 'succeeded';
         state.user = action.payload
-        localStorage.setItem('keycloak-user', JSON.stringify(state.user));
+        localStorage.setItem('varify-user', JSON.stringify(state.user));
       }
       else{
         state.loginStatus = 'failed';
@@ -54,7 +54,8 @@ const authSlice = createSlice({
           localStorage.setItem('keycloak-token', action.payload?.access_token);
           localStorage.setItem('keycloak-sso-login', 'false');
 
-          localStorage.setItem('keycloak-user', JSON.stringify(parseJwt(action.payload?.access_token)));
+          localStorage.setItem('keycloak-user-info', JSON.stringify(parseJwt(action.payload?.access_token)));
+          window.location.href = window.location.origin + "/home"
         }
         else {
           state.loginStatus = 'failed';

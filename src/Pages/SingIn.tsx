@@ -20,7 +20,7 @@ const SignIn: React.FC = () => {
 
   useEffect(() => {
     // Check if Keycloak is initialized and authenticated
-    debugger
+    
     if (initialized && keycloak.authenticated) {
       // If the user is already authenticated, redirect them to the home page
       navigate('/home');
@@ -29,7 +29,6 @@ const SignIn: React.FC = () => {
 
   const loginHandlerSSO = () => {
     keycloak.login({ redirectUri: window.location.origin + '/home' }).then(() => {
-      alert('h')
     }).catch((error) => {
       console.error('Login failed:', error);
     });
@@ -40,13 +39,13 @@ const SignIn: React.FC = () => {
     dispatch(keyclockAPILogin(user))
   };
 
-  useEffect(() => {
-      if (loginStatus === "succeeded") {
-        if(localStorage.getItem("keycloak-token")){
-          navigate('/home')
-        }
-      }
-    }, [loginStatus])
+  // useEffect(() => {
+  //     if (loginStatus === "succeeded") {
+  //       if(localStorage.getItem("keycloak-token")){
+  //         navigate('/home')
+  //       }
+  //     }
+  //   }, [loginStatus])
 
   return (
     <>
