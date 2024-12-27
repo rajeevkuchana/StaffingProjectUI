@@ -10,17 +10,17 @@ export const isUserLogin = () => {
 }
 
 export const getUserRole = () => {
-    // if (localStorage.getItem("keycloak-token")) {
-    //     const token = parseJwt(localStorage.getItem("keycloak-token"))
-    //     const roles = token.realm_access?.roles || [];
-    //     if (roles.includes(userRole.admin)) return userRole.admin
-    //     if (roles.includes(userRole.client)) return userRole.client
-    //     if (roles.includes(userRole.interviwer)) return userRole.interviwer
-    //     if (roles.includes(userRole.recruiter)) return userRole.recruiter
-    // }
-    if (localStorage.getItem("keycloak-user")) {
-        return JSON.parse(localStorage["keycloak-user"]).role 
+    if (localStorage.getItem("keycloak-token")) {
+        const token = parseJwt(localStorage.getItem("keycloak-token"))
+        const roles = token.realm_access?.roles || [];
+        if (roles.includes(userRole.admin)) return userRole.admin
+        if (roles.includes(userRole.client)) return userRole.client
+        if (roles.includes(userRole.interviwer)) return userRole.interviwer
+        if (roles.includes(userRole.recruiter)) return userRole.recruiter
     }
+    // if (localStorage.getItem("keycloak-user")) {
+    //     return JSON.parse(localStorage["keycloak-user"]).role 
+    // }
 }
 
 export const getUserEmail = () => {

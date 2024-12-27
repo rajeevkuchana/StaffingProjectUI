@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { userRole } from '../Utils/Const';
-import { clearLocalStorage, getUserRole, uuidv4 } from '../Utils/Utils';
+import { clearLocalStorage, getUserEmail, getUserRole, isUserLogin, uuidv4 } from '../Utils/Utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Redux/authSlice';
 import logo from '../Images/logo.png';
@@ -25,6 +25,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const loginStatus = useSelector((state: RootState) => state.auth.loginStatus);
   const user = useSelector((state: RootState) => state.auth.user);
+  const varifyUser = useSelector((state: RootState) => state.auth.varifyUser);
 
   const dispatch = useDispatch<AppDispatch>();
   const { keycloak, initialized } = useKeycloak();  // Fetch Keycloak instance
@@ -56,7 +57,7 @@ export default function Navbar() {
   useEffect(() => {
     if (loginStatus === "succeeded") {
       if (keycloak.authenticated) {
-        if (user.id) {
+        if (varifyUser.id) {
           // Get roles from Keycloak token
           const token = keycloak.token;
           const _user = keycloak.tokenParsed;
@@ -64,6 +65,7 @@ export default function Navbar() {
           // Store the token and user info in localStorage
           localStorage.setItem('keycloak-token', token);
           localStorage.setItem('keycloak-user-info', JSON.stringify(_user));
+          localStorage.setItem('keycloak-sso-login', 'true');
 
 
           const _roles = getUserRole()
@@ -87,6 +89,19 @@ export default function Navbar() {
       alert("you are not authorized user to login")
       logoutHandler()
     }
+    else {
+      const _roles = getUserRole()
+      //  setUserRoles(user.);  // Save roles in state
+
+      // Set links based on roles
+      let updatedLinks: LinkItem[] = [];  // Initialize with correct type
+      if (_roles === userRole.client) updatedLinks = [...updatedLinks, ...roleMappings.client];
+      if (_roles === userRole.interviwer) updatedLinks = [...updatedLinks, ...roleMappings.interviewer];
+      if (_roles === userRole.admin) updatedLinks = [...updatedLinks, ...roleMappings.admin];
+      if (_roles === userRole.recruiter) updatedLinks = [...updatedLinks, ...roleMappings.recruiter];
+
+      setLinks(updatedLinks);
+    }
   }, [loginStatus])
 
   useEffect(() => {
@@ -98,26 +113,33 @@ export default function Navbar() {
       // Store the token and user info in localStorage
       localStorage.setItem('keycloak-token', token);
       localStorage.setItem('keycloak-user-info', JSON.stringify(_user));
+      localStorage.setItem('keycloak-sso-login', 'true');
       dispatch(verifyUser({ email: _user.email }))
     }
-    else{
+    else if (localStorage.getItem('keycloak-sso-login') === 'true') {
       keycloak.login()
     }
-    
+
   }, [keycloak, initialized]);
 
   const logoutHandler = () => {
     dispatch(logout());  // Dispatch Redux logout
     clearLocalStorage();  // Clear local storage
-    keycloak.logout();
-    navigate('/login');  // Redirect to login page after logout
-  };
-
-  const loginHandler = () => {
-    keycloak.login().then(() => {
+    keycloak.logout().then(() => {
+      navigate('/login');
+      return false
     }).catch((error) => {
       console.error('Login failed:', error);
     });
+    // Redirect to login page after logout
+  };
+
+  const loginHandler = () => {
+    // keycloak.login().then(() => {
+    // }).catch((error) => {
+    //   console.error('Login failed:', error);
+    // });
+    navigate('/login');
   };
 
   return (
@@ -157,7 +179,7 @@ export default function Navbar() {
           </ul>
 
           {/* Show the dropdown with Avatar and Logout when authenticated */}
-          {keycloak.authenticated && (
+          {user && (
             <div className="btn-group">
               <button
                 type="button"
@@ -166,7 +188,7 @@ export default function Navbar() {
                 aria-expanded="false"
               >
                 <Avatar
-                  label={keycloak.tokenParsed.preferred_username[0].toUpperCase()}
+                  label={user?.name[0].toUpperCase()}
                   style={{ backgroundColor: '#2196F3', color: '#ffffff' }}
                   shape="circle"
                 />
@@ -174,7 +196,7 @@ export default function Navbar() {
               <ul className="dropdown-menu dropdown-menu-lg-end">
                 <li>
                   <button className="dropdown-item" type="button">
-                    {user?.username}
+                    {user?.name}
                   </button>
                 </li>
                 <li>
@@ -187,10 +209,11 @@ export default function Navbar() {
           )}
 
           {/* Show Login button when not authenticated */}
-          {!keycloak.authenticated && (
+          {!isUserLogin() && (
             <button type="button" className="btn btn-primary btn-dark btn-lg" onClick={loginHandler}>Login</button>
           )}
         </div>
+
       </div>
     </nav>
   );
