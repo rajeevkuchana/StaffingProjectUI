@@ -14,7 +14,9 @@ const authSlice = createSlice({
   initialState: {
     user: getInitialState(),
     varifyUser: {} as any,
-    loginStatus: 'idle'
+    loginStatus: 'idle',
+    loginStatusKeyclock: 'idle'
+
   },
   reducers: {
     login: (state, action) => {
@@ -32,7 +34,8 @@ const authSlice = createSlice({
       .addCase(verifyUser.fulfilled, (state: any, action: any) => {
         if (action.payload?.role) {
           state.loginStatus = 'succeeded';
-          state.varifyUser = action.payload
+          state.varifyUser = action.payload;
+          state.user = parseJwt( localStorage.getItem('keycloak-token'));
           localStorage.setItem('varify-user', JSON.stringify(state.user));
         }
         else {
@@ -47,7 +50,7 @@ const authSlice = createSlice({
       })
       .addCase(keyclockAPILogin.fulfilled, (state: any, action: any) => {
         if (action.payload?.access_token) {
-          state.loginStatus = 'succeeded';
+          state.loginStatusKeyclock = 'succeeded';
           state.user = parseJwt(action.payload?.access_token);
           // Store the token and user info in localStorage
           localStorage.setItem('keycloak-token', action.payload?.access_token);
@@ -57,7 +60,7 @@ const authSlice = createSlice({
           window.location.href = window.location.origin + "/home"
         }
         else {
-          state.loginStatus = 'failed';
+          state.loginStatusKeyclock = 'failed';
         }
       })
   },

@@ -13,7 +13,7 @@ import { keyclockAPILogin, verifyUser } from '../Redux/authSlice';
 
 const SignIn: React.FC = () => {
   const [user, setUser] = useState<ILoginDetails>({ email: '', password: '', role: userRole.client });
-  const loginStatus = useSelector((state: RootState) => state.auth.loginStatus);
+  const loginStatusKeyclock = useSelector((state: RootState) => state.auth.loginStatusKeyclock);
   const dispatch = useDispatch<AppDispatch>();
   let navigate = useNavigate();
   const { keycloak, initialized } = useKeycloak();  // Fetch Keycloak instance
@@ -95,7 +95,7 @@ const SignIn: React.FC = () => {
                         </div>
                       </div>
                       {
-                        loginStatus === "failed" && (
+                        loginStatusKeyclock === "failed" && (
 
                           <div className="col-12 from-row">
                             <label className="form-check-label d-block invalid-feedback">
