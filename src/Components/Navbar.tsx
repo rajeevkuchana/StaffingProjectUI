@@ -188,7 +188,7 @@ export default function Navbar() {
                 aria-expanded="false"
               >
                 <Avatar
-                  label={user?.name[0].toUpperCase()}
+                  label={user?.email[0].toUpperCase()}
                   style={{ backgroundColor: '#2196F3', color: '#ffffff' }}
                   shape="circle"
                 />
@@ -196,7 +196,7 @@ export default function Navbar() {
               <ul className="dropdown-menu dropdown-menu-lg-end">
                 <li>
                   <button className="dropdown-item" type="button">
-                    {user?.name}
+                    {user?.email}
                   </button>
                 </li>
                 <li>
