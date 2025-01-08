@@ -80,7 +80,7 @@ const SignIn: React.FC = () => {
                     <div className="row gy-3 gy-md-4 overflow-hidden">
                       <div className="col-12 from-row">
                         <label className="form-label">Email <span className="text-danger">*</span></label>
-                        <input value={user.email} type="text" className="form-control" onChange={(e) => setUser({ ...user, email: e.target.value })} name="email" id="email" placeholder="recruiter@example.com" required />
+                        <input value={user.email} type="text" className="form-control" onChange={(e) => setUser({ ...user, email: e.target.value })} name="email" id="email" placeholder="" required />
                       </div>
                       <div className="col-12 from-row">
                         <label className="form-label">Password <span className="text-danger">*</span></label>
@@ -113,7 +113,7 @@ const SignIn: React.FC = () => {
                   </form>
                   <div className="col-12">
                     <div className="mb-5">
-                      <button type="button" onClick={loginHandlerSSO} className="mt-2 bsb-btn-sm btn w-100 btn-block btn-primary">Login With SSO</button>
+                      <button type="button" onClick={loginHandlerSSO} className="mt-2 bsb-btn-sm btn w-100 btn-block btn-primary">Login With Quantlytix</button>
                     </div>
                   </div>
                 </div>
