@@ -113,7 +113,7 @@ const SignIn: React.FC = () => {
                   </form>
                   <div className="col-12">
                     <div className="mb-5">
-                      <button type="button" onClick={loginHandlerSSO} className="mt-2 bsb-btn-sm btn w-100 btn-block btn-primary">Login With Quantlytix</button>
+                      <button type="button" onClick={loginHandlerSSO} className="mt-2 bsb-btn-sm btn w-100 btn-block btn-primary">Login with Quantlytix</button>
                     </div>
                   </div>
                 </div>
