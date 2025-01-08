@@ -93,7 +93,7 @@ const AddUsers: React.FC = () => {
           <Column body={actionBodyTemplate} header="Action"></Column>
         </DataTable>
       </div>
-      <Dialog header={"Create new user"}  visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }}>
+      <Dialog header={"Create New User"}  visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }}>
         <form method='post' onSubmit={createUser}>
           <div className="gy-3 gy-md-4">
 
