@@ -114,7 +114,7 @@ const InterviwerCreate: React.FC = () => {
               <div className='col-9 p-4 card  border-0'>
                 <div className='card-body'>
                   <div className='text-right'>
-                    <button className="btn bsb-btn-xl btn-primary" type="submit">Save Profile</button>
+                    <button  disabled={createProfileStatus === "loading" ? true : false} className="btn bsb-btn-xl btn-primary" type="submit">Save Profile</button>
                   </div>
                   <TabView>
                     <TabPanel header="About" leftIcon="pi pi-user mr-2">

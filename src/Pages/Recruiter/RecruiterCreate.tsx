@@ -169,7 +169,7 @@ const RecruiterProfileCreate: React.FC = () => {
               <div className='col-9 p-4 card  border-0'>
                 <div className='card-body'>
                   <div className='text-right mb-1'>
-                    <button className="btn bsb-btn-xl btn-primary" type="submit">Save</button>
+                    <button className="btn bsb-btn-xl btn-primary" disabled={createProfileStatus === "loading" ? true : false} type="submit">Save</button>
                   </div>
                   <Panel toggleable header="Personal Details" className='mb-1'>
                     <div className='row gy-3 gy-md-4 my-2'>
@@ -355,7 +355,7 @@ const RecruiterProfileCreate: React.FC = () => {
 
                   </Panel>
                   <div className='text-right'>
-                    <button className="btn bsb-btn-xl btn-primary" type="submit">Save</button>
+                    <button disabled={createProfileStatus === "loading" ? true : false} className="btn bsb-btn-xl btn-primary" type="submit">Save</button>
                   </div>
                 </div>
               </div>
