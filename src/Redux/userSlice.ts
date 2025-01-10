@@ -38,9 +38,11 @@ export const createUsers = createAsyncThunk('users/addUser', async (user: any) =
     },
     "requiredActions": [],
     "emailVerified": false,
-    "username": user.username,
+    "username": user.email,
     "email": user.email,
     "groups": [],
+    "firstName": user.username.split(' ')[0],
+    "lastName": user.username.split(' ')[1],
     "enabled": true,
     "credentials": [
       {

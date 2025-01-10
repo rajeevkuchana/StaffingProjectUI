@@ -196,7 +196,11 @@ export default function Navbar() {
               <ul className="dropdown-menu dropdown-menu-lg-end">
                 <li>
                   <button className="dropdown-item" type="button">
-                    {user?.email}
+                  <b> {user?.email.split('@')[0]?.split('.')[0]?.charAt(0)?.toUpperCase()}
+                   {user?.email.split('@')[0]?.split('.')[0]?.slice(1)?.toLowerCase()}  {''+ ' '} 
+                   {user?.email.split('@')[0]?.split('.')[1]?.charAt(0)?.toUpperCase()} 
+                   {user?.email.split('@')[0]?.split('.')[1]?.slice(1)?.toLowerCase()}
+                   </b>
                   </button>
                 </li>
                 <li>
