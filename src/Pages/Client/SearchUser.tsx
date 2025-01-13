@@ -178,7 +178,7 @@ const SearchUser: React.FC = () => {
                         <div className='row'>
                           <div className='col-12'>
                             <p style={{ fontSize: 15 }} > <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Skills:
-                            </div>  {searchProfile?.summary?.skills?.toString()}</p>
+                            </div>  {searchProfile?.skills?.toString()}</p>
                             <p style={{ fontSize: 15 }} > <div style={{ fontSize: 17, fontWeight: 'bold', color: '##32619c' }}>Certification:
                             </div>  {searchProfile.certificationList?.toString()}</p>
 

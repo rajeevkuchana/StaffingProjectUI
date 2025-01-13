@@ -101,18 +101,18 @@ const RecruiterProfileCreate: React.FC = () => {
   }
 
   const skillsUpdate = (event: any) => {
-    if (profile.summary) {
+  //  if (profile.summary) {
       const skills = event.map(x => x.value);
       setProfile((prevState) => ({
         ...prevState, // copy the previous state
-        summary: {
+        //summary: {
           skills: [...skills]
-        } // create a new array with added or modified values
+       // } // create a new array with added or modified values
       }));
-    }
-    else {
-      profile.summary = {};
-    }
+  //  }
+   // else {
+    //  profile.summary = {};
+    //}
   }
 
   return (
@@ -221,7 +221,7 @@ const RecruiterProfileCreate: React.FC = () => {
                       </div>
                       <div className="col-6 from-row">
                         <label className="form-label">Current CTC (LPA) <span className="text-danger">*</span></label>
-                        <input value={profile.currentCTC} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, currentCTC: Number(e.target.value) })} required />
+                        <input value={profile.currentCTC} type="number" className="form-control" onChange={(e) => setProfile({ ...profile, currentCTC: Number(e.target.value) })} required />
                       </div>
                     </div>
 
@@ -232,7 +232,7 @@ const RecruiterProfileCreate: React.FC = () => {
                       </div>
                       <div className="col-6 from-row">
                         <label className="form-label">Expected CTC (LPA) <span className="text-danger">*</span></label>
-                        <input value={profile.expectedCTC} type="text" className="form-control" onChange={(e) => setProfile({ ...profile, expectedCTC: Number(e.target.value) })} required />
+                        <input value={profile.expectedCTC} type="number" className="form-control" onChange={(e) => setProfile({ ...profile, expectedCTC: Number(e.target.value) })} required />
                       </div>
                     </div>
 
@@ -290,7 +290,7 @@ const RecruiterProfileCreate: React.FC = () => {
                     <div className='row gy-3 gy-md-4 my-2'>
                       <div className="col-12 from-row">
                         <label className="form-label">Skills </label>
-                        <CreatableSelect onChange={skillsUpdate} value={profile.summary?.skills?.map((x => { return { value: x, label: x } }))} isMulti  />
+                        <CreatableSelect onChange={skillsUpdate} value={profile.skills?.map((x => { return { value: x, label: x } }))} isMulti  />
                       </div>
                     </div>
                   </Panel>
